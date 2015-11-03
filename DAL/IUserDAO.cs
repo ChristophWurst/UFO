@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UFO.DomainClasses;
 
 namespace UFO.DAL {
-    interface IUserDAO {
+
+    internal interface IUserDAO {
+
         User GetById(int id);
+
         IEnumerable<User> GetAll();
     }
 }
