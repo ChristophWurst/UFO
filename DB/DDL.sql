@@ -42,6 +42,18 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `ufo`.`country`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ufo`.`country` ;
+
+CREATE TABLE IF NOT EXISTS `ufo`.`country` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `ufo`.`artist`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `ufo`.`artist` ;
@@ -50,15 +62,21 @@ CREATE TABLE IF NOT EXISTS `ufo`.`artist` (
   `id` INT NOT NULL,
   `firstname` VARCHAR(45) NOT NULL,
   `lastname` VARCHAR(45) NOT NULL,
-  `country` VARCHAR(45) NOT NULL,
   `image` VARCHAR(45) NULL,
   `video` VARCHAR(45) NULL,
   `category_id` INT NOT NULL,
+  `country_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_artist_category1_idx` (`category_id` ASC),
+  INDEX `fk_artist_country1_idx` (`country_id` ASC),
   CONSTRAINT `fk_artist_category1`
     FOREIGN KEY (`category_id`)
     REFERENCES `ufo`.`category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_artist_country1`
+    FOREIGN KEY (`country_id`)
+    REFERENCES `ufo`.`country` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
