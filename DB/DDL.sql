@@ -85,7 +85,8 @@ CREATE TABLE IF NOT EXISTS `ufo`.`location` (
   `id` INT NOT NULL,
   `area_id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
-  `geoloc` VARCHAR(45) NULL,
+  `longitude` FLOAT NULL,
+  `latitude` FLOAT NULL,
   PRIMARY KEY (`id`, `area_id`),
   INDEX `fk_location_area_idx` (`area_id` ASC),
   CONSTRAINT `fk_location_area`
