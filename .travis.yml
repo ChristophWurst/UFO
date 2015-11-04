@@ -1,0 +1,4 @@
+language: csharp
+solution: UFO.sln
+script:
+  - xbuild /p:TargetFrameworkVersion="v4.5"
