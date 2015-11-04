@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UFO.DomainClasses;
 
-namespace UFO.DAL {
+namespace UFO.DAL.Common {
 
     internal interface IPerformanceDAO {
 
