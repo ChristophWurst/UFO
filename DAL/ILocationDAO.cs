@@ -3,7 +3,7 @@ using UFO.DomainClasses;
 
 namespace UFO.DAL.Common {
 
-    internal interface ILocationDAO {
+    public interface ILocationDAO {
 
         Location GetById(int id, int areaId);
 

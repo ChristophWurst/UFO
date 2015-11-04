@@ -3,7 +3,7 @@ using UFO.DomainClasses;
 
 namespace UFO.DAL.Common {
 
-    internal interface IPerformanceDAO {
+    public interface IPerformanceDAO {
 
         Performance GetById(int id, int locationId, int locationAreaId);
 

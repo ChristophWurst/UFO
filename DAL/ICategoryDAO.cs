@@ -3,7 +3,7 @@ using UFO.DomainClasses;
 
 namespace UFO.DAL.Common {
 
-    internal interface ICategoryDAO {
+    public interface ICategoryDAO {
 
         Category GetById(int id);
 

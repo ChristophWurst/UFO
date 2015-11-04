@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DALFactory.cs" />
     <Compile Include="IAreaDAO.cs" />
     <Compile Include="IArtistDAO.cs" />
     <Compile Include="ICategoryDAO.cs" />
+    <Compile Include="ICountryDAO.cs" />
     <Compile Include="IDatabase.cs" />
     <Compile Include="ILocationDAO.cs" />
     <Compile Include="IPerformanceDAO.cs" />

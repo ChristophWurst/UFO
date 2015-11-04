@@ -3,7 +3,7 @@ using UFO.DomainClasses;
 
 namespace UFO.DAL.Common {
 
-    internal interface IUserDAO {
+    public interface IUserDAO {
 
         User GetById(int id);
 
