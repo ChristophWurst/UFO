@@ -7,8 +7,8 @@
     <ProjectGuid>{E1A0FE8D-6A03-4BBF-8A17-340097D78501}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DomainClassesTest</RootNamespace>
-    <AssemblyName>DomainClassesTest</AssemblyName>
+    <RootNamespace>UFO.DomainClasses</RootNamespace>
+    <AssemblyName>UFO.DomainClasses</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,6 +43,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArtistTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserTest.cs" />
     <Compile Include="AreaTest.cs" />
