@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DALFactory.cs" />
     <Compile Include="IAreaDAO.cs" />
     <Compile Include="IArtistDAO.cs" />
     <Compile Include="ICategoryDAO.cs" />
