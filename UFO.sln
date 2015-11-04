@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainClasses", "DomainClasses\DomainClasses.csproj", "{E2D07154-5ACB-4098-ACD5-07D0C2DD1DF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{FF5C477B-86A2-4D2C-8BBD-71E9B515BD71}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALCommon", "DAL\DALCommon.csproj", "{FF5C477B-86A2-4D2C-8BBD-71E9B515BD71}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALIndependent", "DALIndependent\DALIndependent.csproj", "{A811EFFC-CE32-4619-AB43-9AE0637C8085}"
 EndProject

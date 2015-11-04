@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Data.Common;
 
-namespace UFO.DAL {
+namespace UFO.DAL.Common {
 
     public interface IDatabase {
 
