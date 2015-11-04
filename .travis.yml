@@ -1,4 +1,8 @@
 language: csharp
 solution: UFO.sln
 script:
+  # Build sulution
   - xbuild /p:TargetFrameworkVersion="v4.5"
+
+  # Run Unit Tests
+  - mono packages/NUnit.Runners.2.6.4/tools/nunit-console.exe ./DomainClassesTest/bin/Debug/DomainClassesTest.dll
