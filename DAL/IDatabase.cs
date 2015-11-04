@@ -13,7 +13,7 @@ namespace UFO.DAL {
 
         void SetParameter(DbCommand cmd, string name, object value);
 
-        IDataReader ExecuteQuery(DbCommand cmd);
+        IDataReader ExecuteReader(DbCommand cmd);
 
         int ExecuteNonQuery(DbCommand cmd);
     }
