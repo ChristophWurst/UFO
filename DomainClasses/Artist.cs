@@ -13,7 +13,7 @@ namespace UFO.DomainClasses {
         public int CategoryId { get; set; }
 
         public override string ToString() {
-            return "[" + Id.ToString() + "]" + Firstname + " " + Lastname;
+            return "[" + Id.ToString() + "] " + Firstname + " " + Lastname;
         }
     }
 }

@@ -7,8 +7,8 @@
     <ProjectGuid>{E1A0FE8D-6A03-4BBF-8A17-340097D78501}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UFO.DomainClasses</RootNamespace>
-    <AssemblyName>UFO.DomainClasses</AssemblyName>
+    <RootNamespace>UFO.Test.DomainClasses</RootNamespace>
+    <AssemblyName>UFO.Test.DomainClasses</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
