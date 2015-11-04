@@ -3,46 +3,42 @@ using System;
 using UFO.DomainClasses;
 
 namespace UFO.Test.DomainClasses {
-	
-	[TestFixture]
-	public class AreaTest {
 
-		private Area area;
+    [TestFixture]
+    public class AreaTest {
 
-		[SetUp]
-		public void SetUp ()
-		{
-			area = new Area ();
-		}
+        private Area area;
 
-		[Test]
-		public void TestId ()
-		{
-			int id = 17;
-			area.Id = id;
+        [SetUp]
+        public void SetUp() {
+            area = new Area();
+        }
 
-			Assert.AreEqual (id, area.Id);
-		}
+        [Test]
+        public void TestId() {
+            int id = 17;
+            area.Id = id;
 
-		[Test]
-		public void TestName ()
-		{
-			string name = "Hauptplatz";
-			area.Name = name;
+            Assert.AreEqual(id, area.Id);
+        }
 
-			Assert.AreEqual (name, area.Name);
-		}
+        [Test]
+        public void TestName() {
+            string name = "Hauptplatz";
+            area.Name = name;
 
-		[Test]
-		public void TestToString ()
-		{
-			area.Id = 13;
-			area.Name = "Festivalgelände";
+            Assert.AreEqual(name, area.Name);
+        }
 
-			string expected = "[13] Festivalgelände";
-			Assert.AreEqual (expected, area.ToString ());
-		}
-			
-	}
+        [Test]
+        public void TestToString() {
+            area.Id = 13;
+            area.Name = "Festivalgelände";
+
+            string expected = "[13] Festivalgelände";
+            Assert.AreEqual(expected, area.ToString());
+        }
+
+    }
 }
 

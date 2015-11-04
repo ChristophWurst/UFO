@@ -8,53 +8,48 @@ using UFO.DomainClasses;
 
 namespace UFO.Test.DomainClasses {
 
-	[TestFixture]
-	class UserTest {
+    [TestFixture]
+    class UserTest {
 
-		private User user;
+        private User user;
 
-		[SetUp]
-		public void SetUp ()
-		{
-			this.user = new User ();
-		}
+        [SetUp]
+        public void SetUp() {
+            this.user = new User();
+        }
 
-		[Test]
-		public void TestId ()
-		{
-			int id = 13;
-			user.Id = id;
+        [Test]
+        public void TestId() {
+            int id = 13;
+            user.Id = id;
 
-			Assert.AreEqual (id, user.Id);
-		}
+            Assert.AreEqual(id, user.Id);
+        }
 
-		[Test]
-		public void TestEmail ()
-		{
-			string email = "user@example.com";
-			user.Email = email;
+        [Test]
+        public void TestEmail() {
+            string email = "user@example.com";
+            user.Email = email;
 
-			Assert.AreEqual (email, user.Email);
-		}
+            Assert.AreEqual(email, user.Email);
+        }
 
-		[Test]
-		public void TestPassword ()
-		{
-			string password = "123456";
-			user.Password = password;
+        [Test]
+        public void TestPassword() {
+            string password = "123456";
+            user.Password = password;
 
-			Assert.AreEqual (password, user.Password);
-		}
+            Assert.AreEqual(password, user.Password);
+        }
 
-		[Test]
-		public void TestToString ()
-		{
-			user.Id = 1;
-			user.Email = "florian@tremmel.at";
-			user.Password = "4567";
+        [Test]
+        public void TestToString() {
+            user.Id = 1;
+            user.Email = "florian@tremmel.at";
+            user.Password = "4567";
 
-			Assert.AreEqual ("[1] florian@tremmel.at", user.ToString ());
-		}
+            Assert.AreEqual("[1] florian@tremmel.at", user.ToString());
+        }
 
-	}
+    }
 }
