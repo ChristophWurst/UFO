@@ -5,11 +5,13 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALCommon", "DAL\DALCommon.csproj", "{FF5C477B-86A2-4D2C-8BBD-71E9B515BD71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainClassesTest", "DomainClassesTest\DomainClassesTest.csproj", "{E1A0FE8D-6A03-4BBF-8A17-340097D78501}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALIndependent", "DALIndependent\DALIndependent.csproj", "{A811EFFC-CE32-4619-AB43-9AE0637C8085}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALTestClient", "DALTestClient\DALTestClient.csproj", "{6146BC8A-5427-4152-8E23-A2F33CD06484}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainClasses", "DomainClasses\DomainClasses.csproj", "{E2D07154-5ACB-4098-ACD5-07D0C2DD1DF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainClassesTest", "DomainClassesTest\DomainClassesTest.csproj", "{E1A0FE8D-6A03-4BBF-8A17-340097D78501}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,39 +23,24 @@ Global
 		{FF5C477B-86A2-4D2C-8BBD-71E9B515BD71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF5C477B-86A2-4D2C-8BBD-71E9B515BD71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF5C477B-86A2-4D2C-8BBD-71E9B515BD71}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E1A0FE8D-6A03-4BBF-8A17-340097D78501}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E1A0FE8D-6A03-4BBF-8A17-340097D78501}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E1A0FE8D-6A03-4BBF-8A17-340097D78501}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E1A0FE8D-6A03-4BBF-8A17-340097D78501}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A811EFFC-CE32-4619-AB43-9AE0637C8085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A811EFFC-CE32-4619-AB43-9AE0637C8085}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A811EFFC-CE32-4619-AB43-9AE0637C8085}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A811EFFC-CE32-4619-AB43-9AE0637C8085}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6146BC8A-5427-4152-8E23-A2F33CD06484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6146BC8A-5427-4152-8E23-A2F33CD06484}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6146BC8A-5427-4152-8E23-A2F33CD06484}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6146BC8A-5427-4152-8E23-A2F33CD06484}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E2D07154-5ACB-4098-ACD5-07D0C2DD1DF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E2D07154-5ACB-4098-ACD5-07D0C2DD1DF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2D07154-5ACB-4098-ACD5-07D0C2DD1DF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2D07154-5ACB-4098-ACD5-07D0C2DD1DF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1A0FE8D-6A03-4BBF-8A17-340097D78501}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1A0FE8D-6A03-4BBF-8A17-340097D78501}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1A0FE8D-6A03-4BBF-8A17-340097D78501}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1A0FE8D-6A03-4BBF-8A17-340097D78501}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		Policies = $0
-		$0.TextStylePolicy = $1
-		$1.TabsToSpaces = False
-		$1.inheritsSet = VisualStudio
-		$1.inheritsScope = text/plain
-		$1.scope = text/x-csharp
-		$0.CSharpFormattingPolicy = $2
-		$2.NamespaceBraceStyle = EndOfLine
-		$2.ClassBraceStyle = EndOfLine
-		$2.InterfaceBraceStyle = EndOfLine
-		$2.StructBraceStyle = EndOfLine
-		$2.EnumBraceStyle = EndOfLine
-		$2.ConstructorBraceStyle = EndOfLine
-		$2.DestructorBraceStyle = EndOfLine
-		$2.inheritsSet = Mono
-		$2.inheritsScope = text/x-csharp
-		$2.scope = text/x-csharp
 	EndGlobalSection
 EndGlobal
