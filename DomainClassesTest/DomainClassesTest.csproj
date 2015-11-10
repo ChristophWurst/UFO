@@ -7,8 +7,8 @@
     <ProjectGuid>{E1A0FE8D-6A03-4BBF-8A17-340097D78501}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DomainClassesTest</RootNamespace>
-    <AssemblyName>DomainClassesTest</AssemblyName>
+    <RootNamespace>UFO.Test.DomainClasses</RootNamespace>
+    <AssemblyName>UFO.Test.DomainClasses</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,20 +43,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArtistTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserTest.cs" />
+    <Compile Include="AreaTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DomainClasses\DomainClasses.csproj">
-      <Project>{E2D07154-5ACB-4098-ACD5-07D0C2DD1DF7}</Project>
-      <Name>DomainClasses</Name>
-    </ProjectReference>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DomainClasses\DomainClasses.csproj">
+      <Project>{e2d07154-5acb-4098-acd5-07d0c2dd1df7}</Project>
+      <Name>DomainClasses</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
