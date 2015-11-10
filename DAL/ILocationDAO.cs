@@ -5,7 +5,7 @@ namespace UFO.DAL.Common {
 
     public interface ILocationDAO {
 
-        Location GetById(int id, int areaId);
+        Location GetById(int id);
 
         IEnumerable<Location> GetAll();
 
