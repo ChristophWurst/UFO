@@ -5,7 +5,6 @@ namespace UFO.Test.DomainClasses {
 
     [TestFixture]
     public class ArtistTest {
-
         private Artist artist;
 
         [SetUp]
@@ -23,26 +22,18 @@ namespace UFO.Test.DomainClasses {
 
         [Test]
         public void TestFirstname() {
-            string firstname = "Fritz";
-            artist.Firstname = firstname;
+            string name = "Fritz";
+            artist.Name = name;
 
-            Assert.AreEqual(firstname, artist.Firstname);
-        }
-
-        [Test]
-        public void TestLastname() {
-            string lastname = "Phantom";
-            artist.Lastname = lastname;
-
-            Assert.AreEqual(lastname, artist.Lastname);
+            Assert.AreEqual(name, artist.Name);
         }
 
         [Test]
         public void TestCountry() {
             string country = "USA";
-            artist.Firstname = country;
+            artist.Country = country;
 
-            Assert.AreEqual(country, artist.Firstname);
+            Assert.AreEqual(country, artist.Country);
         }
 
         [Test]
@@ -72,12 +63,10 @@ namespace UFO.Test.DomainClasses {
         [Test]
         public void TestToString() {
             artist.Id = 33;
-            artist.Firstname = "Florian";
-            artist.Lastname = "Tremmel";
+            artist.Name = "Florian";
 
-            string expected = "[33] Florian Tremmel";
+            string expected = "[33] Florian";
             Assert.AreEqual(expected, artist.ToString());
         }
-
     }
 }
