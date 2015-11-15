@@ -29,11 +29,11 @@ namespace UFO.Test.DomainClasses {
         }
 
         [Test]
-        public void TestCountry() {
-            string country = "USA";
-            artist.Country = country;
+        public void TestCountryId() {
+            int country = 27;
+            artist.CountryId = country;
 
-            Assert.AreEqual(country, artist.Country);
+            Assert.AreEqual(country, artist.CountryId);
         }
 
         [Test]
