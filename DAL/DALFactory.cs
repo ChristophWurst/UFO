@@ -88,10 +88,10 @@ namespace UFO.DAL.Common {
             return Activator.CreateInstance(classType, new object[] { database }) as ICountryDAO;
         }
 
-        public ILocationDAO CreateLocationDAO(IDatabase database) {
-            Type classType = this.GetType(this.assemblyName + ".LocationDAO");
+        public IVenueDAO CreateVenueDAO(IDatabase database) {
+            Type classType = this.GetType(this.assemblyName + ".VenueDAO");
             this.EnsureConstructorExists(classType, typeof(IDatabase));
-            return Activator.CreateInstance(classType, new object[] { database }) as ILocationDAO;
+            return Activator.CreateInstance(classType, new object[] { database }) as IVenueDAO;
         }
 
         public IPerformanceDAO CreatePerformanceDAO(IDatabase database) {
