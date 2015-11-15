@@ -9,8 +9,8 @@ namespace UFO.DAL.Common {
 
         IEnumerable<Area> GetAll();
 
-        Area Create(Area Area);
+        Area Create(Area area);
 
-        Area Update(Area Area);
+        Area Update(Area area);
     }
 }
