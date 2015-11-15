@@ -10,7 +10,7 @@ namespace DALTestClient {
 
     internal class Program {
 
-        private static void testArea(IDatabase db, DALFactory dalFactory) {
+        private static void TestArea(IDatabase db, DALFactory dalFactory) {
             Console.WriteLine("*************************************");
             Console.WriteLine("AREA TEST");
 
@@ -43,7 +43,7 @@ namespace DALTestClient {
             areaDAO.Update(area1);
         }
 
-        private static void testArtist(IDatabase db, DALFactory dalFactory) {
+        private static void TestArtist(IDatabase db, DALFactory dalFactory) {
             Console.WriteLine("*************************************");
             Console.WriteLine("ARTIST TEST");
 
@@ -74,15 +74,32 @@ namespace DALTestClient {
             Console.WriteLine("\nArtist deleted");
         }
 
+        private static void TestCategory(IDatabase db, DALFactory dalFactory) {
+            Console.WriteLine("*************************************");
+            Console.WriteLine("CATEGORY TEST");
+
+            ICategoryDAO categoryDAO = dalFactory.CreateCategoryDAO(db);
+
+            Console.WriteLine("\nAll categories:");
+            foreach (var category in categoryDAO.GetAll()) {
+                Console.WriteLine(category);
+            }
+
+            Console.WriteLine("\nCategory with ID=1:");
+            Console.WriteLine(categoryDAO.GetById(1));
+        }
+
         private static void Main(string[] args) {
             Console.WriteLine("Start DALTestClient");
             Console.WriteLine("Create Database ...");
             DALFactory dalFactory = DALFactory.GetInstance();
             IDatabase db = dalFactory.CreateDatabase();
 
-            testArea(db, dalFactory);
+            TestArea(db, dalFactory);
             Console.WriteLine();
-            testArtist(db, dalFactory);
+            TestArtist(db, dalFactory);
+            Console.WriteLine();
+            TestCategory(db, dalFactory);
         }
     }
 }
