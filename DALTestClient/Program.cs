@@ -74,6 +74,21 @@ namespace DALTestClient {
             Console.WriteLine("\nArtist deleted");
         }
 
+        private static void TestCountry(IDatabase db, DALFactory dalFactory) {
+            Console.WriteLine("*************************************");
+            Console.WriteLine("COUNTY TEST");
+
+            ICountryDAO countryDAO = dalFactory.CreateCountryDAO(db);
+
+            Console.WriteLine("\nAll countries:");
+            foreach (var country in countryDAO.GetAll()) {
+                Console.WriteLine(country);
+            }
+
+            Console.WriteLine("\nCountry with ID=1:");
+            Console.WriteLine(countryDAO.GetById(1));
+        }
+
         private static void Main(string[] args) {
             Console.WriteLine("Start DALTestClient");
             Console.WriteLine("Create Database ...");
@@ -83,6 +98,8 @@ namespace DALTestClient {
             testArea(db, dalFactory);
             Console.WriteLine();
             testArtist(db, dalFactory);
+            Console.WriteLine();
+            TestCountry(db, dalFactory);
         }
     }
 }
