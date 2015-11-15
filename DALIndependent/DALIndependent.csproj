@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="AreaDAO.cs" />
     <Compile Include="ArtistDAO.cs" />
+    <Compile Include="CategoryDAO.cs" />
+    <Compile Include="CountryDAO.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDAO.cs" />
