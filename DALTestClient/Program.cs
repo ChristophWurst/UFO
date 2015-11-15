@@ -119,6 +119,36 @@ namespace DALTestClient {
             Console.WriteLine(userDAO.GetById(1));
         }
 
+        private static void TestVenue(IDatabase db, DALFactory dalFactory) {
+            Console.WriteLine("*************************************");
+            Console.WriteLine("VENUE TEST");
+
+            IVenueDAO venueDAO = dalFactory.CreateVenueDAO(db);
+
+            Console.WriteLine("\nAll VENUES:");
+            foreach (var venue in venueDAO.GetAll()) {
+                Console.WriteLine(venue);
+            }
+
+            Console.WriteLine("\nVENUE with ID=1:");
+            Console.WriteLine(venueDAO.GetById(1));
+
+            Venue venue1 = new Venue() {
+                AreaId = 1,
+                Desc = "TestVenue",
+                ShortDesc = "TV",
+                Latitude = 0.0f,
+                Longitude = 0.0f
+            };
+            Venue newVenue = venueDAO.Create(venue1);
+            Console.WriteLine("New VENUE: " + newVenue);
+            Console.WriteLine("Inserted VENUE: " + newVenue);
+
+            venue1.Desc = "Winzerhof Wurst";
+            venueDAO.Update(venue1);
+            Console.WriteLine("Updated VENUE: " + venue1);
+        }
+
         private static void Main(string[] args) {
             Console.WriteLine("Start DALTestClient");
             Console.WriteLine("Create Database ...");
@@ -134,6 +164,8 @@ namespace DALTestClient {
             TestCountry(db, dalFactory);
             Console.WriteLine();
             TestUser(db, dalFactory);
+            Console.WriteLine();
+            TestVenue(db, dalFactory);
         }
     }
 }
