@@ -104,6 +104,21 @@ namespace DALTestClient {
             Console.WriteLine(countryDAO.GetById(1));
         }
 
+        private static void TestUser(IDatabase db, DALFactory dalFactory) {
+            Console.WriteLine("*************************************");
+            Console.WriteLine("ARTIST TEST");
+
+            IUserDAO userDAO = dalFactory.CreateUserDAO(db);
+
+            Console.WriteLine("\nAll users:");
+            foreach (var user in userDAO.GetAll()) {
+                Console.WriteLine(user);
+            }
+
+            Console.WriteLine("\nUser with ID=1:");
+            Console.WriteLine(userDAO.GetById(1));
+        }
+
         private static void Main(string[] args) {
             Console.WriteLine("Start DALTestClient");
             Console.WriteLine("Create Database ...");
@@ -117,6 +132,8 @@ namespace DALTestClient {
             TestCategory(db, dalFactory);
             Console.WriteLine();
             TestCountry(db, dalFactory);
+            Console.WriteLine();
+            TestUser(db, dalFactory);
         }
     }
 }

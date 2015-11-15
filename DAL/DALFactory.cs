@@ -95,13 +95,13 @@ namespace UFO.DAL.Common {
         }
 
         public IPerformanceDAO CreatePerformanceDAO(IDatabase database) {
-            Type classType = this.GetType(this.assemblyName + ".Performance");
+            Type classType = this.GetType(this.assemblyName + ".PerformanceDAO");
             this.EnsureConstructorExists(classType, typeof(IDatabase));
             return Activator.CreateInstance(classType, new object[] { database }) as IPerformanceDAO;
         }
 
         public IUserDAO CreateUserDAO(IDatabase database) {
-            Type classType = this.GetType(this.assemblyName + ".User");
+            Type classType = this.GetType(this.assemblyName + ".UserDAO");
             this.EnsureConstructorExists(classType, typeof(IDatabase));
             return Activator.CreateInstance(classType, new object[] { database }) as IUserDAO;
         }
