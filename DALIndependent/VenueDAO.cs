@@ -67,8 +67,8 @@ namespace UFO.DAL.Independent {
             return new Venue() {
                 Id = (int)reader["id"],
                 AreaId = (int)reader["area_id"],
-                ShortDesc = (string)reader["short_desc"],
-                Desc = (string)reader["desc"],
+                ShortDesc = reader["short_desc"] as string,
+                Desc = reader["desc"] as string,
                 Latitude = (float)reader["latitude"],
                 Longitude = (float)reader["longitude"]
             };

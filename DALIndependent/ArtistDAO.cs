@@ -9,7 +9,9 @@ using UFO.DAL.Common;
 using UFO.DomainClasses;
 
 namespace UFO.DAL.Independent {
-    class ArtistDAO : IArtistDAO {
+
+    internal class ArtistDAO : IArtistDAO {
+
         private const string SQL_SELECT_ALL = "SELECT * "
                                         + "FROM `artist`";
 
@@ -18,12 +20,12 @@ namespace UFO.DAL.Independent {
                                         + "WHERE `id` = @Id";
 
         private const string SQL_INSERT = "INSERT INTO `artist` "
-                                        + "(`name`, `image`, `video`, `category_id`, `country_id`) VALUES "
-                                        + "(@Name, @Image, @Video, @CategoryId, @CountryId)";
+                                        + "(`name`, `image`, `video`, `category_id`, `country_id`, `email`) VALUES "
+                                        + "(@Name, @Image, @Video, @CategoryId, @CountryId, @Email)";
 
         private const string SQL_UPDATE = "UPDATE `artist` "
                                         + "SET name = @Name, image = @Image, video = @Video, "
-                                        + "category_id = @CategoryId, countryId = @CountryId "
+                                        + "category_id = @CategoryId, countryId = @CountryId , email = @Email"
                                         + "WHERE ID = @Id";
 
         private const string SQL_DELETE = "SELECT * "
@@ -46,17 +48,18 @@ namespace UFO.DAL.Independent {
             return cmd;
         }
 
-        private DbCommand createInsertCommand(string name, string image, string video, int catId, int cntId) {
+        private DbCommand createInsertCommand(string name, string image, string video, int catId, int cntId, string email) {
             DbCommand cmd = db.CreateCommand(SQL_INSERT);
             db.DefineParameter(cmd, "@Name", DbType.String, name);
             db.DefineParameter(cmd, "@Image", DbType.String, image);
             db.DefineParameter(cmd, "@Video", DbType.String, video);
             db.DefineParameter(cmd, "@CategoryId", DbType.Int32, catId);
             db.DefineParameter(cmd, "@CountryId", DbType.Int32, cntId);
+            db.DefineParameter(cmd, "@Email", DbType.String, email);
             return cmd;
         }
 
-        private DbCommand createUpdateCommand(int id, string name, string image, string video, int catId, int cntId) {
+        private DbCommand createUpdateCommand(int id, string name, string image, string video, int catId, int cntId, string email) {
             DbCommand cmd = db.CreateCommand(SQL_INSERT);
             db.DefineParameter(cmd, "@Id", DbType.Int32, id);
             db.DefineParameter(cmd, "@Name", DbType.String, name);
@@ -64,6 +67,7 @@ namespace UFO.DAL.Independent {
             db.DefineParameter(cmd, "@Video", DbType.String, video);
             db.DefineParameter(cmd, "@CategoryId", DbType.Int32, catId);
             db.DefineParameter(cmd, "@CountryId", DbType.Int32, cntId);
+            db.DefineParameter(cmd, "@Email", DbType.String, email);
             return cmd;
         }
 
@@ -80,7 +84,8 @@ namespace UFO.DAL.Independent {
                 Image = reader["image"] as string,
                 Video = reader["video"] as string,
                 CategoryId = (int)reader["category_id"],
-                CountryId = (int)reader["country_id"]
+                CountryId = (int)reader["country_id"],
+                Email = reader["email"] as string
             };
         }
 
@@ -107,13 +112,13 @@ namespace UFO.DAL.Independent {
         }
 
         public Artist Create(Artist artist) {
-            DbCommand cmd = createInsertCommand(artist.Name, artist.Image, artist.Video, artist.CategoryId, artist.CountryId);
+            DbCommand cmd = createInsertCommand(artist.Name, artist.Image, artist.Video, artist.CategoryId, artist.CountryId, artist.Email);
             db.ExecuteNonQuery(cmd);
             return null;
         }
 
         public Artist Update(Artist artist) {
-            DbCommand cmd = createUpdateCommand(artist.Id, artist.Name, artist.Image, artist.Video, artist.CategoryId, artist.CountryId);
+            DbCommand cmd = createUpdateCommand(artist.Id, artist.Name, artist.Image, artist.Video, artist.CategoryId, artist.CountryId, artist.Email);
             db.ExecuteNonQuery(cmd);
             return artist;
         }
@@ -123,6 +128,5 @@ namespace UFO.DAL.Independent {
             db.ExecuteNonQuery(cmd);
             return artist;
         }
-
     }
 }
