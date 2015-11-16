@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainClasses", "DomainClas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainClassesTest", "DomainClassesTest\DomainClassesTest.csproj", "{E1A0FE8D-6A03-4BBF-8A17-340097D78501}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALIndependentTest", "DALIndependentTest\DALIndependentTest.csproj", "{638B2800-C8D8-4DA6-BB10-C8BC5F1F23E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{E1A0FE8D-6A03-4BBF-8A17-340097D78501}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1A0FE8D-6A03-4BBF-8A17-340097D78501}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1A0FE8D-6A03-4BBF-8A17-340097D78501}.Release|Any CPU.Build.0 = Release|Any CPU
+		{638B2800-C8D8-4DA6-BB10-C8BC5F1F23E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{638B2800-C8D8-4DA6-BB10-C8BC5F1F23E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{638B2800-C8D8-4DA6-BB10-C8BC5F1F23E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{638B2800-C8D8-4DA6-BB10-C8BC5F1F23E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
