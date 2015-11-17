@@ -5,7 +5,7 @@ namespace UFO.DAL.Common {
 
     public interface IPerformanceDAO {
 
-        Performance GetById(int id, int locationId, int locationAreaId);
+        Performance GetById(int id);
 
         IEnumerable<Performance> GetAll();
 

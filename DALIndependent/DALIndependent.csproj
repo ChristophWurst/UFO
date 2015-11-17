@@ -46,6 +46,7 @@
     <Compile Include="CategoryDAO.cs" />
     <Compile Include="CountryDAO.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="PerformanceDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDAO.cs" />
     <Compile Include="VenueDAO.cs" />

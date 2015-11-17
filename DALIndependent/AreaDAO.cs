@@ -9,7 +9,9 @@ using UFO.DAL.Common;
 using UFO.DomainClasses;
 
 namespace UFO.DAL.Independent {
-    class AreaDAO : IAreaDAO {
+
+    public class AreaDAO : IAreaDAO {
+
         private const string SQL_SELECT_ALL = "SELECT * "
                                             + "FROM `area`";
 
