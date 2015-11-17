@@ -24,7 +24,7 @@ namespace UFO.DAL.Independent {
         }
 
         private DbCommand createSelectByIdCommand(int id) {
-            DbCommand cmd = db.CreateCommand(SQL_SELECT_ALL);
+            DbCommand cmd = db.CreateCommand(SQL_SELECT);
             db.DefineParameter(cmd, "@Id", DbType.Int32, id);
             return cmd;
         }
