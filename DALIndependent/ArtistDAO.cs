@@ -10,7 +10,7 @@ using UFO.DomainClasses;
 
 namespace UFO.DAL.Independent {
 
-    internal class ArtistDAO : IArtistDAO {
+    public class ArtistDAO : IArtistDAO {
 
         private const string SQL_SELECT_ALL = "SELECT * "
                                         + "FROM `artist`";

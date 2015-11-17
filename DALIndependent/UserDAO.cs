@@ -9,7 +9,8 @@ using UFO.DAL.Common;
 using UFO.DomainClasses;
 
 namespace UFO.DAL.Independent {
-    class UserDAO : IUserDAO {
+
+    public class UserDAO : IUserDAO {
 
         private const string SQL_SELECT_ALL = "SELECT * "
                                             + "FROM `user`";
@@ -17,6 +18,7 @@ namespace UFO.DAL.Independent {
         private const string SQL_SELECT = "SELECT * "
                                         + "FROM `user` "
                                         + "WHERE `id` = @Id";
+
         private IDatabase db;
 
         private DbCommand createSelectAllCommand() {
