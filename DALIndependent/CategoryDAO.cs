@@ -9,7 +9,8 @@ using UFO.DAL.Common;
 using UFO.DomainClasses;
 
 namespace UFO.DAL.Independent {
-    class CategoryDAO : ICategoryDAO {
+
+    public class CategoryDAO : ICategoryDAO {
 
         private const string SQL_SELECT_ALL = "SELECT * "
                                             + "FROM `category` ";

@@ -10,7 +10,7 @@ using UFO.DomainClasses;
 
 namespace UFO.DAL.Independent {
 
-    internal class VenueDAO : IVenueDAO {
+    public class VenueDAO : IVenueDAO {
 
         private const string SQL_SELECT_ALL = "SELECT * "
                                             + "FROM `venue`";
@@ -28,7 +28,8 @@ namespace UFO.DAL.Independent {
                                         + "`desc` = @Desc, "
                                         + "`short_desc` = @ShortDesc, "
                                         + "`latitude` = @Latitude, "
-                                        + "`longitude` = @Longitude";
+                                        + "`longitude` = @Longitude "
+                                        + "WHERE `id` = @id";
 
         private IDatabase db;
 
@@ -37,7 +38,7 @@ namespace UFO.DAL.Independent {
         }
 
         private DbCommand CreateSelectByIdCommand(int id) {
-            DbCommand cmd = this.db.CreateCommand(SQL_SELECT_ALL);
+            DbCommand cmd = this.db.CreateCommand(SQL_SELECT);
             this.db.DefineParameter(cmd, "@Id", DbType.Int32, id);
             return cmd;
         }
@@ -67,8 +68,8 @@ namespace UFO.DAL.Independent {
             return new Venue() {
                 Id = (int)reader["id"],
                 AreaId = (int)reader["area_id"],
-                ShortDesc = (string)reader["short_desc"],
-                Desc = (string)reader["desc"],
+                ShortDesc = reader["short_desc"] as string,
+                Desc = reader["desc"] as string,
                 Latitude = (float)reader["latitude"],
                 Longitude = (float)reader["longitude"]
             };

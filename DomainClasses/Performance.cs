@@ -8,8 +8,7 @@ namespace UFO.DomainClasses {
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public int ArtistId { get; set; }
-        public int LocationId { get; set; }
-        public int LocationAreaId { get; set; }
+        public int VenueId { get; set; }
 
         public override string ToString() {
             return "[" + Id.ToString() + "] " + Start.ToString() + "-" + End.ToString();

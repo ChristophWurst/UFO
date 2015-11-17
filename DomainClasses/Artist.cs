@@ -10,6 +10,7 @@ namespace UFO.DomainClasses {
         public string Video { get; set; }
         public int CategoryId { get; set; }
         public int CountryId { get; set; }
+        public string Email { get; set; }
 
         public override string ToString() {
             return "[" + Id.ToString() + "] " + Name;

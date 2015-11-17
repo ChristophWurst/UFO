@@ -17,6 +17,7 @@ namespace UFO.DAL.Independent {
         private const string SQL_SELECT = "SELECT * "
                                         + "FROM `user` "
                                         + "WHERE `id` = @Id";
+
         private IDatabase db;
 
         private DbCommand createSelectAllCommand() {

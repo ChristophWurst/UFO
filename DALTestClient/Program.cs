@@ -74,6 +74,37 @@ namespace DALTestClient {
             Console.WriteLine("\nArtist deleted");
         }
 
+        private static void TestPerformance(IDatabase db, DALFactory dalFactory) {
+            Console.WriteLine("*************************************");
+            Console.WriteLine("PERFORMANCE TEST");
+
+            IPerformanceDAO performanceDAO = dalFactory.CreatePerformanceDAO(db);
+
+            Console.WriteLine("\nAll performances:");
+            foreach (var performance in performanceDAO.GetAll()) {
+                Console.WriteLine(performance);
+            }
+
+            Console.WriteLine("\nPerformance with ID=1:");
+            Console.WriteLine(performanceDAO.GetById(1));
+
+            Performance performance1 = new Performance() {
+                Start = DateTime.Now,
+                End = DateTime.Now,
+                ArtistId = 1,
+            };
+            Performance newPerformance = performanceDAO.Create(performance1);
+            Console.WriteLine("New Artist: " + newPerformance);
+            Console.WriteLine("Inserted Artist: " + newPerformance);
+
+            newPerformance.ArtistId = 3;
+            performanceDAO.Update(newPerformance);
+            Console.WriteLine("Updated performance: " + newPerformance);
+
+            performanceDAO.Delete(performance1);
+            Console.WriteLine("\nPerformance deleted");
+        }
+
         private static void TestCategory(IDatabase db, DALFactory dalFactory) {
             Console.WriteLine("*************************************");
             Console.WriteLine("CATEGORY TEST");
