@@ -6,3 +6,6 @@ script:
 
   # Run Unit Tests
   - mono packages/NUnit.Runners.2.6.4/tools/nunit-console.exe ./DomainClassesTest/bin/Debug/UFO.Test.DomainClasses.dll
+
+  # Run integration (DB) tests
+  - mono packages/NUnit.Runners.2.6.4/tools/nunit-console.exe ./DALIndependentTest/bin/Debug/DALIndependentTest.dll
