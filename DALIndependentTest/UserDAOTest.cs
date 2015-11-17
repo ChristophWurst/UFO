@@ -21,19 +21,12 @@ namespace DALIndependentTest {
         }
     }
 
-    public class UserDAOIntegrationTests {
+    class UserDAOIntegrationTests : IntegrationTest {
 
         private TransactionScope transaction;
         private IUserDAO dao;
         private User user1;
         private User user2;
-
-        private void runDbCommands(IDatabase db, IList<string> sqls) {
-            foreach (string sql in sqls) {
-                DbCommand cmd = db.CreateCommand(sql);
-                db.ExecuteNonQuery(cmd);
-            }
-        }
 
         [SetUp]
         public void SetUp() {
