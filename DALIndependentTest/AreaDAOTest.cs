@@ -44,6 +44,7 @@ namespace DALIndependentTest {
             };
 
             var sqls = new List<string> {
+                "SET FOREIGN_KEY_CHECKS=0",
                 "DELETE FROM `area`",
                 "INSERT INTO `area` VALUES (1, 'Hauptplatz')",
                 "INSERT INTO `area` VALUES (2, 'Rathausplatz')"
@@ -54,6 +55,11 @@ namespace DALIndependentTest {
         [TearDown]
         public void TearDown() {
             transaction.Dispose();
+
+            var sqls = new List<string> {
+                "SET FOREIGN_KEY_CHECKS=1"
+            };
+            runDbCommands(db, sqls);
         }
 
         [Test]
@@ -78,6 +84,5 @@ namespace DALIndependentTest {
             Assert.IsTrue(area.IsEqualTo(area1));
             Assert.IsNull(notFound);
         }
-
     }
 }

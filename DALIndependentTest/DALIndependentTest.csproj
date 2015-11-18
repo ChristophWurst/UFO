@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AreaDAOTest.cs" />
+    <Compile Include="ArtistDAOTest.cs" />
     <Compile Include="CategoryDAOTest.cs" />
     <Compile Include="CountryDAOTest.cs" />
     <Compile Include="IntegrationTest.cs" />
