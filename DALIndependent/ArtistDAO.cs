@@ -25,11 +25,10 @@ namespace UFO.DAL.Independent {
 
         private const string SQL_UPDATE = "UPDATE `artist` "
                                         + "SET name = @Name, image = @Image, video = @Video, "
-                                        + "category_id = @CategoryId, countryId = @CountryId , email = @Email"
+                                        + "category_id = @CategoryId, country_id = @CountryId , email = @Email "
                                         + "WHERE ID = @Id";
 
-        private const string SQL_DELETE = "SELECT * "
-                                        + "FROM `artist` "
+        private const string SQL_DELETE = "DELETE FROM `artist` "
                                         + "WHERE `id` = @Id";
 
         private IDatabase db;
@@ -60,7 +59,7 @@ namespace UFO.DAL.Independent {
         }
 
         private DbCommand createUpdateCommand(int id, string name, string image, string video, int catId, int cntId, string email) {
-            DbCommand cmd = db.CreateCommand(SQL_INSERT);
+            DbCommand cmd = db.CreateCommand(SQL_UPDATE);
             db.DefineParameter(cmd, "@Id", DbType.Int32, id);
             db.DefineParameter(cmd, "@Name", DbType.String, name);
             db.DefineParameter(cmd, "@Image", DbType.String, image);
@@ -72,7 +71,7 @@ namespace UFO.DAL.Independent {
         }
 
         private DbCommand createDeleteCommand(int id) {
-            DbCommand cmd = db.CreateCommand(SQL_SELECT);
+            DbCommand cmd = db.CreateCommand(SQL_DELETE);
             db.DefineParameter(cmd, "@Id", DbType.Int32, id);
             return cmd;
         }
