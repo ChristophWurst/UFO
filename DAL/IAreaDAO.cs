@@ -8,9 +8,5 @@ namespace UFO.DAL.Common {
         Area GetById(int id);
 
         IEnumerable<Area> GetAll();
-
-        Area Create(Area area);
-
-        Area Update(Area area);
     }
 }

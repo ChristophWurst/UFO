@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AreaDAOTest.cs" />
     <Compile Include="CategoryDAOTest.cs" />
     <Compile Include="CountryDAOTest.cs" />
     <Compile Include="IntegrationTest.cs" />
