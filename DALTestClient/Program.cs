@@ -24,23 +24,6 @@ namespace DALTestClient {
             Console.WriteLine("\nArea with ID=1:");
             Area area1 = areaDAO.GetById(1);
             Console.WriteLine(area1);
-
-            Area area2 = new Area() {
-                Name = "Rathausplatz"
-            };
-            areaDAO.Create(area2);
-            Console.WriteLine("\nAreas after adding an entry:");
-            foreach (var area in areaDAO.GetAll()) {
-                Console.WriteLine(area);
-            }
-
-            string oldName = area1.Name;
-            area1.Name = "Festhalle";
-            areaDAO.Update(area1);
-            Console.WriteLine("\nArea with ID=1 after update:");
-            Console.WriteLine(area1);
-            area1.Name = oldName;
-            areaDAO.Update(area1);
         }
 
         private static void TestArtist(IDatabase db, DALFactory dalFactory) {

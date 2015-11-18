@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -30,18 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
@@ -51,6 +40,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryDAOTest.cs" />
@@ -61,15 +53,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DALIndependent\DALIndependent.csproj">
-      <Project>{a811effc-ce32-4619-ab43-9ae0637c8085}</Project>
+      <Project>{A811EFFC-CE32-4619-AB43-9AE0637C8085}</Project>
       <Name>DALIndependent</Name>
     </ProjectReference>
     <ProjectReference Include="..\DAL\DALCommon.csproj">
-      <Project>{ff5c477b-86a2-4d2c-8bbd-71e9b515bd71}</Project>
+      <Project>{FF5C477B-86A2-4D2C-8BBD-71E9B515BD71}</Project>
       <Name>DALCommon</Name>
     </ProjectReference>
     <ProjectReference Include="..\DomainClasses\DomainClasses.csproj">
-      <Project>{e2d07154-5acb-4098-acd5-07d0c2dd1df7}</Project>
+      <Project>{E2D07154-5ACB-4098-ACD5-07D0C2DD1DF7}</Project>
       <Name>DomainClasses</Name>
     </ProjectReference>
   </ItemGroup>
