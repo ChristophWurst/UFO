@@ -18,15 +18,7 @@ namespace UFO.DAL.Independent {
         private const string SQL_SELECT = "SELECT * "
                                         + "FROM `area` "
                                         + "WHERE `id` = @Id";
-
-        private const string SQL_UPDATE = "UPDATE `area` "
-                                        + "SET `name` = @Name "
-                                        + "WHERE `id` = @Id";
-
-        private const string SQL_INSERT = "INSERT INTO `area` "
-                                        + "(`name`) VALUES "
-                                        + "(@Name)";
-
+        
         private IDatabase db;
 
         private DbCommand createSelectAllCommand() {
@@ -36,19 +28,6 @@ namespace UFO.DAL.Independent {
         private DbCommand createSelectCommand(int id) {
             DbCommand cmd = db.CreateCommand(SQL_SELECT);
             db.DefineParameter(cmd, "@Id", DbType.Int32, id);
-            return cmd;
-        }
-
-        private DbCommand createInsertCommand(string name) {
-            DbCommand cmd = db.CreateCommand(SQL_INSERT);
-            db.DefineParameter(cmd, "@Name", DbType.String, name);
-            return cmd;
-        }
-
-        private DbCommand createUpdateCommand(int id, string name) {
-            DbCommand cmd = db.CreateCommand(SQL_UPDATE);
-            db.DefineParameter(cmd, "@Id", DbType.Int32, id);
-            db.DefineParameter(cmd, "@Name", DbType.String, name);
             return cmd;
         }
 
@@ -84,17 +63,6 @@ namespace UFO.DAL.Independent {
             }
             return area;
         }
-
-        public Area Create(Area area) {
-            DbCommand cmd = createInsertCommand(area.Name);
-            db.ExecuteNonQuery(cmd);
-            return area;
-        }
-
-        public Area Update(Area area) {
-            DbCommand cmd = createUpdateCommand(area.Id, area.Name);
-            db.ExecuteNonQuery(cmd);
-            return area;
-        }
+        
     }
 }
