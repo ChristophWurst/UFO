@@ -13,7 +13,8 @@ using UFO.DomainClasses;
 
 namespace DALIndependentTest {
 
-    internal static class Extensions {
+    internal static class UserExtensions {
+
         public static bool IsEqualTo(this User u1, User u2) {
             return u1.Id == u2.Id
                 && u1.Email == u2.Email
@@ -21,8 +22,7 @@ namespace DALIndependentTest {
         }
     }
 
-    class UserDAOIntegrationTests : IntegrationTest {
-
+    internal class UserDAOIntegrationTests : IntegrationTest {
         private TransactionScope transaction;
         private IUserDAO dao;
         private User user1;
@@ -46,7 +46,7 @@ namespace DALIndependentTest {
                 Email = "stefan@roesch.at",
                 Password = "123456"
             };
-            
+
             IList<string> sqls = new List<string> {
                 "DELETE FROM `user`",
                 "INSERT INTO `user` VALUES (1, 'christoph@wurst.at', 'abcdefg')",
@@ -59,7 +59,7 @@ namespace DALIndependentTest {
         public void TearDown() {
             transaction.Dispose();
         }
-        
+
         [Test]
         public void TestGetAll() {
             IEnumerable<User> users = dao.GetAll();

@@ -20,14 +20,14 @@ namespace UFO.DAL.Independent {
                                         + "WHERE `id` = @Id";
 
         private const string SQL_INSERT = "INSERT INTO `performance` "
-                                        + "(`start`, `end`, `artistId`, `venueId`) VALUES "
+                                        + "(`start`, `end`, `artist_id`, `venue_id`) VALUES "
                                         + "(@Start, @End, @ArtistId, @VenueId)";
 
-        private const string SQL_UPDATE = "UPDATE `performance`SET "
+        private const string SQL_UPDATE = "UPDATE `performance` SET "
                                         + "`start` = @Start, "
                                         + "`end` = @End, "
-                                        + "`artistId` = @ArtistId, "
-                                        + "`venueId`= @VenueId "
+                                        + "`artist_id` = @ArtistId, "
+                                        + "`venue_id`= @VenueId "
                                         + "WHERE `id` = @Id";
 
         private const string SQL_DELETE = "DELETE FROM `performance` "
@@ -75,8 +75,8 @@ namespace UFO.DAL.Independent {
                 Id = (int)reader["id"],
                 Start = (DateTime)reader["start"],
                 End = (DateTime)reader["end"],
-                ArtistId = (int)reader["artistid"],
-                VenueId = (int)reader["venueId"]
+                ArtistId = (int)reader["artist_id"],
+                VenueId = (int)reader["venue_id"]
             };
         }
 
@@ -102,14 +102,14 @@ namespace UFO.DAL.Independent {
                 if (reader.Read()) {
                     performance = this.CreatePerformanceFromReader(reader);
                 }
-                return performance;
             }
+            return performance;
         }
 
-        public Performance Update(Performance Performance) {
-            var cmd = CreateUpdateCommand(Performance.Id, Performance.Start, Performance.End, Performance.ArtistId, Performance.VenueId);
+        public Performance Update(Performance performance) {
+            var cmd = CreateUpdateCommand(performance.Id, performance.Start, performance.End, performance.ArtistId, performance.VenueId);
             db.ExecuteNonQuery(cmd);
-            return Performance;
+            return performance;
         }
 
         public Performance Create(Performance Performance) {

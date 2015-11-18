@@ -54,7 +54,7 @@ namespace UFO.DAL.Independent {
         }
 
         private DbCommand CreateUpdateCommand(int id, int areaId, string desc, string shortDesc, double lat, double lon) {
-            DbCommand cmd = this.db.CreateCommand(SQL_INSERT);
+            DbCommand cmd = this.db.CreateCommand(SQL_UPDATE);
             this.db.DefineParameter(cmd, "@Id", DbType.Int32, id);
             this.db.DefineParameter(cmd, "@AreaId", DbType.Int32, areaId);
             this.db.DefineParameter(cmd, "@Desc", DbType.String, desc);
@@ -70,8 +70,8 @@ namespace UFO.DAL.Independent {
                 AreaId = (int)reader["area_id"],
                 ShortDesc = reader["short_desc"] as string,
                 Desc = reader["desc"] as string,
-                Latitude = (float)reader["latitude"],
-                Longitude = (float)reader["longitude"]
+                Latitude = (double)reader["latitude"],
+                Longitude = (double)reader["longitude"]
             };
         }
 
