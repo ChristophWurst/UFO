@@ -3,10 +3,10 @@ using UFO.DomainClasses;
 
 namespace UFO.DAL.Common {
 
-    public interface ICategoryDAO {
+	public interface ICategoryDAO {
 
-        Category GetById(int id);
+		Category GetById(int id);
 
-        IEnumerable<Category> GetAll();
-    }
+		IEnumerable<Category> GetAll();
+	}
 }

@@ -3,18 +3,18 @@ using System.Data.Common;
 
 namespace UFO.DAL.Common {
 
-    public interface IDatabase {
+	public interface IDatabase {
 
-        DbCommand CreateCommand(string sql);
+		DbCommand CreateCommand(string sql);
 
-        int DeclareParameter(DbCommand cmd, string name, DbType type);
+		int DeclareParameter(DbCommand cmd, string name, DbType type);
 
-        int DefineParameter(DbCommand cmd, string name, DbType type, object value);
+		int DefineParameter(DbCommand cmd, string name, DbType type, object value);
 
-        void SetParameter(DbCommand cmd, string name, object value);
+		void SetParameter(DbCommand cmd, string name, object value);
 
-        IDataReader ExecuteReader(DbCommand cmd);
+		IDataReader ExecuteReader(DbCommand cmd);
 
-        int ExecuteNonQuery(DbCommand cmd);
-    }
+		int ExecuteNonQuery(DbCommand cmd);
+	}
 }

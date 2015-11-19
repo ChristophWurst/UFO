@@ -1,67 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UFO.DAL.Common;
 using UFO.DomainClasses;
 
 namespace UFO.DAL.MySql {
-    public class UserDAO : IUserDAO {
 
-        private const string SQL_SELECT_ALL = "SELECT * "
-                                            + "FROM `user`";
+	public class UserDAO : IUserDAO {
 
-        private const string SQL_SELECT = "SELECT * "
-                                        + "FROM `user` "
-                                        + "WHERE `id` = @Id";
+		private const string SQL_SELECT_ALL = "SELECT * "
+											+ "FROM `user`";
 
-        private IDatabase db;
+		private const string SQL_SELECT = "SELECT * "
+										+ "FROM `user` "
+										+ "WHERE `id` = @Id";
 
-        private DbCommand createSelectAllCommand() {
-            return db.CreateCommand(SQL_SELECT_ALL);
-        }
+		private IDatabase db;
 
-        private DbCommand createSelectByIdCommand(int id) {
-            DbCommand cmd = db.CreateCommand(SQL_SELECT);
-            db.DefineParameter(cmd, "@Id", DbType.Int32, id);
-            return cmd;
-        }
+		private DbCommand createSelectAllCommand() {
+			return db.CreateCommand(SQL_SELECT_ALL);
+		}
 
-        public UserDAO(IDatabase db) {
-            this.db = db;
-        }
+		private DbCommand createSelectByIdCommand(int id) {
+			DbCommand cmd = db.CreateCommand(SQL_SELECT);
+			db.DefineParameter(cmd, "@Id", DbType.Int32, id);
+			return cmd;
+		}
 
-        private User createUserFromReader(IDataReader reader) {
-            return new User() {
-                Id = (int)reader["id"],
-                Email = (string)reader["email"],
-                Password = (string)reader["password"]
-            };
-        }
+		public UserDAO(IDatabase db) {
+			this.db = db;
+		}
 
-        public IEnumerable<User> GetAll() {
-            var userList = new List<User>();
-            DbCommand cmd = createSelectAllCommand();
-            using (IDataReader reader = db.ExecuteReader(cmd)) {
-                while (reader.Read()) {
-                    userList.Add(createUserFromReader(reader));
-                }
-            }
-            return userList;
-        }
+		private User createUserFromReader(IDataReader reader) {
+			return new User() {
+				Id = (int)reader["id"],
+				Email = (string)reader["email"],
+				Password = (string)reader["password"]
+			};
+		}
 
-        public User GetById(int id) {
-            User user = null;
-            DbCommand cmd = createSelectByIdCommand(id);
-            using (IDataReader reader = db.ExecuteReader(cmd)) {
-                if (reader.Read()) {
-                    user = createUserFromReader(reader);
-                }
-            }
-            return user;
-        }
-    }
+		public IEnumerable<User> GetAll() {
+			var userList = new List<User>();
+			DbCommand cmd = createSelectAllCommand();
+			using (IDataReader reader = db.ExecuteReader(cmd)) {
+				while (reader.Read()) {
+					userList.Add(createUserFromReader(reader));
+				}
+			}
+			return userList;
+		}
+
+		public User GetById(int id) {
+			User user = null;
+			DbCommand cmd = createSelectByIdCommand(id);
+			using (IDataReader reader = db.ExecuteReader(cmd)) {
+				if (reader.Read()) {
+					user = createUserFromReader(reader);
+				}
+			}
+			return user;
+		}
+	}
 }

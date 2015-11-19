@@ -3,70 +3,70 @@ using UFO.DomainClasses;
 
 namespace UFO.Test.DomainClasses {
 
-    [TestFixture]
-    public class ArtistTest {
-        private Artist artist;
+	[TestFixture]
+	public class ArtistTest {
+		private Artist artist;
 
-        [SetUp]
-        public void SetUp() {
-            artist = new Artist();
-        }
+		[SetUp]
+		public void SetUp() {
+			artist = new Artist();
+		}
 
-        [Test]
-        public void TestId() {
-            int id = 122;
-            artist.Id = id;
+		[Test]
+		public void TestId() {
+			int id = 122;
+			artist.Id = id;
 
-            Assert.AreEqual(id, artist.Id);
-        }
+			Assert.AreEqual(id, artist.Id);
+		}
 
-        [Test]
-        public void TestFirstname() {
-            string name = "Fritz";
-            artist.Name = name;
+		[Test]
+		public void TestFirstname() {
+			string name = "Fritz";
+			artist.Name = name;
 
-            Assert.AreEqual(name, artist.Name);
-        }
+			Assert.AreEqual(name, artist.Name);
+		}
 
-        [Test]
-        public void TestCountryId() {
-            int country = 27;
-            artist.CountryId = country;
+		[Test]
+		public void TestCountryId() {
+			int country = 27;
+			artist.CountryId = country;
 
-            Assert.AreEqual(country, artist.CountryId);
-        }
+			Assert.AreEqual(country, artist.CountryId);
+		}
 
-        [Test]
-        public void TestImage() {
-            string imagePath = "C:\\cat.jpg";
-            artist.Image = imagePath;
+		[Test]
+		public void TestImage() {
+			string imagePath = "C:\\cat.jpg";
+			artist.Image = imagePath;
 
-            Assert.AreEqual(imagePath, artist.Image);
-        }
+			Assert.AreEqual(imagePath, artist.Image);
+		}
 
-        [Test]
-        public void TestVideo() {
-            string videoPath = "C:\\cat.mp4";
-            artist.Video = videoPath;
+		[Test]
+		public void TestVideo() {
+			string videoPath = "C:\\cat.mp4";
+			artist.Video = videoPath;
 
-            Assert.AreEqual(videoPath, artist.Video);
-        }
+			Assert.AreEqual(videoPath, artist.Video);
+		}
 
-        [Test]
-        public void TestCategoryId() {
-            int catId = 123;
-            artist.CategoryId = catId;
+		[Test]
+		public void TestCategoryId() {
+			int catId = 123;
+			artist.CategoryId = catId;
 
-            Assert.AreEqual(catId, artist.CategoryId);
-        }
+			Assert.AreEqual(catId, artist.CategoryId);
+		}
 
-        [Test]
-        public void TestToString() {
-            artist.Id = 33;
-            artist.Name = "Florian";
+		[Test]
+		public void TestToString() {
+			artist.Id = 33;
+			artist.Name = "Florian";
 
-            string expected = "[33] Florian";
-            Assert.AreEqual(expected, artist.ToString());
-        }
-    }
+			string expected = "[33] Florian";
+			Assert.AreEqual(expected, artist.ToString());
+		}
+	}
 }

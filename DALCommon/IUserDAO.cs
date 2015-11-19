@@ -3,10 +3,10 @@ using UFO.DomainClasses;
 
 namespace UFO.DAL.Common {
 
-    public interface IUserDAO {
+	public interface IUserDAO {
 
-        User GetById(int id);
+		User GetById(int id);
 
-        IEnumerable<User> GetAll();
-    }
+		IEnumerable<User> GetAll();
+	}
 }
