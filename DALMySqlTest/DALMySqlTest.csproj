@@ -64,7 +64,7 @@
     <Compile Include="VenueDAOTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DALIndependent\DALMySql.csproj">
+    <ProjectReference Include="..\DALMySql\DALMySql.csproj">
       <Project>{a811effc-ce32-4619-ab43-9ae0637c8085}</Project>
       <Name>DALMySql</Name>
     </ProjectReference>
