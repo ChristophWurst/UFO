@@ -77,9 +77,7 @@ namespace DALIndependentTest {
         [Test]
         public void TestGetAll() {
             IEnumerable<Venue> venues = dao.GetAll();
-
             Assert.AreEqual(2, venues.Count());
-
             Venue v;
             IEnumerator<Venue> enu = venues.GetEnumerator();
             Assert.True(enu.MoveNext());
@@ -122,6 +120,14 @@ namespace DALIndependentTest {
             Assert.True(dao.Update(venue1).IsEqualTo(venue1));
             Venue result = dao.GetById(venue1.Id);
             Assert.True(result.IsEqualTo(venue1));
+        }
+
+        [Test]
+        public void TestCreate() {
+            var cntBefore = dao.GetAll().Count();
+            dao.Create(venue1);
+            var cntAfter = dao.GetAll().Count();
+            Assert.AreEqual(cntBefore + 1, cntAfter);
         }
     }
 }
