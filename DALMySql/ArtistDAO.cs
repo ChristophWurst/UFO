@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -112,13 +113,16 @@ namespace UFO.DAL.MySql {
 
         public Artist Create(Artist artist) {
             DbCommand cmd = createInsertCommand(artist.Name, artist.Image, artist.Video, artist.CategoryId, artist.CountryId, artist.Email);
+            artist.Id = (int)(((MySqlCommand)cmd).LastInsertedId);
             db.ExecuteNonQuery(cmd);
-            return null;
+            return artist;
         }
 
         public Artist Update(Artist artist) {
             DbCommand cmd = createUpdateCommand(artist.Id, artist.Name, artist.Image, artist.Video, artist.CategoryId, artist.CountryId, artist.Email);
-            db.ExecuteNonQuery(cmd);
+            if (db.ExecuteNonQuery(cmd) != 1) {
+                throw new EntityNotFoundException();
+            }
             return artist;
         }
 

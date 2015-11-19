@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -104,12 +105,15 @@ namespace UFO.DAL.MySql {
         public Venue Create(Venue venue) {
             var cmd = this.CreateInsertCommand(venue.AreaId, venue.Desc, venue.ShortDesc, venue.Latitude, venue.Latitude);
             db.ExecuteNonQuery(cmd);
+            venue.Id = (int)((MySqlCommand)cmd).LastInsertedId;
             return venue;
         }
 
         public Venue Update(Venue venue) {
             var cmd = this.CreateUpdateCommand(venue.Id, venue.AreaId, venue.Desc, venue.ShortDesc, venue.Latitude, venue.Latitude);
-            db.ExecuteNonQuery(cmd);
+            if (db.ExecuteNonQuery(cmd) != 1) {
+                throw new EntityNotFoundException();
+            }
             return venue;
         }
     }
