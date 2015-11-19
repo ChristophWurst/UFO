@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UFO.DAL.Common;
 
-namespace DALIndependentTest {
+namespace DALMySqlTest {
     abstract class IntegrationTest {
         protected void runDbCommands(IDatabase db, IList<string> sqls) {
             foreach (string sql in sqls) {

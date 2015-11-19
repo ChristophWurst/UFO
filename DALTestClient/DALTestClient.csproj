@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -51,17 +51,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DALIndependent\DALIndependent.csproj">
-      <Project>{a811effc-ce32-4619-ab43-9ae0637c8085}</Project>
-      <Name>DALIndependent</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DAL\DALCommon.csproj">
-      <Project>{ff5c477b-86a2-4d2c-8bbd-71e9b515bd71}</Project>
-      <Name>DALCommon</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DomainClasses\DomainClasses.csproj">
-      <Project>{e2d07154-5acb-4098-acd5-07d0c2dd1df7}</Project>
+      <Project>{E2D07154-5ACB-4098-ACD5-07D0C2DD1DF7}</Project>
       <Name>DomainClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DALCommon\DALCommon.csproj">
+      <Project>{FF5C477B-86A2-4D2C-8BBD-71E9B515BD71}</Project>
+      <Name>DALCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

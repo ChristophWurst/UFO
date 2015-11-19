@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using UFO.DAL.Common;
 using UFO.DomainClasses;
 
-namespace UFO.DAL.Independent {
+namespace UFO.DAL.MySql {
 
     public class CountryDAO : ICountryDAO {
 

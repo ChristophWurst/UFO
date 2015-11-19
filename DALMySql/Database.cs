@@ -1,21 +1,20 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Data.Common;
 using System.Transactions;
 using UFO.DAL.Common;
 
-namespace UFO.DAL.Independent {
+namespace UFO.DAL.MySql {
 
     public class Database : IDatabase {
         private string connectionString;
-        private DbProviderFactory providerFactory;
 
         [ThreadStatic]
         private DbConnection sharedConnection;
 
         private DbConnection CreateOpenConnection() {
-            DbConnection conn = this.providerFactory.CreateConnection();
-            conn.ConnectionString = this.connectionString;
+            DbConnection conn = new MySqlConnection(connectionString);
             conn.Open();
             return conn;
         }
@@ -48,14 +47,12 @@ namespace UFO.DAL.Independent {
             return Transaction.Current != null;
         }
 
-        public Database(string connectionString, string providername) {
+        public Database(string connectionString) {
             this.connectionString = connectionString;
-            this.providerFactory = DbProviderFactories.GetFactory(providername);
         }
 
         public DbCommand CreateCommand(string sql) {
-            DbCommand cmd = providerFactory.CreateCommand();
-            cmd.CommandText = sql;
+            DbCommand cmd = new MySqlCommand(sql);
             return cmd;
         }
 

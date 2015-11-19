@@ -8,60 +8,61 @@ using System.Threading.Tasks;
 using UFO.DAL.Common;
 using UFO.DomainClasses;
 
-namespace UFO.DAL.Independent {
-    public class UserDAO : IUserDAO {
+namespace UFO.DAL.MySql {
+
+    public class AreaDAO : IAreaDAO {
 
         private const string SQL_SELECT_ALL = "SELECT * "
-                                            + "FROM `user`";
+                                            + "FROM `area`";
 
         private const string SQL_SELECT = "SELECT * "
-                                        + "FROM `user` "
+                                        + "FROM `area` "
                                         + "WHERE `id` = @Id";
-
+        
         private IDatabase db;
 
         private DbCommand createSelectAllCommand() {
             return db.CreateCommand(SQL_SELECT_ALL);
         }
 
-        private DbCommand createSelectByIdCommand(int id) {
+        private DbCommand createSelectCommand(int id) {
             DbCommand cmd = db.CreateCommand(SQL_SELECT);
             db.DefineParameter(cmd, "@Id", DbType.Int32, id);
             return cmd;
         }
 
-        public UserDAO(IDatabase db) {
+        public AreaDAO(IDatabase db) {
             this.db = db;
         }
 
-        private User createUserFromReader(IDataReader reader) {
-            return new User() {
+        private Area createAreaFromReader(IDataReader reader) {
+            return new Area() {
                 Id = (int)reader["id"],
-                Email = (string)reader["email"],
-                Password = (string)reader["password"]
+                Name = (string)reader["name"]
             };
         }
 
-        public IEnumerable<User> GetAll() {
-            var userList = new List<User>();
+        public IEnumerable<Area> GetAll() {
+            var areas = new List<Area>();
             DbCommand cmd = createSelectAllCommand();
             using (IDataReader reader = db.ExecuteReader(cmd)) {
                 while (reader.Read()) {
-                    userList.Add(createUserFromReader(reader));
+                    areas.Add(createAreaFromReader(reader));
                 }
             }
-            return userList;
+            return areas;
         }
 
-        public User GetById(int id) {
-            User user = null;
-            DbCommand cmd = createSelectByIdCommand(id);
+        public Area GetById(int id) {
+            Area area = null;
+            DbCommand cmd = createSelectCommand(id);
             using (IDataReader reader = db.ExecuteReader(cmd)) {
                 if (reader.Read()) {
-                    user = createUserFromReader(reader);
+                    area = createAreaFromReader(reader);
                 }
             }
-            return user;
+            return area;
         }
+        
     }
 }

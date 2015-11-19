@@ -47,15 +47,7 @@ namespace UFO.DAL.Common {
             if (connSettings == null) {
                 throw new ArgumentException($"Parameter \"DefaultConnectionString\" not set in AppSettings.");
             }
-            return CreateDatabase(connSettings.ConnectionString, connSettings.ProviderName);
-        }
-
-        private IDatabase CreateDatabase(string connectionString, string providerName) {
-            Type dbType = GetType(assemblyName + ".Database");
-            if (this.ConstructorExists(dbType, typeof(string), typeof(string))) {
-                return Activator.CreateInstance(dbType, new object[] { connectionString, providerName }) as IDatabase;
-            }
-            return this.CreateDatabase(connectionString);
+            return CreateDatabase(connSettings.ConnectionString);
         }
 
         private IDatabase CreateDatabase(string connectionString) {

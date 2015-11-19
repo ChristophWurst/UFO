@@ -8,7 +8,7 @@ using System.Transactions;
 using UFO.DAL.Common;
 using UFO.DomainClasses;
 
-namespace DALIndependentTest {
+namespace DALMySqlTest {
 
     internal static class PerformanceExtensions {
 

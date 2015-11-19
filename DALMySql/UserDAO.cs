@@ -8,16 +8,17 @@ using System.Threading.Tasks;
 using UFO.DAL.Common;
 using UFO.DomainClasses;
 
-namespace UFO.DAL.Independent {
-
-    public class CategoryDAO : ICategoryDAO {
+namespace UFO.DAL.MySql {
+    public class UserDAO : IUserDAO {
 
         private const string SQL_SELECT_ALL = "SELECT * "
-                                            + "FROM `category` ";
+                                            + "FROM `user`";
 
         private const string SQL_SELECT = "SELECT * "
-                                        + "FROM `category` "
+                                        + "FROM `user` "
                                         + "WHERE `id` = @Id";
+
+        private IDatabase db;
 
         private DbCommand createSelectAllCommand() {
             return db.CreateCommand(SQL_SELECT_ALL);
@@ -29,39 +30,38 @@ namespace UFO.DAL.Independent {
             return cmd;
         }
 
-        private IDatabase db;
-
-        public CategoryDAO(IDatabase db) {
+        public UserDAO(IDatabase db) {
             this.db = db;
         }
 
-        private Category createCategoryFromReader(IDataReader reader) {
-            return new Category() {
+        private User createUserFromReader(IDataReader reader) {
+            return new User() {
                 Id = (int)reader["id"],
-                Description = (string)reader["description"]
+                Email = (string)reader["email"],
+                Password = (string)reader["password"]
             };
         }
 
-        public IEnumerable<Category> GetAll() {
-            var categories = new List<Category>();
+        public IEnumerable<User> GetAll() {
+            var userList = new List<User>();
             DbCommand cmd = createSelectAllCommand();
             using (IDataReader reader = db.ExecuteReader(cmd)) {
                 while (reader.Read()) {
-                    categories.Add(createCategoryFromReader(reader));
+                    userList.Add(createUserFromReader(reader));
                 }
             }
-            return categories;
+            return userList;
         }
 
-        public Category GetById(int id) {
-            Category category = null;
+        public User GetById(int id) {
+            User user = null;
             DbCommand cmd = createSelectByIdCommand(id);
             using (IDataReader reader = db.ExecuteReader(cmd)) {
                 if (reader.Read()) {
-                    category = createCategoryFromReader(reader);
+                    user = createUserFromReader(reader);
                 }
             }
-            return category;
+            return user;
         }
     }
 }

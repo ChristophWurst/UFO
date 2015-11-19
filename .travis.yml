@@ -6,3 +6,4 @@ script:
 
   # Run Unit Tests
   - mono packages/NUnit.Runners.2.6.4/tools/nunit-console.exe ./DomainClassesTest/bin/Debug/UFO.Test.DomainClasses.dll
+  - mono packages/NUnit.Runners.2.6.4/tools/nunit-console.exe ./DALMySqlTest/bin/Debug/DALIndependentTest.dll

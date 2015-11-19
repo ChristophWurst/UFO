@@ -8,7 +8,7 @@ using System.Transactions;
 using UFO.DAL.Common;
 using UFO.DomainClasses;
 
-namespace DALIndependentTest {
+namespace DALMySqlTest {
 
     public static class CategoryExtensions {
         public static bool IsEqualTo(this Category c1, Category c2) {
