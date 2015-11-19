@@ -8,10 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using UFO.DAL.Common;
-using UFO.DAL.Independent;
+using UFO.DAL.MySql;
 using UFO.DomainClasses;
 
-namespace DALIndependentTest {
+namespace DALMySqlTest {
 
     internal static class UserExtensions {
 

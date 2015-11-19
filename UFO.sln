@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALCommon", "DAL\DALCommon.csproj", "{FF5C477B-86A2-4D2C-8BBD-71E9B515BD71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALIndependent", "DALIndependent\DALIndependent.csproj", "{A811EFFC-CE32-4619-AB43-9AE0637C8085}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALMySql", "DALIndependent\DALMySql.csproj", "{A811EFFC-CE32-4619-AB43-9AE0637C8085}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALTestClient", "DALTestClient\DALTestClient.csproj", "{6146BC8A-5427-4152-8E23-A2F33CD06484}"
 EndProject
@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainClasses", "DomainClas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainClassesTest", "DomainClassesTest\DomainClassesTest.csproj", "{E1A0FE8D-6A03-4BBF-8A17-340097D78501}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALIndependentTest", "DALIndependentTest\DALIndependentTest.csproj", "{638B2800-C8D8-4DA6-BB10-C8BC5F1F23E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALMySqlTest", "DALIndependentTest\DALMySqlTest.csproj", "{638B2800-C8D8-4DA6-BB10-C8BC5F1F23E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

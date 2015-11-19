@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A811EFFC-CE32-4619-AB43-9AE0637C8085}</ProjectGuid>
+    <ProjectGuid>{638B2800-C8D8-4DA6-BB10-C8BC5F1F23E1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UFO.DAL.Independent</RootNamespace>
-    <AssemblyName>UFO.DAL.Independent</AssemblyName>
+    <RootNamespace>DALIndependentTest</RootNamespace>
+    <AssemblyName>DALIndependentTest</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,7 +30,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
@@ -41,17 +53,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AreaDAO.cs" />
-    <Compile Include="ArtistDAO.cs" />
-    <Compile Include="CategoryDAO.cs" />
-    <Compile Include="CountryDAO.cs" />
-    <Compile Include="Database.cs" />
-    <Compile Include="PerformanceDAO.cs" />
+    <Compile Include="AreaDAOTest.cs" />
+    <Compile Include="ArtistDAOTest.cs" />
+    <Compile Include="CategoryDAOTest.cs" />
+    <Compile Include="CountryDAOTest.cs" />
+    <Compile Include="IntegrationTest.cs" />
+    <Compile Include="PerformanceDAOTest.cs" />
+    <Compile Include="UserDAOTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserDAO.cs" />
-    <Compile Include="VenueDAO.cs" />
+    <Compile Include="VenueDAOTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DALIndependent\DALMySql.csproj">
+      <Project>{a811effc-ce32-4619-ab43-9ae0637c8085}</Project>
+      <Name>DALMySql</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL\DALCommon.csproj">
       <Project>{ff5c477b-86a2-4d2c-8bbd-71e9b515bd71}</Project>
       <Name>DALCommon</Name>
@@ -62,8 +78,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
