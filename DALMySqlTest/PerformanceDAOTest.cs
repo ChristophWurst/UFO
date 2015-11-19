@@ -90,11 +90,14 @@ namespace DALMySqlTest {
 		public void TestGetById() {
 			Performance v1 = dao.GetById(1);
 			Performance v2 = dao.GetById(2);
-			Performance nonExistingVenue = dao.GetById(3);
 
 			Assert.True(v1.IsEqualTo(performance1));
 			Assert.True(v2.IsEqualTo(performance2));
-			Assert.IsNull(nonExistingVenue);
+		}
+
+		[Test]
+		public void TestGetByIdFail() {
+			Assert.Throws<EntityNotFoundException>(() => dao.GetById(3));
 		}
 
 		[Test]

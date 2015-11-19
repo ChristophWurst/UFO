@@ -75,11 +75,14 @@ namespace DALMySqlTest {
 		public void TestGetById() {
 			User u1 = dao.GetById(1);
 			User u2 = dao.GetById(2);
-			User nonExistingUser = dao.GetById(3);
 
 			Assert.True(u1.IsEqualTo(user1));
 			Assert.True(u2.IsEqualTo(user2));
-			Assert.IsNull(nonExistingUser);
+		}
+
+		[Test]
+		public void TestGetByIdFail() {
+			Assert.Throws<EntityNotFoundException>(() => dao.GetById(3));
 		}
 	}
 }

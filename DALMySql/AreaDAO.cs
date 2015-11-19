@@ -57,6 +57,9 @@ namespace UFO.DAL.MySql {
 					area = createAreaFromReader(reader);
 				}
 			}
+			if (area == null) {
+				throw new EntityNotFoundException();
+			}
 			return area;
 		}
 	}

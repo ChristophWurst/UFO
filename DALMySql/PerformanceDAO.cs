@@ -101,6 +101,9 @@ namespace UFO.DAL.MySql {
 					performance = this.CreatePerformanceFromReader(reader);
 				}
 			}
+			if (performance == null) {
+				throw new EntityNotFoundException();
+			}
 			return performance;
 		}
 

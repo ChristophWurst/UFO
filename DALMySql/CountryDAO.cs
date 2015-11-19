@@ -57,6 +57,9 @@ namespace UFO.DAL.MySql {
 					country = createCountryFromReader(reader);
 				}
 			}
+			if (country == null) {
+				throw new EntityNotFoundException();
+			}
 			return country;
 		}
 	}

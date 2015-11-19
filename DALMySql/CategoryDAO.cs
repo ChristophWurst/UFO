@@ -57,6 +57,9 @@ namespace UFO.DAL.MySql {
 					category = createCategoryFromReader(reader);
 				}
 			}
+			if (category == null) {
+				throw new EntityNotFoundException();
+			}
 			return category;
 		}
 	}

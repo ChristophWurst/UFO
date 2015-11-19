@@ -104,6 +104,9 @@ namespace UFO.DAL.MySql {
 					artist = createArtistFromReader(reader);
 				}
 			}
+			if (artist == null) {
+				throw new EntityNotFoundException();
+			}
 			return artist;
 		}
 
