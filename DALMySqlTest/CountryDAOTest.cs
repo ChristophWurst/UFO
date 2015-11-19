@@ -62,12 +62,14 @@ namespace DALMySqlTest {
 		}
 
 		[Test]
-		public void testGetById() {
+		public void TestGetById() {
 			var c = dao.GetById(1);
-			var doesNotExist = dao.GetById(3);
-
 			Assert.IsTrue(c.IsEqualTo(country));
-			Assert.IsNull(doesNotExist);
+		}
+
+		[Test]
+		public void TestGetByIdFail() {
+			Assert.Throws<EntityNotFoundException>(() => dao.GetById(3));
 		}
 	}
 }

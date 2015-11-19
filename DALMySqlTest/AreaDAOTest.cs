@@ -76,10 +76,13 @@ namespace DALMySqlTest {
 		[Test]
 		public void TestGetById() {
 			var area = dao.GetById(1);
-			var notFound = dao.GetById(3);
 
 			Assert.IsTrue(area.IsEqualTo(area1));
-			Assert.IsNull(notFound);
+		}
+
+		[Test]
+		public void TestGetByIdFail() {
+			Assert.Throws<EntityNotFoundException>(() => dao.GetById(3));
 		}
 	}
 }

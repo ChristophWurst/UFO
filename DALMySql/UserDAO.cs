@@ -58,6 +58,9 @@ namespace UFO.DAL.MySql {
 					user = createUserFromReader(reader);
 				}
 			}
+			if (user == null) {
+				throw new EntityNotFoundException();
+			}
 			return user;
 		}
 	}

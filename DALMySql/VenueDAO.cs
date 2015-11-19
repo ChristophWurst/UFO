@@ -94,8 +94,11 @@ namespace UFO.DAL.MySql {
 				if (reader.Read()) {
 					venue = this.CreateVenueFromReader(reader);
 				}
-				return venue;
 			}
+			if (venue == null) {
+				throw new EntityNotFoundException();
+			}
+			return venue;
 		}
 
 		public Venue Create(Venue venue) {
