@@ -7,7 +7,7 @@
     <ProjectGuid>{638B2800-C8D8-4DA6-BB10-C8BC5F1F23E1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DALIndependentTest</RootNamespace>
+    <RootNamespace>DALMySqlTest</RootNamespace>
     <AssemblyName>DALIndependentTest</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
