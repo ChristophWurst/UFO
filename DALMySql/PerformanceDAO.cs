@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -108,14 +109,17 @@ namespace UFO.DAL.MySql {
 
         public Performance Update(Performance performance) {
             var cmd = CreateUpdateCommand(performance.Id, performance.Start, performance.End, performance.ArtistId, performance.VenueId);
-            db.ExecuteNonQuery(cmd);
+            if (db.ExecuteNonQuery(cmd) != 1) {
+                throw new EntityNotFoundException();
+            }
             return performance;
         }
 
-        public Performance Create(Performance Performance) {
-            var cmd = CreateInsertCommand(Performance.Start, Performance.End, Performance.ArtistId, Performance.VenueId);
+        public Performance Create(Performance performance) {
+            var cmd = CreateInsertCommand(performance.Start, performance.End, performance.ArtistId, performance.VenueId);
             db.ExecuteNonQuery(cmd);
-            return Performance;
+            performance.Id = (int)((MySqlCommand)cmd).LastInsertedId;
+            return performance;
         }
 
         public Performance Delete(Performance Performance) {
