@@ -21,7 +21,7 @@ USE `ufo` ;
 DROP TABLE IF EXISTS `ufo`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `ufo`.`user` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
@@ -35,7 +35,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ufo`.`category` ;
 
 CREATE TABLE IF NOT EXISTS `ufo`.`category` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -47,7 +47,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ufo`.`country` ;
 
 CREATE TABLE IF NOT EXISTS `ufo`.`country` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -59,13 +59,13 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ufo`.`artist` ;
 
 CREATE TABLE IF NOT EXISTS `ufo`.`artist` (
-  `id` INT NOT NULL,
-  `firstname` VARCHAR(45) NOT NULL,
-  `lastname` VARCHAR(45) NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
   `image` VARCHAR(45) NULL,
   `video` VARCHAR(45) NULL,
   `category_id` INT NOT NULL,
   `country_id` INT NOT NULL,
+  `email` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_artist_category1_idx` (`category_id` ASC),
   INDEX `fk_artist_country1_idx` (`country_id` ASC),
@@ -88,24 +88,25 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ufo`.`area` ;
 
 CREATE TABLE IF NOT EXISTS `ufo`.`area` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ufo`.`location`
+-- Table `ufo`.`venue`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ufo`.`location` ;
+DROP TABLE IF EXISTS `ufo`.`venue` ;
 
-CREATE TABLE IF NOT EXISTS `ufo`.`location` (
-  `id` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `ufo`.`venue` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `area_id` INT NOT NULL,
-  `name` VARCHAR(45) NULL,
-  `longitude` FLOAT NULL,
-  `latitude` FLOAT NULL,
-  PRIMARY KEY (`id`, `area_id`),
+  `short_desc` VARCHAR(45) NULL,
+  `desc` VARCHAR(45) NULL,
+  `longitude` DOUBLE NULL,
+  `latitude` DOUBLE NULL,
+  PRIMARY KEY (`id`),
   INDEX `fk_location_area_idx` (`area_id` ASC),
   CONSTRAINT `fk_location_area`
     FOREIGN KEY (`area_id`)
@@ -121,23 +122,22 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ufo`.`performance` ;
 
 CREATE TABLE IF NOT EXISTS `ufo`.`performance` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `start` DATETIME NULL,
   `end` DATETIME NULL,
   `artist_id` INT NOT NULL,
-  `location_id` INT NOT NULL,
-  `location_area_id` INT NOT NULL,
+  `venue_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_performance_artist1_idx` (`artist_id` ASC),
-  INDEX `fk_performance_location1_idx` (`location_id` ASC, `location_area_id` ASC),
+  INDEX `fk_performance_location1_idx` (`venue_id` ASC),
   CONSTRAINT `fk_performance_artist1`
     FOREIGN KEY (`artist_id`)
     REFERENCES `ufo`.`artist` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_performance_location1`
-    FOREIGN KEY (`location_id` , `location_area_id`)
-    REFERENCES `ufo`.`location` (`id` , `area_id`)
+    FOREIGN KEY (`venue_id`)
+    REFERENCES `ufo`.`venue` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

@@ -11,7 +11,7 @@ namespace UFO.DomainClasses {
         public int VenueId { get; set; }
 
         public override string ToString() {
-            return "[" + Id.ToString() + "] " + Start.ToString() + "-" + End.ToString();
+            return "[" + Id.ToString() + "]"; 
         }
     }
 }
