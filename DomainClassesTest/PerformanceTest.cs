@@ -62,10 +62,8 @@ namespace UFO.Test.DomainClasses {
         [Test]
         public void TestToString() {
             performance.Id = 154;
-            performance.Start = new DateTime(2015, 10, 15, 18, 30, 00);
-            performance.End = new DateTime(2015, 10, 15, 19, 30, 00);
 
-            string expected = "[154] 15.10.2015 18:30:00-15.10.2015 19:30:00";
+            string expected = "[154]";
             Assert.AreEqual(expected, performance.ToString());
         }
 
