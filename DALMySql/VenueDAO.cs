@@ -69,8 +69,8 @@ namespace UFO.DAL.MySql {
 			return new Venue() {
 				Id = (int)reader["id"],
 				AreaId = (int)reader["area_id"],
-				ShortDesc = reader["short_desc"] as string,
-				Desc = reader["desc"] as string,
+				ShortDescription = reader["short_desc"] as string,
+				Description = reader["desc"] as string,
 				Latitude = (double)reader["latitude"],
 				Longitude = (double)reader["longitude"]
 			};
@@ -103,14 +103,14 @@ namespace UFO.DAL.MySql {
 		}
 
 		public Venue Create(Venue venue) {
-			var cmd = this.CreateInsertCommand(venue.AreaId, venue.Desc, venue.ShortDesc, venue.Latitude, venue.Longitude);
+			var cmd = this.CreateInsertCommand(venue.AreaId, venue.Description, venue.ShortDescription, venue.Latitude, venue.Longitude);
 			db.ExecuteNonQuery(cmd);
 			venue.Id = (int)((MySqlCommand)cmd).LastInsertedId;
 			return venue;
 		}
 
 		public Venue Update(Venue venue) {
-			var cmd = this.CreateUpdateCommand(venue.Id, venue.AreaId, venue.Desc, venue.ShortDesc, venue.Latitude, venue.Latitude);
+			var cmd = this.CreateUpdateCommand(venue.Id, venue.AreaId, venue.Description, venue.ShortDescription, venue.Latitude, venue.Longitude);
 			if (db.ExecuteNonQuery(cmd) != 1) {
 				throw new EntityNotFoundException();
 			}

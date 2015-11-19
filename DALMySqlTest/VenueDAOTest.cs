@@ -14,11 +14,11 @@ namespace DALMySqlTest {
 
 		public static bool IsEqualTo(this Venue v1, Venue v2) {
 			return v1.AreaId == v2.AreaId
-				&& v1.Desc == v2.Desc
+				&& v1.Description == v2.Description
 				&& v1.Id == v2.Id
 				&& v1.Latitude == v2.Latitude
 				&& v1.Longitude == v2.Longitude
-				&& v1.ShortDesc == v2.ShortDesc;
+				&& v1.ShortDescription == v2.ShortDescription;
 		}
 	}
 
@@ -40,8 +40,8 @@ namespace DALMySqlTest {
 			venue1 = new Venue {
 				Id = 1,
 				AreaId = 1,
-				Desc = "venue1",
-				ShortDesc = "v1",
+				Description = "venue1",
+				ShortDescription = "v1",
 				Latitude = 18.00023020,
 				Longitude = 34.0000023
 			};
@@ -49,8 +49,8 @@ namespace DALMySqlTest {
 			venue2 = new Venue {
 				Id = 2,
 				AreaId = 2,
-				Desc = "venue2",
-				ShortDesc = "v2",
+				Description = "venue2",
+				ShortDescription = "v2",
 				Latitude = 23.3020,
 				Longitude = 4.0046573
 			};
@@ -105,16 +105,16 @@ namespace DALMySqlTest {
 			Venue v1Tmp = new Venue {
 				Id = venue1.Id,
 				AreaId = venue1.AreaId,
-				Desc = venue1.Desc,
-				ShortDesc = venue1.ShortDesc,
+				Description = venue1.Description,
+				ShortDescription = venue1.ShortDescription,
 				Longitude = venue1.Longitude,
 				Latitude = venue1.Latitude
 			};
 			Assert.True(venue1.IsEqualTo(v1Tmp));
 			venue1.AreaId = 3;
-			venue1.Desc = "x";
-			venue1.ShortDesc = "x";
-			venue1.Longitude = 1.0;
+			venue1.Description = "x";
+			venue1.ShortDescription = "x";
+			venue1.Longitude = 2.0;
 			venue1.Latitude = 1.0;
 			Assert.False(venue1.IsEqualTo(v1Tmp));
 			Assert.True(dao.Update(venue1).IsEqualTo(venue1));
@@ -132,8 +132,8 @@ namespace DALMySqlTest {
 			var newVenue = new Venue {
 				Id = -1,
 				AreaId = 1,
-				Desc = "venue1",
-				ShortDesc = "v1",
+				Description = "venue1",
+				ShortDescription = "v1",
 				Latitude = 18.00023020,
 				Longitude = 34.0000023
 			};

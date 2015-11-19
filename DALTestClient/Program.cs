@@ -153,8 +153,8 @@ namespace DALTestClient {
 
             Venue venue1 = new Venue() {
                 AreaId = 1,
-                Desc = "TestVenue",
-                ShortDesc = "TV",
+                Description = "TestVenue",
+                ShortDescription = "TV",
                 Latitude = 0.0f,
                 Longitude = 0.0f
             };
@@ -162,7 +162,7 @@ namespace DALTestClient {
             Console.WriteLine("New VENUE: " + newVenue);
             Console.WriteLine("Inserted VENUE: " + newVenue);
 
-            venue1.Desc = "Winzerhof Wurst";
+            venue1.Description = "Winzerhof Wurst";
             venueDAO.Update(venue1);
             Console.WriteLine("Updated VENUE: " + venue1);
         }
