@@ -3,16 +3,16 @@ using UFO.DomainClasses;
 
 namespace UFO.DAL.Common {
 
-    public interface IArtistDAO {
+	public interface IArtistDAO {
 
-        Artist GetById(int id);
+		Artist GetById(int id);
 
-        IEnumerable<Artist> GetAll();
+		IEnumerable<Artist> GetAll();
 
-        Artist Create(Artist artist);
+		Artist Create(Artist artist);
 
-        Artist Update(Artist artist);
+		Artist Update(Artist artist);
 
-        Artist Delete(Artist artist);
-    }
+		void Delete(Artist artist);
+	}
 }

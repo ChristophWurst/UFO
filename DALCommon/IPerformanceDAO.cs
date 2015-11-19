@@ -3,16 +3,16 @@ using UFO.DomainClasses;
 
 namespace UFO.DAL.Common {
 
-    public interface IPerformanceDAO {
+	public interface IPerformanceDAO {
 
-        Performance GetById(int id);
+		Performance GetById(int id);
 
-        IEnumerable<Performance> GetAll();
+		IEnumerable<Performance> GetAll();
 
-        Performance Create(Performance Performance);
+		Performance Create(Performance Performance);
 
-        Performance Update(Performance Performance);
+		Performance Update(Performance Performance);
 
-        Performance Delete(Performance Performance);
-    }
+		void Delete(Performance Performance);
+	}
 }
