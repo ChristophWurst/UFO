@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Commander {
+namespace UFO.Commander {
 	/// <summary>
 	/// Interaktionslogik für "App.xaml"
 	/// </summary>

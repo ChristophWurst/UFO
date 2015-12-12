@@ -1,9 +1,8 @@
-﻿<Application x:Class="Commander.App"
+﻿<Application x:Class="UFO.Commander.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Commander"
+             xmlns:local="clr-namespace:UFO.Commander"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
     </Application.Resources>
 </Application>
