@@ -14,13 +14,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace UFO.Commander {
-
 	/// <summary>
 	/// Interaktionslogik für MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window {
-
-		public MainWindow() {
+	public partial class LoginWindow : Window {
+		public LoginWindow() {
 			InitializeComponent();
 		}
 
