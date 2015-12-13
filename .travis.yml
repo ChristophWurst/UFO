@@ -1,8 +1,15 @@
 language: csharp
 solution: UFO.sln
 script:
-  # Build sulution
-  - xbuild /p:TargetFrameworkVersion="v4.5"
+  # Build solution
+  - xbuild DALCommon/DALCommon.csproj /p:TargetFrameworkVersion="v4.5"
+  - xbuild DALCommonTest/DALCommonTest.csproj /p:TargetFrameworkVersion="v4.5"
+  - xbuild DALMySql/DALMySql.csproj /p:TargetFrameworkVersion="v4.5"
+  - xbuild DALMySqlTest/DALMySqlTest.csproj /p:TargetFrameworkVersion="v4.5"
+  - xbuild DALTestClient/DALTestClient.csproj /p:TargetFrameworkVersion="v4.5"
+  - xbuild Database/Database.csproj /p:TargetFrameworkVersion="v4.5"
+  - xbuild DomainClasses/DomainClasses.csproj /p:TargetFrameworkVersion="v4.5"
+  - xbuild DomainClassesTest/DomainClassesTest.csproj /p:TargetFrameworkVersion="v4.5"
 
   # Create DB
   - mysql -u travis < DB/DDL.sql
