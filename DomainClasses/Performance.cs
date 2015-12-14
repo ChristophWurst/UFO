@@ -5,8 +5,7 @@ namespace UFO.DomainClasses {
 	[Serializable]
 	public class Performance {
 		public int Id { get; set; }
-		public DateTime Start { get; set; }
-		public DateTime End { get; set; }
+		public int SpectacledayTimeslot { get; set; }
 		public int ArtistId { get; set; }
 		public int VenueId { get; set; }
 

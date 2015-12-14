@@ -72,9 +72,8 @@ namespace DALTestClient {
 			Console.WriteLine(performanceDAO.GetById(1));
 
 			Performance performance1 = new Performance() {
-				Start = DateTime.Now,
-				End = DateTime.Now,
-				ArtistId = 1,
+				SpectacledayTimeslot = 1,
+				ArtistId = 1
 			};
 			Performance newPerformance = performanceDAO.Create(performance1);
 			Console.WriteLine("New Artist: " + newPerformance);
