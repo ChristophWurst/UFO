@@ -13,6 +13,60 @@
         MinWidth="600">
     <TabControl>
         <TabItem Header="Schedule">
+        </TabItem>
+        <TabItem Header="Artist">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ListView Grid.Row="0"
+                          Grid.Column="0">
+                    <ListViewItem>Musik</ListViewItem>
+                    <ListViewItem>Tanz</ListViewItem>
+                </ListView>
+                <ListView Grid.Row="0"
+                          Grid.Column="1">
+                    <ListViewItem>Stefan the Rösch</ListViewItem>
+                    <ListViewItem>Christoph the Wurst</ListViewItem>
+                </ListView>
+                <Grid Grid.Row="0"
+                      Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0"
+                           Grid.Column="0">
+                        Name:
+                    </Label>
+                    <TextBox Grid.Row="0"
+                             Grid.Column="1" />
+                    <Label Grid.Row="1"
+                           Grid.Column="0">
+                        Image:
+                    </Label>
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1" />
+                    <Label Grid.Row="2"
+                           Grid.Column="0">
+                        Video:
+                    </Label>
+                    <TextBox Grid.Row="2"
+                             Grid.Column="1" />
+                </Grid>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Venue">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -64,7 +118,5 @@
                 </Grid>
             </Grid>
         </TabItem>
-        <TabItem Header="Artist"></TabItem>
-        <TabItem Header="Venue"></TabItem>
     </TabControl>
 </Window>
