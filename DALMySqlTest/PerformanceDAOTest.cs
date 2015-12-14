@@ -12,10 +12,9 @@ namespace DALMySqlTest {
 
 		public static bool IsEqualTo(this Performance p1, Performance p2) {
 			return p1.Id == p2.Id
-				&& p1.Start == p2.Start
-				&& p1.End == p2.End
 				&& p1.VenueId == p2.VenueId
-				&& p1.ArtistId == p2.ArtistId;
+				&& p1.ArtistId == p2.ArtistId
+				&& p1.SpectacledayTimeslot == p2.SpectacledayTimeslot;
 		}
 	}
 
@@ -37,26 +36,24 @@ namespace DALMySqlTest {
 			performance1 = new Performance {
 				Id = 1,
 				ArtistId = 1,
-				Start = new DateTime(2015, 12, 31),
-				End = new DateTime(2015, 12, 31),
+				SpectacledayTimeslot = 1,
 				VenueId = 1
 			};
 
 			performance2 = new Performance {
 				Id = 2,
 				ArtistId = 2,
-				Start = new DateTime(2015, 12, 31),
-				End = new DateTime(2015, 12, 31),
-				VenueId = 2
+				VenueId = 2,
+				SpectacledayTimeslot = 2
 			};
 
 			IList<string> sqls = new List<string> {
 				"SET FOREIGN_KEY_CHECKS=0",
 				"DELETE FROM `performance`",
-				"INSERT INTO `performance` (`id`, `artist_id`, `venue_id`, `start`, `end`) "
-				+ "VALUES (1, 1, 1, '2015-12-31', '2015-12-31')",
-				"INSERT INTO `performance` (`id`, `artist_id`, `venue_id`, `start`, `end`) "
-				+ "VALUES (2, 2, 2, '2015-12-31', '2015-12-31')"
+				"INSERT INTO `performance` (`id`, `artist_id`, `venue_id`, `spectacleday_timeslot_id`) "
+				+ "VALUES (1, 1, 1, 1)",
+				"INSERT INTO `performance` (`id`, `artist_id`, `venue_id`, `spectacleday_timeslot_id`) "
+				+ "VALUES (2, 2, 2, 2)"
 			};
 			runDbCommands(db, sqls);
 		}
@@ -105,14 +102,12 @@ namespace DALMySqlTest {
 			var v1Tmp = new Performance {
 				Id = performance1.Id,
 				ArtistId = performance1.ArtistId,
-				Start = performance1.Start,
-				End = performance1.End,
-				VenueId = 1
+				VenueId = 1,
+				SpectacledayTimeslot = performance1.SpectacledayTimeslot
 			};
 			Assert.True(performance1.IsEqualTo(v1Tmp));
 			performance1.ArtistId = 3;
-			performance1.Start = new DateTime(2015, 12, 31);
-			performance1.End = new DateTime(2015, 12, 31);
+			performance1.SpectacledayTimeslot = 3;
 			performance1.VenueId = 3;
 			Assert.False(performance1.IsEqualTo(v1Tmp));
 			Assert.True(dao.Update(performance1).IsEqualTo(performance1));
@@ -128,10 +123,9 @@ namespace DALMySqlTest {
 		public void TestCreate() {
 			var newPerformance = new Performance {
 				Id = -1,
-				ArtistId = 1,
-				Start = new DateTime(2015, 12, 31),
-				End = new DateTime(2015, 12, 31),
-				VenueId = 1
+				ArtistId = 3,
+				VenueId = 3,
+				SpectacledayTimeslot = 3
 			};
 			newPerformance = dao.Create(newPerformance);
 			Assert.True(newPerformance.Id != -1);

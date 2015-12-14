@@ -18,14 +18,13 @@ namespace UFO.DAL.MySql {
 										+ "WHERE `id` = @Id";
 
 		private const string SQL_INSERT = "INSERT INTO `performance` "
-										+ "(`start`, `end`, `artist_id`, `venue_id`) VALUES "
-										+ "(@Start, @End, @ArtistId, @VenueId)";
+										+ "(`artist_id`, `venue_id`, `spectacleday_timeslot_id`) VALUES "
+										+ "(@ArtistId, @VenueId, @SpectacledayTimeslotId)";
 
 		private const string SQL_UPDATE = "UPDATE `performance` SET "
-										+ "`start` = @Start, "
-										+ "`end` = @End, "
 										+ "`artist_id` = @ArtistId, "
-										+ "`venue_id`= @VenueId "
+										+ "`venue_id`= @VenueId, "
+										+ "`spectacleday_timeslot_id` = @SpectacledayTimeslotId "
 										+ "WHERE `id` = @Id";
 
 		private const string SQL_DELETE = "DELETE FROM `performance` "
@@ -43,22 +42,20 @@ namespace UFO.DAL.MySql {
 			return cmd;
 		}
 
-		private DbCommand CreateUpdateCommand(int id, DateTime start, DateTime end, int artistId, int venueId) {
+		private DbCommand CreateUpdateCommand(int id, int artistId, int venueId, int timeslot) {
 			var cmd = db.CreateCommand(SQL_UPDATE);
 			db.DefineParameter(cmd, "@Id", DbType.Int32, id);
-			db.DefineParameter(cmd, "@Start", DbType.DateTime, start);
-			db.DefineParameter(cmd, "@End", DbType.DateTime, end);
 			db.DefineParameter(cmd, "@ArtistId", DbType.Int32, artistId);
 			db.DefineParameter(cmd, "@VenueId", DbType.Int32, venueId);
+			db.DefineParameter(cmd, "@SpectacledayTimeslotId", DbType.Int32, timeslot);
 			return cmd;
 		}
 
-		private DbCommand CreateInsertCommand(DateTime start, DateTime end, int artistId, int venueId) {
+		private DbCommand CreateInsertCommand(int artistId, int venueId, int timeslot) {
 			var cmd = db.CreateCommand(SQL_INSERT);
-			db.DefineParameter(cmd, "@Start", DbType.DateTime, start);
-			db.DefineParameter(cmd, "@End", DbType.DateTime, end);
 			db.DefineParameter(cmd, "@ArtistId", DbType.Int32, artistId);
 			db.DefineParameter(cmd, "@VenueId", DbType.Int32, venueId);
+			db.DefineParameter(cmd, "@SpectacledayTimeslotId", DbType.Int32, timeslot);
 			return cmd;
 		}
 
@@ -71,10 +68,9 @@ namespace UFO.DAL.MySql {
 		private Performance CreatePerformanceFromReader(IDataReader reader) {
 			return new Performance() {
 				Id = (int)reader["id"],
-				Start = (DateTime)reader["start"],
-				End = (DateTime)reader["end"],
 				ArtistId = (int)reader["artist_id"],
-				VenueId = (int)reader["venue_id"]
+				VenueId = (int)reader["venue_id"],
+				SpectacledayTimeslot = (int)reader["spectacleday_timeslot_id"]
 			};
 		}
 
@@ -108,7 +104,7 @@ namespace UFO.DAL.MySql {
 		}
 
 		public Performance Update(Performance performance) {
-			var cmd = CreateUpdateCommand(performance.Id, performance.Start, performance.End, performance.ArtistId, performance.VenueId);
+			var cmd = CreateUpdateCommand(performance.Id, performance.ArtistId, performance.VenueId, performance.SpectacledayTimeslot);
 			if (db.ExecuteNonQuery(cmd) != 1) {
 				throw new EntityNotFoundException();
 			}
@@ -116,7 +112,7 @@ namespace UFO.DAL.MySql {
 		}
 
 		public Performance Create(Performance performance) {
-			var cmd = CreateInsertCommand(performance.Start, performance.End, performance.ArtistId, performance.VenueId);
+			var cmd = CreateInsertCommand(performance.ArtistId, performance.VenueId, performance.SpectacledayTimeslot);
 			db.ExecuteNonQuery(cmd);
 			performance.Id = (int)((MySqlCommand)cmd).LastInsertedId;
 			return performance;
