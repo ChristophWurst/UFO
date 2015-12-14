@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UFO.Commander"
-        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        xmlns:tabs="clr-namespace:UFO.Commander"
         mc:Ignorable="d"
         Title="UFOWindow"
         Height="600"
@@ -12,111 +12,8 @@
         MinHeight="500"
         MinWidth="600">
     <TabControl>
-        <TabItem Header="Schedule">
-        </TabItem>
-        <TabItem Header="Artist">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <ListView Grid.Row="0"
-                          Grid.Column="0">
-                    <ListViewItem>Musik</ListViewItem>
-                    <ListViewItem>Tanz</ListViewItem>
-                </ListView>
-                <ListView Grid.Row="0"
-                          Grid.Column="1">
-                    <ListViewItem>Stefan the Rösch</ListViewItem>
-                    <ListViewItem>Christoph the Wurst</ListViewItem>
-                </ListView>
-                <Grid Grid.Row="0"
-                      Grid.Column="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0"
-                           Grid.Column="0">
-                        Name:
-                    </Label>
-                    <TextBox Grid.Row="0"
-                             Grid.Column="1" />
-                    <Label Grid.Row="1"
-                           Grid.Column="0">
-                        Image:
-                    </Label>
-                    <TextBox Grid.Row="1"
-                             Grid.Column="1" />
-                    <Label Grid.Row="2"
-                           Grid.Column="0">
-                        Video:
-                    </Label>
-                    <TextBox Grid.Row="2"
-                             Grid.Column="1" />
-                </Grid>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Venue">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <ListView Grid.Row="0"
-                          Grid.Column="0">
-                    <ListViewItem>Hauptplatz</ListViewItem>
-                    <ListViewItem>Pfarrhof</ListViewItem>
-                </ListView>
-                <ListView Grid.Row="0"
-                          Grid.Column="1">
-                    <ListViewItem>Große Bühne</ListViewItem>
-                    <ListViewItem>Stadtsaal</ListViewItem>
-                </ListView>
-                <Grid Grid.Row="0"
-                      Grid.Column="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0"
-                           Grid.Column="0">
-                        Description:
-                    </Label>
-                    <TextBox Grid.Row="0"
-                             Grid.Column="1" />
-                    <Label Grid.Row="1"
-                           Grid.Column="0">
-                        Long description:
-                    </Label>
-                    <TextBox Grid.Row="1"
-                             Grid.Column="1" />
-                    <Label Grid.Row="2"
-                           Grid.Column="0">
-                        Location:
-                    </Label>
-                    <m:Map Grid.Row="2"
-                           Grid.Column="1"></m:Map>
-                </Grid>
-            </Grid>
-        </TabItem>
+        <tabs:ScheduleTab />
+        <tabs:ArtistTab />
+        <tabs:VenueTab />
     </TabControl>
 </Window>

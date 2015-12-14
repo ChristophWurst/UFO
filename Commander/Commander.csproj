@@ -59,9 +59,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ArtistTab.xaml.cs">
+      <DependentUpon>ArtistTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ScheduleTab.xaml.cs">
+      <DependentUpon>ScheduleTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UFOWindow.xaml.cs">
       <DependentUpon>UFOWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VenueTab.xaml.cs">
+      <DependentUpon>VenueTab.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ArtistTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,7 +87,15 @@
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ScheduleTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UFOWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VenueTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
