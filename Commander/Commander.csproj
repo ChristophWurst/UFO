@@ -74,6 +74,7 @@
     <Compile Include="ViewModels\ArtistViewModel.cs" />
     <Compile Include="ViewModels\CountryViewModel.cs" />
     <Compile Include="ViewModels\SpectacledayViewModel.cs" />
+    <Compile Include="ViewModels\TimeslotViewModel.cs" />
     <Page Include="ArtistTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
