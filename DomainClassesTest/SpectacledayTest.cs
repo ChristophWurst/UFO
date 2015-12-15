@@ -35,9 +35,8 @@ namespace UFO.Test.DomainClasses {
 		public void TestToString() {
 			spectacleday.Id = 1;
 			spectacleday.Day = new DateTime(1985, 11, 13);
-
-			Console.WriteLine(spectacleday.ToString());
-			Assert.AreEqual("[1] 13.11.1985 00:00:00", spectacleday.ToString());
+			string expected = $"[1] {spectacleday.Day}";
+			Assert.AreEqual(expected, spectacleday.ToString());
 		}
 	}
 }

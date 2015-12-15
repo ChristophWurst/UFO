@@ -44,7 +44,7 @@ namespace UFO.Test.DomainClasses {
 			st.TimeslotId = 2;
 			st.SpectacledayId = 3;
 
-			string expected = "[1] TimeslotId: [2] SpectacledayId: [3]";
+			string expected = $"[{st.Id}] TimeslotId: [{st.TimeslotId}] SpectacledayId: [{st.SpectacledayId}]";
 			Assert.AreEqual(expected, st.ToString());
 		}
 	}

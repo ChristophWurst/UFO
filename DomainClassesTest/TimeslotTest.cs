@@ -44,7 +44,7 @@ namespace UFO.Test.DomainClasses {
 			timeslot.Start = new TimeSpan(1, 2, 3);
 			timeslot.End = new TimeSpan(3, 2, 1);
 
-			string expected = "[3] 01:02:03 03:02:01";
+			string expected = $"[3] {timeslot.Start} {timeslot.End}";
 			Assert.AreEqual(expected, timeslot.ToString());
 		}
 	}
