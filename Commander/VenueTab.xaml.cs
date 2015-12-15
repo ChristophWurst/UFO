@@ -29,12 +29,12 @@ namespace UFO.Commander {
 			var area1 = new Area { Name = "Area 1" };
 			var area2 = new Area { Name = "Area 2" };
 
-			var venue1 = new Venue { Description = "Venue 1" };
-			var venue2 = new Venue { Description = "Venue 2" };
-			var venue3 = new Venue { Description = "Venue 3" };
-			var venue4 = new Venue { Description = "Venue 4" };
-			var venue5 = new Venue { Description = "Venue 5" };
-			var venue6 = new Venue { Description = "Venue 6" };
+			var venue1 = new Venue { ShortDescription = "V1", Description = "Venue 1" };
+			var venue2 = new Venue { ShortDescription = "V2", Description = "Venue 2" };
+			var venue3 = new Venue { ShortDescription = "V3", Description = "Venue 3" };
+			var venue4 = new Venue { ShortDescription = "V4", Description = "Venue 4" };
+			var venue5 = new Venue { ShortDescription = "V5", Description = "Venue 5" };
+			var venue6 = new Venue { ShortDescription = "V6", Description = "Venue 6" };
 
 			Loaded += (s, e) => {
 				DataContext = new VenueTabViewModel {

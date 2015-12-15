@@ -18,6 +18,16 @@ namespace UFO.Commander.ViewModels {
 			this.venue = venue;
 		}
 
+		public string ShortDescription {
+			get { return venue.ShortDescription; }
+			set {
+				if (value != venue.ShortDescription) {
+					venue.ShortDescription = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShortDescription)));
+				}
+			}
+		}
+
 		public string Description {
 			get { return venue.Description; }
 			set {
