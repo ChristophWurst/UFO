@@ -44,6 +44,7 @@
     <Compile Include="Artist.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Country.cs" />
+    <Compile Include="Spectacleday.cs" />
     <Compile Include="Venue.cs" />
     <Compile Include="Performance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
