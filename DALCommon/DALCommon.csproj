@@ -48,6 +48,7 @@
     <Compile Include="ICategoryDAO.cs" />
     <Compile Include="ICountryDAO.cs" />
     <Compile Include="IDatabase.cs" />
+    <Compile Include="ISpectacledayDAO.cs" />
     <Compile Include="IVenueDAO.cs" />
     <Compile Include="IPerformanceDAO.cs" />
     <Compile Include="IUserDAO.cs" />
