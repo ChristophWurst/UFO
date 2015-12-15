@@ -27,14 +27,14 @@ namespace UFO.Test.DomainClasses {
 		[Test]
 		public void TestDay() {
 			DateTime day = new DateTime(1985, 11, 13);
-			spectacleday.day = day;
-			Assert.AreEqual(day, spectacleday.day);
+			spectacleday.Day = day;
+			Assert.AreEqual(day, spectacleday.Day);
 		}
 
 		[Test]
 		public void TestToString() {
 			spectacleday.Id = 1;
-			spectacleday.day = new DateTime(1985, 11, 13);
+			spectacleday.Day = new DateTime(1985, 11, 13);
 
 			Console.WriteLine(spectacleday.ToString());
 			Assert.AreEqual("[1] 13.11.1985 00:00:00", spectacleday.ToString());

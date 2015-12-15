@@ -9,10 +9,10 @@ namespace UFO.DomainClasses {
 	[Serializable]
 	public class Spectacleday {
 		public int Id { get; set; }
-		public DateTime day { get; set; }
+		public DateTime Day { get; set; }
 
 		public override string ToString() {
-			return "[" + Id.ToString() + "] " + day;
+			return "[" + Id.ToString() + "] " + Day;
 		}
 	}
 }

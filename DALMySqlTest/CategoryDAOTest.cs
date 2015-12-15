@@ -44,7 +44,6 @@ namespace DALMySqlTest {
 		[TearDown]
 		public void TearDown() {
 			transaction.Dispose();
-
 			runDbCommands(db, new List<string> {
 				"SET FOREIGN_KEY_CHECKS=1"
 			});
