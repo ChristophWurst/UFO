@@ -45,6 +45,7 @@
     <Compile Include="Category.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="Spectacleday.cs" />
+    <Compile Include="SpectacledayTimeslot.cs" />
     <Compile Include="Timeslot.cs" />
     <Compile Include="Venue.cs" />
     <Compile Include="Performance.cs" />

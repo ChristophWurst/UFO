@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UFO.Test.DomainClasses {
+namespace UFO.DomainClasses {
 
 	[Serializable]
 	public class SpectacledayTimeslot {
