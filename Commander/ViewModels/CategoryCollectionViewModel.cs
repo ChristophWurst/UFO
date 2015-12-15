@@ -13,23 +13,28 @@ namespace UFO.Commander.ViewModels {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		public CategoryViewModel currCategory;
+
 		public CategoryCollectionViewModel() {
-			Items = new ObservableCollection<CategoryViewModel>();
-			Items.Add(new CategoryViewModel(new Category() { Id = 1, Description = "BDSM" }));
-			Items.Add(new CategoryViewModel(new Category() { Id = 1, Description = "SM" }));
-			Items.Add(new CategoryViewModel(new Category() { Id = 1, Description = "GONZO" }));
+			Categories = new ObservableCollection<CategoryViewModel>();
 		}
 
-		public ObservableCollection<CategoryViewModel> Items { get; set; }
+		public ObservableCollection<CategoryViewModel> Categories { get; set; }
 
-		public CategoryViewModel CurrentItem {
-			get { return CurrentItem; }
+		public CategoryViewModel CurrCategory {
+			get { return currCategory; }
 			set {
-				if (CurrentItem != value) {
-					CurrentItem = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentItem)));
+				if (currCategory != value) {
+					currCategory = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrCategory)));
 				}
 			}
+		}
+
+		public async void LoadCategories() {
+			Categories.Add(new CategoryViewModel(new Category() { Id = 1, Description = "BDSM" }));
+			Categories.Add(new CategoryViewModel(new Category() { Id = 2, Description = "SM" }));
+			Categories.Add(new CategoryViewModel(new Category() { Id = 3, Description = "GONZO" }));
 		}
 	}
 }

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UFO.Commander.ViewModels;
 
 namespace UFO.Commander {
 
@@ -22,6 +23,9 @@ namespace UFO.Commander {
 
 		public ArtistTab() {
 			InitializeComponent();
+			this.Loaded += (s, e) => {
+				this.DataContext = new CategoryCollectionViewModel();
+			};
 		}
 	}
 }
