@@ -7,7 +7,7 @@ using UFO.DomainClasses;
 
 namespace UFO.DAL.Common {
 
-	internal interface ISpectacledayDAO {
+	public interface ISpectacledayDAO {
 
 		Spectacleday GetById(int id);
 
