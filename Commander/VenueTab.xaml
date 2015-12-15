@@ -19,17 +19,28 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <ListView Grid.Row="0"
-                          Grid.Column="0">
-            <ListViewItem>Hauptplatz</ListViewItem>
-            <ListViewItem>Pfarrhof</ListViewItem>
+                  Grid.Column="0"
+                  ItemsSource="{Binding Path=Areas}"
+                  SelectedItem="{Binding Path=CurrentArea, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Name}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <ListView Grid.Row="0"
-                          Grid.Column="1">
-            <ListViewItem>Große Bühne</ListViewItem>
-            <ListViewItem>Stadtsaal</ListViewItem>
+                  Grid.Column="1"
+                  ItemsSource="{Binding Path=CurrentArea.Venues}"
+                  SelectedItem="{Binding Path=CurrentVenue, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Description}"></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Grid Grid.Row="0"
-                      Grid.Column="2">
+              Grid.Column="2"
+              DataContext="{Binding Path=CurrentVenue}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -40,23 +51,24 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
-                           Grid.Column="0">
+                   Grid.Column="0">
                 Description:
             </Label>
             <TextBox Grid.Row="0"
-                             Grid.Column="1" />
+                     Grid.Column="1"
+                     Text="{Binding Description, Mode=TwoWay}" />
             <Label Grid.Row="1"
-                           Grid.Column="0">
+                   Grid.Column="0">
                 Long description:
             </Label>
             <TextBox Grid.Row="1"
-                             Grid.Column="1" />
+                     Grid.Column="1" />
             <Label Grid.Row="2"
-                           Grid.Column="0">
+                   Grid.Column="0">
                 Location:
             </Label>
             <m:Map Grid.Row="2"
-                           Grid.Column="1"></m:Map>
+                   Grid.Column="1"></m:Map>
         </Grid>
     </Grid>
 </TabItem>
