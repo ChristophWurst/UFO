@@ -7,10 +7,10 @@ using UFO.DomainClasses;
 
 namespace UFO.DAL.Common {
 
-	public interface ITimeslot {
+	public interface ISpectacledayTimeslotDAO {
 
-		Timeslot GetById(int id);
+		SpectacledayTimeslot GetById(int id);
 
-		IEnumerable<Timeslot> GetAll();
+		IEnumerable<SpectacledayTimeslot> GetAll();
 	}
 }
