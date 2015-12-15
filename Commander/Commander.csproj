@@ -71,6 +71,9 @@
     <Compile Include="VenueTab.xaml.cs">
       <DependentUpon>VenueTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AreaViewModel.cs" />
+    <Compile Include="ViewModels\VenueTabViewModel.cs" />
+    <Compile Include="ViewModels\VenueViewModel.cs" />
     <Page Include="ArtistTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -127,6 +130,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DomainClasses\DomainClasses.csproj">
+      <Project>{e2d07154-5acb-4098-acd5-07d0c2dd1df7}</Project>
+      <Name>DomainClasses</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

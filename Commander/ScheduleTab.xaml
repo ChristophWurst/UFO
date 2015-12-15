@@ -9,6 +9,23 @@
              d:DesignWidth="800"
              Header="Schedule">
     <Grid>
-        <TextBox>Schedule</TextBox>
+        <DataGrid ItemsSource="{Binding Path=performances}">
+            <DataGrid.Columns>
+                <DataGridTextColumn  Header="14-15"></DataGridTextColumn>
+                <DataGridTextColumn  Header="15-16"></DataGridTextColumn>
+                <DataGridTextColumn  Header="16-17"></DataGridTextColumn>
+                <DataGridTextColumn  Header="17-18"></DataGridTextColumn>
+                <DataGridTextColumn  Header="18-19"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid ItemsSource="{Binding}" Margin="0,-2,0,2">
+            <DataGrid.Columns>
+                <DataGridTextColumn  Header="14-15" />
+                <DataGridTextColumn  Header="15-16" />
+                <DataGridTextColumn  Header="16-17" />
+                <DataGridTextColumn  Header="17-18" />
+                <DataGridTextColumn  Header="18-19" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </TabItem>

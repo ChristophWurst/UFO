@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UFO.DomainClasses;
 
 namespace UFO.Commander {
 
@@ -19,9 +20,15 @@ namespace UFO.Commander {
 	/// Interaktionslogik für ScheduleTab.xaml
 	/// </summary>
 	public partial class ScheduleTab : TabItem {
+		private IList<Venue> performances;
 
 		public ScheduleTab() {
 			InitializeComponent();
+
+			performances = new List<Venue> {
+				new Venue() { ShortDescription = "AAA" },
+				new Venue() { ShortDescription = "BBB" }
+			};
 		}
 	}
 }
