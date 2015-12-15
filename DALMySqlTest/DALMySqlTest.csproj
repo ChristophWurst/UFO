@@ -55,6 +55,7 @@
     <Compile Include="DatabaseTest.cs" />
     <Compile Include="IntegrationTest.cs" />
     <Compile Include="PerformanceDAOTest.cs" />
+    <Compile Include="SpectacledayDAOTest.cs" />
     <Compile Include="UserDAOTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VenueDAOTest.cs" />

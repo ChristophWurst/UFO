@@ -48,10 +48,13 @@
     <Compile Include="ICategoryDAO.cs" />
     <Compile Include="ICountryDAO.cs" />
     <Compile Include="IDatabase.cs" />
+    <Compile Include="ISpectacledayDAO.cs" />
+    <Compile Include="ISpectacledayTimeslotDAO.cs" />
     <Compile Include="IVenueDAO.cs" />
     <Compile Include="IPerformanceDAO.cs" />
     <Compile Include="IUserDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ITimeslotDAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DomainClasses\DomainClasses.csproj">

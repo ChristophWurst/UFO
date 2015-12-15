@@ -22,19 +22,9 @@ namespace UFO.Test.DomainClasses {
 		}
 
 		[Test]
-		public void TestStart() {
-			DateTime start = DateTime.Now;
-
-			performance.Start = start;
-			Assert.AreEqual(start, performance.Start);
-		}
-
-		[Test]
-		public void TestEnd() {
-			DateTime end = DateTime.Now;
-
-			performance.End = end;
-			Assert.AreEqual(end, performance.End);
+		public void TestSpectacledasTimeslot() {
+			performance.SpectacledayTimeslot = 1;
+			Assert.AreEqual(1, performance.SpectacledayTimeslot);
 		}
 
 		[Test]
