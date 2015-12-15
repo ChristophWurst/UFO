@@ -78,5 +78,17 @@ namespace DALCommonTest {
 			ISpectacledayDAO dao = factory.CreateSpectacledayDAO(db);
 			Assert.IsNotNull(dao);
 		}
+
+		[Test]
+		public void TestTimeslotDAO() {
+			ITimeslotDAO dao = factory.CreateTimeslotDAO(db);
+			Assert.IsNotNull(dao);
+		}
+
+		[Test]
+		public void TestSpectacledayTimeslot() {
+			ISpectacledayTimeslotDAO dao = factory.CreateSpectacledayTimeslotDAO(db);
+			Assert.IsNotNull(dao);
+		}
 	}
 }
