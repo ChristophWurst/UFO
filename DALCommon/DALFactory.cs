@@ -97,5 +97,11 @@ namespace UFO.DAL.Common {
 			this.EnsureConstructorExists(classType, typeof(IDatabase));
 			return Activator.CreateInstance(classType, new object[] { database }) as IUserDAO;
 		}
+
+		public ISpectacledayDAO CreateSpectacledayDAO(IDatabase database) {
+			Type classType = this.GetType(this.assemblyName + ".SpectacledayDAO");
+			this.EnsureConstructorExists(classType, typeof(IDatabase));
+			return Activator.CreateInstance(classType, new object[] { database }) as ISpectacledayDAO;
+		}
 	}
 }
