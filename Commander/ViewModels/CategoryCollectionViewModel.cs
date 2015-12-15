@@ -17,6 +17,7 @@ namespace UFO.Commander.ViewModels {
 
 		public CategoryCollectionViewModel() {
 			Categories = new ObservableCollection<CategoryViewModel>();
+			LoadCategories();
 		}
 
 		public ObservableCollection<CategoryViewModel> Categories { get; set; }
