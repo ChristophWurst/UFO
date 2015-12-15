@@ -70,7 +70,12 @@
                 Location:
             </Label>
             <m:Map Grid.Row="2"
-                   Grid.Column="1"></m:Map>
+                   Grid.Column="1"
+                   CredentialsProvider="An6iw95tcP-HiGHPgtjSZDpe7uLoD90wQei0CCuyCqxzNaZY97zrCBtBEbowAZXA"
+                   Center="48.307159,14.312592"
+                   ZoomLevel="13">
+                <m:Pushpin Location="{Binding Path=Location}" />
+            </m:Map>
         </Grid>
     </Grid>
 </TabItem>
