@@ -16,6 +16,7 @@ namespace UFO.Commander.ViewModels {
 		public ObservableCollection<ArtistViewModel> Artists { get; set; }
 
 		private ArtistViewModel currArtist;
+		private CategoryViewModel category;
 
 		public ArtistViewModel CurrArtist {
 			get { return currArtist; }
@@ -27,11 +28,23 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
+		public CategoryViewModel Category {
+			get { return category; }
+			set {
+				if (category != value) {
+					category = value;
+					LoadArtists();
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Category)));
+				}
+			}
+		}
+
 		public ArtistCollectionViewModel() {
 			Artists = new ObservableCollection<ArtistViewModel>();
 		}
 
-		public async void LoadArtistsForCategory(CategoryViewModel category) {
+		public async void LoadArtists() {
+			Artists.Clear();
 			Artists.Add(new ArtistViewModel(new Artist() { Id = 1, Name = "Christooph" }));
 			Artists.Add(new ArtistViewModel(new Artist() { Id = 2, Name = "Stefaaaan" }));
 		}

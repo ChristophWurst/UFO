@@ -19,11 +19,11 @@ namespace UFO.Commander.ViewModels {
 		public ObservableCollection<CategoryViewModel> Categories { get; set; }
 
 		public CategoryViewModel CurrCategory {
-			get { return categoriesCollection.currCategory; }
+			get { return categoriesCollection.CurrCategory; }
 			set {
-				if (categoriesCollection.currCategory != value) {
+				if (categoriesCollection.CurrCategory != value) {
 					categoriesCollection.currCategory = value;
-					artistsCollection.LoadArtistsForCategory(CurrCategory);
+					artistsCollection.Category = value;
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrCategory)));
 				}
 			}
@@ -35,6 +35,7 @@ namespace UFO.Commander.ViewModels {
 			artistsCollection = new ArtistCollectionViewModel();
 			categoriesCollection = new CategoryCollectionViewModel();
 			CurrArtist = artistsCollection.CurrArtist;
+			CurrCategory = categoriesCollection.CurrCategory;
 			Artists = artistsCollection.Artists;
 			Categories = categoriesCollection.Categories;
 		}

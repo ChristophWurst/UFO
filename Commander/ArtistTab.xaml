@@ -30,9 +30,14 @@
             </ListView.ItemTemplate>
         </ListView>
         <ListView Grid.Row="0"
-                          Grid.Column="1">
-            <ListViewItem>Stefan the Rösch</ListViewItem>
-            <ListViewItem>Christoph the Wurst</ListViewItem>
+                  ItemsSource="{Binding Path=Artists}"
+                  SelectedItem="{Binding Path=CurrArtist, Mode=TwoWay}"
+                  Grid.Column="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Grid Grid.Row="0"
                       Grid.Column="2">
