@@ -30,17 +30,18 @@
         </ListView>
         <ListView Grid.Row="0"
                   Grid.Column="1"
-                  ItemsSource="{Binding Path=CurrentArea.Venues}"
+                  DataContext="{Binding Path=CurrentArea}"
+                  ItemsSource="{Binding Path=Venues}"
                   SelectedItem="{Binding Path=CurrentVenue, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path=Description}"></TextBlock>
+                    <TextBlock Text="{Binding Path=ShortDescription}"></TextBlock>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <Grid Grid.Row="0"
               Grid.Column="2"
-              DataContext="{Binding Path=CurrentVenue}">
+              DataContext="{Binding Path=CurrentArea.CurrentVenue}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -56,13 +57,14 @@
             </Label>
             <TextBox Grid.Row="0"
                      Grid.Column="1"
-                     Text="{Binding Description, Mode=TwoWay}" />
+                     Text="{Binding Path=ShortDescription, Mode=TwoWay}" />
             <Label Grid.Row="1"
                    Grid.Column="0">
                 Long description:
             </Label>
             <TextBox Grid.Row="1"
-                     Grid.Column="1" />
+                     Grid.Column="1"
+                     Text="{Binding Path=Description, Mode=TwoWay}" />
             <Label Grid.Row="2"
                    Grid.Column="0">
                 Location:
