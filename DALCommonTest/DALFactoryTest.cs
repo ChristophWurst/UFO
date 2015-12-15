@@ -72,5 +72,11 @@ namespace DALCommonTest {
 			IUserDAO dao = factory.CreateUserDAO(db);
 			Assert.IsNotNull(dao);
 		}
+
+		[Test]
+		public void TestSpectacledayDAO() {
+			ISpectacledayDAO dao = factory.CreateSpectacledayDAO(db);
+			Assert.IsNotNull(dao);
+		}
 	}
 }
