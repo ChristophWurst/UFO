@@ -13,7 +13,7 @@ namespace UFO.DomainClasses {
 		public int SpectacledayId { get; set; }
 
 		public override string ToString() {
-			return "[" + Id.ToString() + "] TimeslotId: " + TimeslotId + "SpectacledayId: " + SpectacledayId;
+			return "[" + Id.ToString() + "] TimeslotId: [" + TimeslotId + "] SpectacledayId: [" + SpectacledayId + "]";
 		}
 	}
 }
