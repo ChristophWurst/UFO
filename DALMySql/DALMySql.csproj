@@ -52,6 +52,7 @@
     <Compile Include="PerformanceDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpectacledayDAO.cs" />
+    <Compile Include="SpectacledayTimeslotDAO.cs" />
     <Compile Include="TimeslotDAO.cs" />
     <Compile Include="UserDAO.cs" />
     <Compile Include="VenueDAO.cs" />
