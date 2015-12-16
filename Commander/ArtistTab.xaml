@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:UFO.Commander"
              xmlns:viewmodels="clr-namespace:UFO.Commander.ViewModels"
-             d:DataContext="{d:DesignData viewmodels:ArtistsTabViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
@@ -30,6 +29,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <ListView Grid.Row="0"
+                  DataContext="{Binding Path=CurrCategory}"
                   ItemsSource="{Binding Path=Artists}"
                   SelectedItem="{Binding Path=CurrArtist, Mode=TwoWay}"
                   Grid.Column="1">
@@ -39,7 +39,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Grid Grid.Row="0"
+        <Grid DataContext="{Binding Path=Categories}"
+              Grid.Row="0"
               Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="90*" />
@@ -78,7 +79,9 @@
                      Grid.Row="2"
                      Grid.Column="1" />
             </Grid>
-            <Grid Grid.Row="1" Grid.Column="0">
+            <Grid DataContext="{Binding Path=Categories}"
+                Grid.Row="1"
+                Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100*" />
                 </Grid.RowDefinitions>
@@ -86,25 +89,11 @@
                     <ColumnDefinition Width="50*" />
                     <ColumnDefinition Width="50*" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Row="0"
+                <Button DataContext="{Binding Path=CurrArtist}"
+                        Grid.Row="0"
                         Grid.Column="0"
-                        IsEnabled="{Binding Path=Editable}"
                         Command="{Binding Path=SaveCommand}">
                     <Label>SAVE</Label>
-                </Button>
-
-                <Button Grid.Row="0"
-                        Grid.Column="1"
-                        Command="{Binding Path=EditCommand}">
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=CurrArtist}" Value="{x:Null}">
-                                    <Setter Property="IsEnabled" Value="False"></Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
                 </Button>
             </Grid>
         </Grid>

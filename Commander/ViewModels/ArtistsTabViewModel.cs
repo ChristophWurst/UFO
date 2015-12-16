@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using UFO.BL;
 
 namespace UFO.Commander.ViewModels {
 
@@ -13,29 +14,17 @@ namespace UFO.Commander.ViewModels {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private ArtistCollectionViewModel artistsCollection;
-		private CategoryCollectionViewModel categoriesCollection;
-
-		public ObservableCollection<ArtistViewModel> Artists { get; set; }
 		public ObservableCollection<CategoryViewModel> Categories { get; set; }
 
-		public CategoryViewModel CurrCategory {
-			get { return categoriesCollection.CurrCategory; }
-			set {
-				if (categoriesCollection.CurrCategory != value) {
-					categoriesCollection.currCategory = value;
-					artistsCollection.Category = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrCategory)));
-				}
-			}
-		}
+		private CategoryViewModel currCategory;
 
-		public ArtistViewModel CurrArtist {
-			get { return artistsCollection.CurrArtist; }
+		public CategoryViewModel CurrCategory {
+			get { return currCategory; }
 			set {
-				if (artistsCollection.CurrArtist != value) {
-					artistsCollection.CurrArtist = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrArtist)));
+				if (currCategory != value) {
+					currCategory = value;
+					currCategory.LoadArtists();
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrCategory)));
 				}
 			}
 		}
@@ -52,35 +41,18 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
+		private IBusinessLogic bl;
+
 		public ArtistsTabViewModel() {
-			artistsCollection = new ArtistCollectionViewModel();
-			categoriesCollection = new CategoryCollectionViewModel();
-			CurrArtist = artistsCollection.CurrArtist;
-			CurrCategory = categoriesCollection.CurrCategory;
-			Artists = artistsCollection.Artists;
-			Categories = categoriesCollection.Categories;
+			bl = BusinessLogicFactory.GetBusinessLogic();
+			Categories = new ObservableCollection<CategoryViewModel>();
+			LoadCategories();
 		}
 
-		private ICommand editCommand;
-
-		public ICommand EditCommand {
-			get {
-				if (editCommand == null) {
-					editCommand = new RelayCommand(param => Editable = true);
-				}
-				return editCommand;
-			}
-		}
-
-		private ICommand saveCommand;
-
-		public ICommand SaveCommand {
-			get {
-				if (saveCommand == null) {
-					saveCommand = new RelayCommand(param => Editable = false);
-				}
-				return saveCommand;
-			}
+		internal async void LoadCategories() {
+			Categories.Clear();
+			var tmpCategories = await Task.Factory.StartNew(() => bl.GetCategories().Select(category => new CategoryViewModel(category)));
+			tmpCategories.ToList().ForEach(category => Categories.Add(category));
 		}
 	}
 }

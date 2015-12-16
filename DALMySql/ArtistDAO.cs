@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -28,6 +29,10 @@ namespace UFO.DAL.MySql {
 		private const string SQL_DELETE = "DELETE FROM `artist` "
 										+ "WHERE `id` = @Id";
 
+		private const string SQL_SELECT_FOR_CATEGORY = "SELECT * "
+												 + "FROM `artist`"
+												 + "WHERE `category_id` = @CategoryId";
+
 		private IDatabase db;
 
 		public ArtistDAO(IDatabase db) {
@@ -41,6 +46,12 @@ namespace UFO.DAL.MySql {
 		private DbCommand createSelectByIdCommand(int id) {
 			DbCommand cmd = db.CreateCommand(SQL_SELECT);
 			db.DefineParameter(cmd, "@Id", DbType.Int32, id);
+			return cmd;
+		}
+
+		private DbCommand createSelectForCategoryCommand(Category category) {
+			DbCommand cmd = db.CreateCommand(SQL_SELECT_FOR_CATEGORY);
+			db.DefineParameter(cmd, "@CategoryId", DbType.Int32, category.Id);
 			return cmd;
 		}
 
@@ -130,6 +141,17 @@ namespace UFO.DAL.MySql {
 			if (db.ExecuteNonQuery(cmd) != 1) {
 				throw new EntityNotFoundException();
 			}
+		}
+
+		public IEnumerable<Artist> GetForCategory(Category category) {
+			var result = new List<Artist>();
+			DbCommand cmd = createSelectForCategoryCommand(category);
+			using (IDataReader reader = db.ExecuteReader(cmd)) {
+				while (reader.Read()) {
+					result.Add(createArtistFromReader(reader));
+				}
+			}
+			return result;
 		}
 	}
 }

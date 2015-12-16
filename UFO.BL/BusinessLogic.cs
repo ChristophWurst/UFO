@@ -21,8 +21,24 @@ namespace UFO.BL {
 			return dalFactory.CreateAreaDAO(db).GetAll();
 		}
 
+		public IEnumerable<Artist> GetArtists() {
+			return dalFactory.CreateArtistDAO(db).GetAll();
+		}
+
+		public IEnumerable<Artist> GetArtistsForCategory(Category category) {
+			return dalFactory.CreateArtistDAO(db).GetForCategory(category);
+		}
+
+		public IEnumerable<Category> GetCategories() {
+			return dalFactory.CreateCategoryDAO(db).GetAll();
+		}
+
 		public IEnumerable<Venue> GetVenuesForArea(Area area) {
 			return dalFactory.CreateVenueDAO(db).GetForArea(area);
+		}
+
+		public Artist UpdateArtist(Artist artist) {
+			return dalFactory.CreateArtistDAO(db).Update(artist);
 		}
 	}
 }
