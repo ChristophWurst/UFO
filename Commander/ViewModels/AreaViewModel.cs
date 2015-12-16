@@ -49,7 +49,7 @@ namespace UFO.Commander.ViewModels {
 
 		internal void LoadVenues() {
 			Venues.Clear();
-			bl.GetVenuesForArea(area).ToList().ForEach(v => Venues.Add(new VenueViewModel(v)));
+			bl.GetVenuesForArea(area).ToList().ForEach(v => Venues.Add(new VenueViewModel(v, bl)));
 
 			CurrentVenue = Venues.FirstOrDefault();
 		}

@@ -12,5 +12,7 @@ namespace UFO.BL {
 		IEnumerable<Area> GetAreas();
 
 		IEnumerable<Venue> GetVenuesForArea(Area area);
+
+		Venue UpdateVenue(Venue venue);
 	}
 }
