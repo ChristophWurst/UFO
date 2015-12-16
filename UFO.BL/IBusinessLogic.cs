@@ -10,5 +10,7 @@ namespace UFO.BL {
 	public interface IBusinessLogic {
 
 		IEnumerable<Area> GetAreas();
+
+		IEnumerable<Venue> GetVenuesForArea(Area area);
 	}
 }

@@ -16,7 +16,7 @@ namespace UFO.Commander.ViewModels {
 
 		private void LoadAreas() {
 			Areas = new ObservableCollection<AreaViewModel>();
-			bl.GetAreas().Select(a => new AreaViewModel(a)).ToList().ForEach(a => Areas.Add(a));
+			bl.GetAreas().Select(a => new AreaViewModel(a, bl)).ToList().ForEach(a => Areas.Add(a));
 			CurrentArea = Areas.FirstOrDefault();
 		}
 

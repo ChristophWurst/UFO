@@ -20,5 +20,9 @@ namespace UFO.BL {
 		public IEnumerable<Area> GetAreas() {
 			return dalFactory.CreateAreaDAO(db).GetAll();
 		}
+
+		public IEnumerable<Venue> GetVenuesForArea(Area area) {
+			return dalFactory.CreateVenueDAO(db).GetForArea(area);
+		}
 	}
 }

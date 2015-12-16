@@ -12,5 +12,7 @@ namespace UFO.DAL.Common {
 		Venue Create(Venue venue);
 
 		Venue Update(Venue venue);
+
+		IEnumerable<Venue> GetForArea(Area area);
 	}
 }

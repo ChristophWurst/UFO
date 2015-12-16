@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UFO.BL;
 using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
@@ -15,6 +16,7 @@ namespace UFO.Commander.ViewModels {
 		public ObservableCollection<VenueViewModel> Venues { get; set; }
 
 		private VenueViewModel currentVenue;
+		private IBusinessLogic bl;
 
 		public VenueViewModel CurrentVenue {
 			get { return currentVenue; }
@@ -28,8 +30,9 @@ namespace UFO.Commander.ViewModels {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public AreaViewModel(Area area) {
+		public AreaViewModel(Area area, IBusinessLogic bl) {
 			this.area = area;
+			this.bl = bl;
 
 			Venues = new ObservableCollection<VenueViewModel>();
 		}
@@ -46,9 +49,8 @@ namespace UFO.Commander.ViewModels {
 
 		internal void LoadVenues() {
 			Venues.Clear();
-			Venues.Add(new VenueViewModel(new Venue { ShortDescription = "V1", Description = "Venue 1", Latitude = 48.301, Longitude = 14.297 }));
-			Venues.Add(new VenueViewModel(new Venue { ShortDescription = "V2", Description = "Venue 2", Latitude = 48.302, Longitude = 14.296 }));
-			Venues.Add(new VenueViewModel(new Venue { ShortDescription = "V3", Description = "Venue 3", Latitude = 48.303, Longitude = 14.291 }));
+			bl.GetVenuesForArea(area).ToList().ForEach(v => Venues.Add(new VenueViewModel(v)));
+
 			CurrentVenue = Venues.FirstOrDefault();
 		}
 	}
