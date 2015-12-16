@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace UFO.Commander.ViewModels {
 
@@ -39,6 +40,18 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
+		private bool editable;
+
+		public bool Editable {
+			get { return editable; }
+			set {
+				if (editable != value) {
+					editable = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Editable)));
+				}
+			}
+		}
+
 		public ArtistsTabViewModel() {
 			artistsCollection = new ArtistCollectionViewModel();
 			categoriesCollection = new CategoryCollectionViewModel();
@@ -46,6 +59,28 @@ namespace UFO.Commander.ViewModels {
 			CurrCategory = categoriesCollection.CurrCategory;
 			Artists = artistsCollection.Artists;
 			Categories = categoriesCollection.Categories;
+		}
+
+		private ICommand editCommand;
+
+		public ICommand EditCommand {
+			get {
+				if (editCommand == null) {
+					editCommand = new RelayCommand(param => Editable = true);
+				}
+				return editCommand;
+			}
+		}
+
+		private ICommand saveCommand;
+
+		public ICommand SaveCommand {
+			get {
+				if (saveCommand == null) {
+					saveCommand = new RelayCommand(param => Editable = false);
+				}
+				return saveCommand;
+			}
 		}
 	}
 }
