@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using UFO.BL;
 using UFO.DomainClasses;
 
@@ -17,6 +18,7 @@ namespace UFO.Commander.ViewModels {
 
 		private VenueViewModel currentVenue;
 		private IBusinessLogic bl;
+		private RelayCommand relayCommand;
 
 		public VenueViewModel CurrentVenue {
 			get { return currentVenue; }
@@ -49,9 +51,25 @@ namespace UFO.Commander.ViewModels {
 
 		internal void LoadVenues() {
 			Venues.Clear();
-			bl.GetVenuesForArea(area).ToList().ForEach(v => Venues.Add(new VenueViewModel(v)));
+			bl.GetVenuesForArea(area).ToList().ForEach(v => Venues.Add(new VenueViewModel(v, bl)));
 
 			CurrentVenue = Venues.FirstOrDefault();
+		}
+
+		private void AddVenue(object obj) {
+			var newVenue = new Venue { AreaId = area.Id };
+			var vm = new VenueViewModel(newVenue, bl);
+			Venues.Add(vm);
+			CurrentVenue = vm;
+		}
+
+		public ICommand AddVenueCommand {
+			get {
+				if (relayCommand == null) {
+					relayCommand = new RelayCommand(AddVenue);
+				}
+				return relayCommand;
+			}
 		}
 	}
 }

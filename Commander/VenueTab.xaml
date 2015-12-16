@@ -28,17 +28,33 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Row="0"
-                  Grid.Column="1"
-                  DataContext="{Binding Path=CurrentArea}"
-                  ItemsSource="{Binding Path=Venues}"
-                  SelectedItem="{Binding Path=CurrentVenue, Mode=TwoWay}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Path=ShortDescription}"></TextBlock>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid Grid.Row="0"
+              Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <ListView Grid.Row="0"
+                      Grid.Column="0"
+                      DataContext="{Binding Path=CurrentArea}"
+                      ItemsSource="{Binding Path=Venues}"
+                      SelectedItem="{Binding Path=CurrentVenue, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=ShortDescription}"></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalAlignment="Right"
+                    Command="{Binding Path=CurrentArea.AddVenueCommand}">
+                +
+            </Button>
+        </Grid>
         <Grid Grid.Row="0"
               Grid.Column="2"
               DataContext="{Binding Path=CurrentArea.CurrentVenue}">
@@ -72,14 +88,19 @@
             </Label>
             <m:Map Grid.Row="2"
                    Grid.Column="1"
+                   Name="Map"
                    CredentialsProvider="An6iw95tcP-HiGHPgtjSZDpe7uLoD90wQei0CCuyCqxzNaZY97zrCBtBEbowAZXA"
                    Center="48.307159,14.312592"
                    ZoomLevel="13">
-                <m:Pushpin Location="{Binding Path=Location}" />
+                <m:Pushpin Name="MapPin"
+                           Location="{Binding Path=Location, Mode=TwoWay}"
+                           MouseLeftButtonDown="MapPinMouseDown"
+                           MouseMove="MapPinMouseMove" />
             </m:Map>
             <Button Grid.Row="3"
                     Grid.Column="1"
-                    HorizontalAlignment="Right">Save</Button>
+                    HorizontalAlignment="Right"
+                    Command="{Binding Path=SaveCommand}">Save</Button>
         </Grid>
     </Grid>
 </TabItem>
