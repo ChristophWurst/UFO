@@ -24,5 +24,9 @@ namespace UFO.BL {
 		public IEnumerable<Venue> GetVenuesForArea(Area area) {
 			return dalFactory.CreateVenueDAO(db).GetForArea(area);
 		}
+
+		public Venue UpdateVenue(Venue venue) {
+			return dalFactory.CreateVenueDAO(db).Update(venue);
+		}
 	}
 }

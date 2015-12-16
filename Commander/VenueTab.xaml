@@ -79,7 +79,8 @@
             </m:Map>
             <Button Grid.Row="3"
                     Grid.Column="1"
-                    HorizontalAlignment="Right">Save</Button>
+                    HorizontalAlignment="Right"
+                    Command="{Binding Path=SaveCommand}">Save</Button>
         </Grid>
     </Grid>
 </TabItem>
