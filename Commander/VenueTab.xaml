@@ -72,10 +72,14 @@
             </Label>
             <m:Map Grid.Row="2"
                    Grid.Column="1"
+                   Name="Map"
                    CredentialsProvider="An6iw95tcP-HiGHPgtjSZDpe7uLoD90wQei0CCuyCqxzNaZY97zrCBtBEbowAZXA"
                    Center="48.307159,14.312592"
                    ZoomLevel="13">
-                <m:Pushpin Location="{Binding Path=Location}" />
+                <m:Pushpin Name="MapPin"
+                           Location="{Binding Path=Location, Mode=TwoWay}"
+                           MouseLeftButtonDown="MapPinMouseDown"
+                           MouseMove="MapPinMouseMove" />
             </m:Map>
             <Button Grid.Row="3"
                     Grid.Column="1"

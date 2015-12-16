@@ -33,5 +33,24 @@ namespace UFO.Commander {
 				DataContext = new VenueTabViewModel(bl);
 			};
 		}
+
+		private bool draggingMapPin = false;
+		private Vector mouseToMarker;
+
+		private void MapPinMouseDown(object sender, MouseButtonEventArgs e) {
+			e.Handled = true;
+
+			draggingMapPin = true;
+			mouseToMarker = Point.Subtract(Map.LocationToViewportPoint(MapPin.Location), e.GetPosition(Map));
+		}
+
+		private void MapPinMouseMove(object sender, MouseEventArgs e) {
+			if (e.LeftButton == MouseButtonState.Pressed) {
+				if (draggingMapPin && MapPin != null) {
+					MapPin.Location = Map.ViewportPointToLocation(Point.Add(e.GetPosition(Map), mouseToMarker));
+					e.Handled = true;
+				}
+			}
+		}
 	}
 }

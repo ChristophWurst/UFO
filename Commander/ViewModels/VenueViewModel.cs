@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,16 @@ namespace UFO.Commander.ViewModels {
 		}
 
 		public string Location {
-			get { return venue.Latitude + "," + venue.Longitude; }
+			get {
+				var culture = CultureInfo.GetCultureInfo("en-GB");
+				return venue.Latitude.ToString(culture) + "," + venue.Longitude.ToString(culture);
+			}
+			set {
+				var loc = value.Split(',');
+				var culture = CultureInfo.GetCultureInfo("en-GB");
+				venue.Latitude = double.Parse(loc.ElementAt(0), culture);
+				venue.Longitude = double.Parse(loc.ElementAt(1), culture);
+			}
 		}
 
 		private void SaveChanges(object obj) {
