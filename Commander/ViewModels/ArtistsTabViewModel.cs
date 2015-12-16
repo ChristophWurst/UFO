@@ -29,7 +29,15 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
-		public ArtistViewModel CurrArtist { get; set; }
+		public ArtistViewModel CurrArtist {
+			get { return artistsCollection.CurrArtist; }
+			set {
+				if (artistsCollection.CurrArtist != value) {
+					artistsCollection.CurrArtist = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrArtist)));
+				}
+			}
+		}
 
 		public ArtistsTabViewModel() {
 			artistsCollection = new ArtistCollectionViewModel();

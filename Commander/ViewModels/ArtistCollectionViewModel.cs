@@ -45,7 +45,7 @@ namespace UFO.Commander.ViewModels {
 
 		public async void LoadArtists() {
 			Artists.Clear();
-			Artists.Add(new ArtistViewModel(new Artist() { Id = 1, Name = "Christooph" }));
+			Artists.Add(new ArtistViewModel(new Artist() { Id = 1, Name = "Christooph", Image = "bidl", Email = "yay@yay.com", Video = "videoooo" }));
 			Artists.Add(new ArtistViewModel(new Artist() { Id = 2, Name = "Stefaaaan" }));
 		}
 	}
