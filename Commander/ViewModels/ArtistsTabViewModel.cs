@@ -29,18 +29,6 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
-		private bool editable;
-
-		public bool Editable {
-			get { return editable; }
-			set {
-				if (editable != value) {
-					editable = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Editable)));
-				}
-			}
-		}
-
 		private IBusinessLogic bl;
 
 		public ArtistsTabViewModel() {

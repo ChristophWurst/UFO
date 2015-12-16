@@ -12,6 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" MinWidth="100" />
@@ -29,9 +30,8 @@
             </ListView.ItemTemplate>
         </ListView>
         <ListView Grid.Row="0"
-                  DataContext="{Binding Path=CurrCategory}"
-                  ItemsSource="{Binding Path=Artists}"
-                  SelectedItem="{Binding Path=CurrArtist, Mode=TwoWay}"
+                  ItemsSource="{Binding Path=CurrCategory.Artists}"
+                  SelectedItem="{Binding Path=CurrCategory.CurrArtist, Mode=TwoWay}"
                   Grid.Column="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -39,8 +39,12 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Grid DataContext="{Binding Path=Categories}"
-              Grid.Row="0"
+        <Button Grid.Row="1"
+                Grid.Column="1"
+                Command="{Binding Path=CurrCategory.CurrArtist.DeleteCommand}">
+            <Label>+</Label>
+        </Button>
+        <Grid Grid.Row="0"
               Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="90*" />
@@ -62,25 +66,21 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0"
                    Grid.Column="0">Name:</Label>
-                <TextBox DataContext="{Binding Path=CurrArtist}"
-                     Text="{Binding Path=Name}"
+                <TextBox Text="{Binding Path=CurrCategory.CurrArtist.Name}"
                      Grid.Row="0"
                      Grid.Column="1" />
                 <Label Grid.Row="1"
                    Grid.Column="0">Image:</Label>
-                <TextBox DataContext="{Binding Path=CurrArtist}"
-                     Text="{Binding Path=Image}"
+                <TextBox Text="{Binding Path=CurrCategory.CurrArtist.Image}"
                      Grid.Row="1"
                      Grid.Column="1" />
                 <Label Grid.Row="2"
                    Grid.Column="0">Video:</Label>
-                <TextBox DataContext="{Binding Path=CurrArtist}"
-                     Text="{Binding Path=Video}"
+                <TextBox Text="{Binding Path=CurrCategory.CurrArtist.Video}"
                      Grid.Row="2"
                      Grid.Column="1" />
             </Grid>
-            <Grid DataContext="{Binding Path=Categories}"
-                Grid.Row="1"
+            <Grid Grid.Row="1"
                 Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100*" />
@@ -89,10 +89,9 @@
                     <ColumnDefinition Width="50*" />
                     <ColumnDefinition Width="50*" />
                 </Grid.ColumnDefinitions>
-                <Button DataContext="{Binding Path=CurrArtist}"
-                        Grid.Row="0"
+                <Button Grid.Row="0"
                         Grid.Column="0"
-                        Command="{Binding Path=SaveCommand}">
+                        Command="{Binding Path=CurrCategory.CurrArtist.SaveCommand}">
                     <Label>SAVE</Label>
                 </Button>
             </Grid>

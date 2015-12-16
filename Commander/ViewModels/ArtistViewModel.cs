@@ -72,5 +72,27 @@ namespace UFO.Commander.ViewModels {
 				return saveCommand;
 			}
 		}
+
+		private ICommand createCommand;
+
+		public ICommand CreateCommand {
+			get {
+				if (createCommand == null) {
+					createCommand = new RelayCommand(param => artist = bl.CreateArtist(artist));
+				}
+				return createCommand;
+			}
+		}
+
+		private ICommand deleteCommand;
+
+		public ICommand DeleteCommand {
+			get {
+				if (deleteCommand == null) {
+					deleteCommand = new RelayCommand(param => bl.DeleteArtist(artist));
+				}
+				return deleteCommand;
+			}
+		}
 	}
 }

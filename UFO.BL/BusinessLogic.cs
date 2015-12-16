@@ -17,6 +17,14 @@ namespace UFO.BL {
 			this.dalFactory = dalFactory;
 		}
 
+		public Artist CreateArtist(Artist artist) {
+			return dalFactory.CreateArtistDAO(db).Create(artist);
+		}
+
+		public void DeleteArtist(Artist artist) {
+			dalFactory.CreateArtistDAO(db).Delete(artist);
+		}
+
 		public IEnumerable<Area> GetAreas() {
 			return dalFactory.CreateAreaDAO(db).GetAll();
 		}

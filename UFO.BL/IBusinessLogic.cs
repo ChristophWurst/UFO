@@ -18,5 +18,9 @@ namespace UFO.BL {
 		IEnumerable<Artist> GetArtistsForCategory(Category category);
 
 		Artist UpdateArtist(Artist artist);
+
+		Artist CreateArtist(Artist artist);
+
+		void DeleteArtist(Artist artist);
 	}
 }
