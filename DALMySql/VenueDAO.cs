@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -15,6 +16,10 @@ namespace UFO.DAL.MySql {
 		private const string SQL_SELECT = "SELECT * "
 										+ "FROM `venue` "
 										+ "WHERE `id` = @Id";
+
+		private const string SQL_SELECT_FOR_AREA = "SELECT * "
+												 + "FROM `venue`"
+												 + "WHERE `area_id` = @AreaId";
 
 		private const string SQL_INSERT = "INSERT INTO `venue` "
 										+ "(`area_id`, `desc`, `short_desc`, `latitude`, `longitude`) VALUES "
@@ -37,6 +42,12 @@ namespace UFO.DAL.MySql {
 		private DbCommand CreateSelectByIdCommand(int id) {
 			DbCommand cmd = this.db.CreateCommand(SQL_SELECT);
 			this.db.DefineParameter(cmd, "@Id", DbType.Int32, id);
+			return cmd;
+		}
+
+		private DbCommand CreateSelectForAreaCommand(Area area) {
+			DbCommand cmd = this.db.CreateCommand(SQL_SELECT_FOR_AREA);
+			this.db.DefineParameter(cmd, "@AreaId", DbType.Int32, area.Id);
 			return cmd;
 		}
 
@@ -99,6 +110,17 @@ namespace UFO.DAL.MySql {
 				throw new EntityNotFoundException();
 			}
 			return venue;
+		}
+
+		public IEnumerable<Venue> GetForArea(Area area) {
+			var result = new List<Venue>();
+			var cmd = this.CreateSelectForAreaCommand(area);
+			using (IDataReader reader = this.db.ExecuteReader(cmd)) {
+				while (reader.Read()) {
+					result.Add(this.CreateVenueFromReader(reader));
+				}
+			}
+			return result;
 		}
 
 		public Venue Create(Venue venue) {

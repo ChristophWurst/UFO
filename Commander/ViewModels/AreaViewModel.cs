@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UFO.BL;
 using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
@@ -15,6 +16,7 @@ namespace UFO.Commander.ViewModels {
 		public ObservableCollection<VenueViewModel> Venues { get; set; }
 
 		private VenueViewModel currentVenue;
+		private IBusinessLogic bl;
 
 		public VenueViewModel CurrentVenue {
 			get { return currentVenue; }
@@ -28,8 +30,11 @@ namespace UFO.Commander.ViewModels {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public AreaViewModel(Area area) {
+		public AreaViewModel(Area area, IBusinessLogic bl) {
 			this.area = area;
+			this.bl = bl;
+
+			Venues = new ObservableCollection<VenueViewModel>();
 		}
 
 		public string Name {
@@ -40,6 +45,13 @@ namespace UFO.Commander.ViewModels {
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
 				}
 			}
+		}
+
+		internal void LoadVenues() {
+			Venues.Clear();
+			bl.GetVenuesForArea(area).ToList().ForEach(v => Venues.Add(new VenueViewModel(v)));
+
+			CurrentVenue = Venues.FirstOrDefault();
 		}
 	}
 }

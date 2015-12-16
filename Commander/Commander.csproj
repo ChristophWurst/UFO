@@ -137,10 +137,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DALMySql\DALMySql.csproj">
+      <Project>{a811effc-ce32-4619-ab43-9ae0637c8085}</Project>
+      <Name>DALMySql</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DomainClasses\DomainClasses.csproj">
       <Project>{e2d07154-5acb-4098-acd5-07d0c2dd1df7}</Project>
       <Name>DomainClasses</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UFO.BL\UFO.BL.csproj">
+      <Project>{e35d8822-7688-4b48-8bbf-30fab35442c2}</Project>
+      <Name>UFO.BL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
