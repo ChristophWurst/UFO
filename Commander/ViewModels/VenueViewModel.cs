@@ -58,7 +58,11 @@ namespace UFO.Commander.ViewModels {
 		}
 
 		private void SaveChanges(object obj) {
-			bl.UpdateVenue(venue);
+			if (venue.Id == default(int)) {
+				bl.CreateVenue(venue);
+			} else {
+				bl.UpdateVenue(venue);
+			}
 		}
 
 		public ICommand SaveCommand {

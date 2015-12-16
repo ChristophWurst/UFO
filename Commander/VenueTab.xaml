@@ -28,17 +28,33 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Row="0"
-                  Grid.Column="1"
-                  DataContext="{Binding Path=CurrentArea}"
-                  ItemsSource="{Binding Path=Venues}"
-                  SelectedItem="{Binding Path=CurrentVenue, Mode=TwoWay}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Path=ShortDescription}"></TextBlock>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid Grid.Row="0"
+              Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <ListView Grid.Row="0"
+                      Grid.Column="0"
+                      DataContext="{Binding Path=CurrentArea}"
+                      ItemsSource="{Binding Path=Venues}"
+                      SelectedItem="{Binding Path=CurrentVenue, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=ShortDescription}"></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalAlignment="Right"
+                    Command="{Binding Path=CurrentArea.AddVenueCommand}">
+                +
+            </Button>
+        </Grid>
         <Grid Grid.Row="0"
               Grid.Column="2"
               DataContext="{Binding Path=CurrentArea.CurrentVenue}">
