@@ -13,6 +13,8 @@ namespace UFO.BL {
 
 		IEnumerable<Venue> GetVenuesForArea(Area area);
 
+		Venue CreateVenue(Venue venue);
+
 		Venue UpdateVenue(Venue venue);
 	}
 }

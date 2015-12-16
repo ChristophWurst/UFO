@@ -25,6 +25,10 @@ namespace UFO.BL {
 			return dalFactory.CreateVenueDAO(db).GetForArea(area);
 		}
 
+		public Venue CreateVenue(Venue venue) {
+			return dalFactory.CreateVenueDAO(db).Create(venue);
+		}
+
 		public Venue UpdateVenue(Venue venue) {
 			return dalFactory.CreateVenueDAO(db).Update(venue);
 		}
