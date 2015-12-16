@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:UFO.Commander"
+             xmlns:viewmodels="clr-namespace:UFO.Commander.ViewModels"
+             d:DataContext="{d:DesignData viewmodels:ArtistsTabViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
@@ -13,49 +15,98 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="auto" MinWidth="100" />
+            <ColumnDefinition Width="auto" MinWidth="100" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <ListView Grid.Row="0"
-                          Grid.Column="0">
-            <ListViewItem>Musik</ListViewItem>
-            <ListViewItem>Tanz</ListViewItem>
+                  ItemsSource="{Binding Path=Categories}"
+                  SelectedItem="{Binding Path=CurrCategory, Mode=TwoWay}"
+                  Grid.Column="0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Description}"></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <ListView Grid.Row="0"
-                          Grid.Column="1">
-            <ListViewItem>Stefan the Rösch</ListViewItem>
-            <ListViewItem>Christoph the Wurst</ListViewItem>
+                  ItemsSource="{Binding Path=Artists}"
+                  SelectedItem="{Binding Path=CurrArtist, Mode=TwoWay}"
+                  Grid.Column="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Grid Grid.Row="0"
-                      Grid.Column="2">
+              Grid.Column="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="90*" />
+                <RowDefinition Height="10*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0"
-                           Grid.Column="0">
-                Name:
-            </Label>
-            <TextBox Grid.Row="0"
-                             Grid.Column="1" />
-            <Label Grid.Row="1"
-                           Grid.Column="0">
-                Image:
-            </Label>
-            <TextBox Grid.Row="1"
-                             Grid.Column="1" />
-            <Label Grid.Row="2"
-                           Grid.Column="0">
-                Video:
-            </Label>
-            <TextBox Grid.Row="2"
-                             Grid.Column="1" />
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                   Grid.Column="0">Name:</Label>
+                <TextBox DataContext="{Binding Path=CurrArtist}"
+                     Text="{Binding Path=Name}"
+                     Grid.Row="0"
+                     Grid.Column="1" />
+                <Label Grid.Row="1"
+                   Grid.Column="0">Image:</Label>
+                <TextBox DataContext="{Binding Path=CurrArtist}"
+                     Text="{Binding Path=Image}"
+                     Grid.Row="1"
+                     Grid.Column="1" />
+                <Label Grid.Row="2"
+                   Grid.Column="0">Video:</Label>
+                <TextBox DataContext="{Binding Path=CurrArtist}"
+                     Text="{Binding Path=Video}"
+                     Grid.Row="2"
+                     Grid.Column="1" />
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*" />
+                    <ColumnDefinition Width="50*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="0"
+                        Grid.Column="0"
+                        IsEnabled="{Binding Path=Editable}"
+                        Command="{Binding Path=SaveCommand}">
+                    <Label>SAVE</Label>
+                </Button>
+
+                <Button Grid.Row="0"
+                        Grid.Column="1"
+                        Command="{Binding Path=EditCommand}">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=CurrArtist}" Value="{x:Null}">
+                                    <Setter Property="IsEnabled" Value="False"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
         </Grid>
     </Grid>
 </TabItem>
