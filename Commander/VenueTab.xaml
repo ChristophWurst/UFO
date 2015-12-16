@@ -46,6 +46,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
@@ -76,6 +77,9 @@
                    ZoomLevel="13">
                 <m:Pushpin Location="{Binding Path=Location}" />
             </m:Map>
+            <Button Grid.Row="3"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right">Save</Button>
         </Grid>
     </Grid>
 </TabItem>
