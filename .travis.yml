@@ -10,6 +10,7 @@ script:
   - xbuild Database/Database.csproj /p:TargetFrameworkVersion="v4.5"
   - xbuild DomainClasses/DomainClasses.csproj /p:TargetFrameworkVersion="v4.5"
   - xbuild DomainClassesTest/DomainClassesTest.csproj /p:TargetFrameworkVersion="v4.5"
+  - xbuild UFO.BL/UFO.BL.csproj /p:TargetFrameworkVersion="v4.5"
 
   # Create DB
   - mysql -u travis < DB/DDL.sql
