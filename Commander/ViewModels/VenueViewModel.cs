@@ -37,5 +37,9 @@ namespace UFO.Commander.ViewModels {
 				}
 			}
 		}
+
+		public string Location {
+			get { return venue.Latitude + "," + venue.Longitude; }
+		}
 	}
 }
