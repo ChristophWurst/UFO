@@ -9,13 +9,9 @@ using UFO.DomainClasses;
 namespace UFO.DAL.MySql {
 
 	public class ArtistDAO : IArtistDAO {
+		private const string SQL_SELECT_ALL = @"SELECT * FROM `artist` WHERE `deleted` = @Deleted";
 
-		private const string SQL_SELECT_ALL = "SELECT * "
-										+ "FROM `artist`";
-
-		private const string SQL_SELECT = "SELECT * "
-										+ "FROM `artist` "
-										+ "WHERE `id` = @Id";
+		private const string SQL_SELECT = @"SELECT * FROM `artist` WHERE `id` = @Id AND `deleted` = @Deleted";
 
 		private const string SQL_INSERT = "INSERT INTO `artist` "
 										+ "(`name`, `image`, `video`, `category_id`, `country_id`, `email`) VALUES "
@@ -24,14 +20,13 @@ namespace UFO.DAL.MySql {
 		private const string SQL_UPDATE = "UPDATE `artist` "
 										+ "SET name = @Name, image = @Image, video = @Video, "
 										+ "category_id = @CategoryId, country_id = @CountryId , email = @Email "
-										+ "WHERE ID = @Id";
+										+ "WHERE ID = @Id AND `deleted` = @Deleted";
 
-		private const string SQL_DELETE = "DELETE FROM `artist` "
-										+ "WHERE `id` = @Id";
+		private const string SQL_DELETE = "UPDATE `artist` SET `deleted` = @Deleted WHERE `id` = @Id";
 
 		private const string SQL_SELECT_FOR_CATEGORY = "SELECT * "
 												 + "FROM `artist`"
-												 + "WHERE `category_id` = @CategoryId";
+												 + "WHERE `category_id` = @CategoryId AND `deleted` = @Deleted";
 
 		private IDatabase db;
 
@@ -40,18 +35,22 @@ namespace UFO.DAL.MySql {
 		}
 
 		private DbCommand createSelectAllCommand() {
-			return db.CreateCommand(SQL_SELECT_ALL);
+			DbCommand cmd = db.CreateCommand(SQL_SELECT_ALL);
+			db.DefineParameter(cmd, "@Deleted", DbType.Boolean, false);
+			return cmd;
 		}
 
 		private DbCommand createSelectByIdCommand(int id) {
 			DbCommand cmd = db.CreateCommand(SQL_SELECT);
 			db.DefineParameter(cmd, "@Id", DbType.Int32, id);
+			db.DefineParameter(cmd, "@Deleted", DbType.Boolean, false);
 			return cmd;
 		}
 
 		private DbCommand createSelectForCategoryCommand(Category category) {
 			DbCommand cmd = db.CreateCommand(SQL_SELECT_FOR_CATEGORY);
 			db.DefineParameter(cmd, "@CategoryId", DbType.Int32, category.Id);
+			db.DefineParameter(cmd, "@Deleted", DbType.Boolean, false);
 			return cmd;
 		}
 
@@ -75,12 +74,14 @@ namespace UFO.DAL.MySql {
 			db.DefineParameter(cmd, "@CategoryId", DbType.Int32, catId);
 			db.DefineParameter(cmd, "@CountryId", DbType.Int32, cntId);
 			db.DefineParameter(cmd, "@Email", DbType.String, email);
+			db.DefineParameter(cmd, "@Deleted", DbType.Boolean, false);
 			return cmd;
 		}
 
 		private DbCommand createDeleteCommand(int id) {
 			DbCommand cmd = db.CreateCommand(SQL_DELETE);
 			db.DefineParameter(cmd, "@Id", DbType.Int32, id);
+			db.DefineParameter(cmd, "@Deleted", DbType.Boolean, true);
 			return cmd;
 		}
 
