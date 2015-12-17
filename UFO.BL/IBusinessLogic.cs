@@ -29,8 +29,10 @@ namespace UFO.BL {
 
 		IEnumerable<Country> GetCountries();
 
-		Category GetCategoryById(int id);
+		Category GetCategoryById(Category category);
 
-		Country GetCountryById(int id);
+		Country GetCountryById(Country country);
+
+		Artist GetArtistById(Artist artist);
 	}
 }

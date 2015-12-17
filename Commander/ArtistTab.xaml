@@ -58,7 +58,7 @@
                     <ColumnDefinition Width="50*" MinWidth="100" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Row="0" Grid.Column="0" DockPanel.Dock="Bottom" Command="{Binding Path=CurrArtist.SaveCommand}">
+                <Button Grid.Row="0" Grid.Column="0" DockPanel.Dock="Bottom" Command="{Binding Path=CreateCommand}">
                     <Label>+</Label>
                 </Button>
                 <Button Grid.Row="0" Grid.Column="1" Command="{Binding Path=CurrArtist.DeleteCommand}">

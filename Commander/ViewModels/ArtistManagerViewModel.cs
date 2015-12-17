@@ -5,6 +5,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using UFO.BL;
+using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
@@ -12,12 +15,15 @@ namespace UFO.Commander.ViewModels {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		private IBusinessLogic bl;
+
 		public ArtistManagerViewModel() {
 			artistsCollection = new ArtistCollectionViewModel();
 			categoriesCollection = new CategoriesCollectionViewModel();
 			countriesCollection = new CountriesCollectionViewModel();
 			CategoriesCollection.LoadCategories();
 			CountriesCollection.LoadCountries();
+			bl = BusinessLogicFactory.GetBusinessLogic();
 		}
 
 		private ArtistCollectionViewModel artistsCollection;
@@ -90,6 +96,21 @@ namespace UFO.Commander.ViewModels {
 					currCountry = value;
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrCountry)));
 				}
+			}
+		}
+
+		private ICommand createCommand;
+
+		public ICommand CreateCommand {
+			get {
+				if (createCommand == null) {
+					createCommand = new RelayCommand(param => CurrArtist = new ArtistViewModel(new Artist() {
+						Name = "New User",
+						CategoryId = categoriesCollection.Categories.FirstOrDefault().Id,
+						CountryId = categoriesCollection.Categories.FirstOrDefault().Id
+					}));
+				}
+				return createCommand;
 			}
 		}
 	}
