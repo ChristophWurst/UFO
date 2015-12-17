@@ -12,18 +12,22 @@ namespace UFO.Commander.ViewModels {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private Country country;
+		internal Country Country { get; private set; }
 
 		public CountryViewModel(Country country) {
-			this.country = country;
+			this.Country = country;
+		}
+
+		internal int Id {
+			get { return Country.Id; }
 		}
 
 		public String Name {
-			get { return country.Name; }
+			get { return Country.Name; }
 			set {
-				if (country.Name != value) {
-					country.Name = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(country.Name)));
+				if (Country.Name != value) {
+					Country.Name = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Country.Name)));
 				}
 			}
 		}

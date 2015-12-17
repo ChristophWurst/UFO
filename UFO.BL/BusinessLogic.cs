@@ -60,5 +60,21 @@ namespace UFO.BL {
 		public IEnumerable<TimeSlot> GetTimeSlots() {
 			return dalFactory.CreateTimeSlotDAO(db).GetAll();
 		}
+
+		public IEnumerable<Country> GetCountries() {
+			return dalFactory.CreateCountryDAO(db).GetAll();
+		}
+
+		public Category GetCategoryById(Category category) {
+			return dalFactory.CreateCategoryDAO(db).GetById(category.Id);
+		}
+
+		public Country GetCountryById(Country country) {
+			return dalFactory.CreateCountryDAO(db).GetById(country.Id);
+		}
+
+		public Artist GetArtistById(Artist artist) {
+			return dalFactory.CreateArtistDAO(db).GetById(artist.Id);
+		}
 	}
 }

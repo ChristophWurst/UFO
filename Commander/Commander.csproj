@@ -72,9 +72,12 @@
     <Compile Include="VenueTab.xaml.cs">
       <DependentUpon>VenueTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ArtistsTabViewModel.cs" />
+    <Compile Include="ViewModels\ArtistCollectionViewModel.cs" />
+    <Compile Include="ViewModels\ArtistManagerViewModel.cs" />
     <Compile Include="ViewModels\ArtistViewModel.cs" />
+    <Compile Include="ViewModels\CategoriesCollectionViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\CountriesCollectionViewModel.cs" />
     <Compile Include="ViewModels\CountryViewModel.cs" />
     <Compile Include="ViewModels\ScheduleAreaViewModel.cs" />
     <Compile Include="ViewModels\ScheduleTabViewModel.cs" />
@@ -85,6 +88,10 @@
     <Compile Include="ViewModels\VenueTabViewModel.cs" />
     <Compile Include="ViewModels\VenueViewModel.cs" />
     <Page Include="ArtistTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -58,8 +58,8 @@ namespace DALMySqlTest {
 			var sqls = new List<string> {
 				"SET FOREIGN_KEY_CHECKS=0",
 				"DELETE FROM `artist`",
-				"INSERT INTO `artist` VALUES (1, 'Christoph The Wurst', 'some-image', 'some-video', 3, 15, 'christoph@wurst.at')",
-				"INSERT INTO `artist` VALUES (2, 'Stefan The Rösch', 'some-image', 'some-video', 4, 7, 'stefan@roesch.at')"
+				"INSERT INTO `artist` VALUES (1, 'Christoph The Wurst', 'some-image', 'some-video', 3, 15, 'christoph@wurst.at', 0)",
+				"INSERT INTO `artist` VALUES (2, 'Stefan The Rösch', 'some-image', 'some-video', 4, 7, 'stefan@roesch.at', 0)"
 			};
 			runDbCommands(db, sqls);
 		}
