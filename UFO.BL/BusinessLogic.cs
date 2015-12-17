@@ -17,8 +17,28 @@ namespace UFO.BL {
 			this.dalFactory = dalFactory;
 		}
 
+		public Artist CreateArtist(Artist artist) {
+			return dalFactory.CreateArtistDAO(db).Create(artist);
+		}
+
+		public void DeleteArtist(Artist artist) {
+			dalFactory.CreateArtistDAO(db).Delete(artist);
+		}
+
 		public IEnumerable<Area> GetAreas() {
 			return dalFactory.CreateAreaDAO(db).GetAll();
+		}
+
+		public IEnumerable<Artist> GetArtists() {
+			return dalFactory.CreateArtistDAO(db).GetAll();
+		}
+
+		public IEnumerable<Artist> GetArtistsForCategory(Category category) {
+			return dalFactory.CreateArtistDAO(db).GetForCategory(category);
+		}
+
+		public IEnumerable<Category> GetCategories() {
+			return dalFactory.CreateCategoryDAO(db).GetAll();
 		}
 
 		public IEnumerable<Venue> GetVenuesForArea(Area area) {
@@ -31,6 +51,10 @@ namespace UFO.BL {
 
 		public Venue UpdateVenue(Venue venue) {
 			return dalFactory.CreateVenueDAO(db).Update(venue);
+		}
+
+		public Artist UpdateArtist(Artist artist) {
+			return dalFactory.CreateArtistDAO(db).Update(artist);
 		}
 	}
 }

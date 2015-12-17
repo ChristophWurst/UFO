@@ -14,5 +14,7 @@ namespace UFO.DAL.Common {
 		Artist Update(Artist artist);
 
 		void Delete(Artist artist);
+
+		IEnumerable<Artist> GetForCategory(Category category);
 	}
 }

@@ -11,10 +11,20 @@ namespace UFO.BL {
 
 		IEnumerable<Area> GetAreas();
 
+		IEnumerable<Category> GetCategories();
+
 		IEnumerable<Venue> GetVenuesForArea(Area area);
 
 		Venue CreateVenue(Venue venue);
 
 		Venue UpdateVenue(Venue venue);
+
+		IEnumerable<Artist> GetArtistsForCategory(Category category);
+
+		Artist UpdateArtist(Artist artist);
+
+		Artist CreateArtist(Artist artist);
+
+		void DeleteArtist(Artist artist);
 	}
 }

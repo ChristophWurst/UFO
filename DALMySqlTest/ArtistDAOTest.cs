@@ -149,5 +149,12 @@ namespace DALMySqlTest {
 		public void TestDeleteFail() {
 			Assert.Throws<EntityNotFoundException>(() => dao.Delete(new Artist { Id = 3 }));
 		}
+
+		[Test]
+		public void TestGetForCategory() {
+			var artists = dao.GetForCategory(new Category() { Id = 4 });
+			Assert.AreEqual(1, artists.Count());
+			Assert.AreEqual(artist2.Id, artists.FirstOrDefault().Id);
+		}
 	}
 }

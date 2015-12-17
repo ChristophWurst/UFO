@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using UFO.BL;
 using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
@@ -12,10 +14,12 @@ namespace UFO.Commander.ViewModels {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		private IBusinessLogic bl;
 		private Artist artist;
 
 		public ArtistViewModel(Artist artist) {
 			this.artist = artist;
+			bl = BusinessLogicFactory.GetBusinessLogic();
 		}
 
 		public String Name {
@@ -55,6 +59,39 @@ namespace UFO.Commander.ViewModels {
 					artist.Email = value;
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(artist.Email)));
 				}
+			}
+		}
+
+		private ICommand saveCommand;
+
+		public ICommand SaveCommand {
+			get {
+				if (saveCommand == null) {
+					saveCommand = new RelayCommand(param => artist = bl.UpdateArtist(artist));
+				}
+				return saveCommand;
+			}
+		}
+
+		private ICommand createCommand;
+
+		public ICommand CreateCommand {
+			get {
+				if (createCommand == null) {
+					createCommand = new RelayCommand(param => artist = bl.CreateArtist(artist));
+				}
+				return createCommand;
+			}
+		}
+
+		private ICommand deleteCommand;
+
+		public ICommand DeleteCommand {
+			get {
+				if (deleteCommand == null) {
+					deleteCommand = new RelayCommand(param => bl.DeleteArtist(artist));
+				}
+				return deleteCommand;
 			}
 		}
 	}
