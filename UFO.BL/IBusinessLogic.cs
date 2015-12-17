@@ -26,5 +26,11 @@ namespace UFO.BL {
 		Artist CreateArtist(Artist artist);
 
 		void DeleteArtist(Artist artist);
+
+		IEnumerable<Country> GetCountries();
+
+		Category GetCategoryById(int id);
+
+		Country GetCountryById(int id);
 	}
 }

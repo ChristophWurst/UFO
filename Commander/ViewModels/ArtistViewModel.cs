@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -15,49 +16,85 @@ namespace UFO.Commander.ViewModels {
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		private IBusinessLogic bl;
-		private Artist artist;
+
+		internal Artist Artist { get; private set; }
 
 		public ArtistViewModel(Artist artist) {
-			this.artist = artist;
+			this.Artist = artist;
 			bl = BusinessLogicFactory.GetBusinessLogic();
 		}
 
 		public String Name {
-			get { return artist.Name; }
+			get { return Artist.Name; }
 			set {
-				if (artist.Name != value) {
-					artist.Name = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(artist.Name)));
+				if (Artist.Name != value) {
+					Artist.Name = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Artist.Name)));
 				}
 			}
 		}
 
 		public String Image {
-			get { return artist.Image; }
+			get { return Artist.Image; }
 			set {
-				if (artist.Image != value) {
-					artist.Image = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(artist.Image)));
+				if (Artist.Image != value) {
+					Artist.Image = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Artist.Image)));
 				}
 			}
 		}
 
 		public String Video {
-			get { return artist.Video; }
+			get { return Artist.Video; }
 			set {
-				if (artist.Video != value) {
-					artist.Video = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(artist.Video)));
+				if (Artist.Video != value) {
+					Artist.Video = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Artist.Video)));
 				}
 			}
 		}
 
 		public String Email {
-			get { return artist.Email; }
+			get { return Artist.Email; }
 			set {
-				if (artist.Email != value) {
-					artist.Email = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(artist.Email)));
+				if (Artist.Email != value) {
+					Artist.Email = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Artist.Email)));
+				}
+			}
+		}
+
+		private CategoryViewModel category;
+
+		public CategoryViewModel Category {
+			get {
+				if (category == null) {
+					LoadCategory();
+				}
+				return category;
+			}
+			set {
+				if (category != value) {
+					category = value;
+					Artist.CategoryId = category.Id;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Category)));
+				}
+			}
+		}
+
+		private CountryViewModel country;
+
+		public CountryViewModel Country {
+			get {
+				if (country == null) {
+					LoadCountry();
+				}
+				return country;
+			}
+			set {
+				if (country != value) {
+					country = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Country)));
 				}
 			}
 		}
@@ -67,7 +104,7 @@ namespace UFO.Commander.ViewModels {
 		public ICommand SaveCommand {
 			get {
 				if (saveCommand == null) {
-					saveCommand = new RelayCommand(param => artist = bl.UpdateArtist(artist));
+					saveCommand = new RelayCommand(param => Artist = bl.UpdateArtist(Artist));
 				}
 				return saveCommand;
 			}
@@ -78,7 +115,7 @@ namespace UFO.Commander.ViewModels {
 		public ICommand CreateCommand {
 			get {
 				if (createCommand == null) {
-					createCommand = new RelayCommand(param => artist = bl.CreateArtist(artist));
+					createCommand = new RelayCommand(param => Artist = bl.CreateArtist(Artist));
 				}
 				return createCommand;
 			}
@@ -89,10 +126,18 @@ namespace UFO.Commander.ViewModels {
 		public ICommand DeleteCommand {
 			get {
 				if (deleteCommand == null) {
-					deleteCommand = new RelayCommand(param => bl.DeleteArtist(artist));
+					deleteCommand = new RelayCommand(param => bl.DeleteArtist(Artist));
 				}
 				return deleteCommand;
 			}
+		}
+
+		private void LoadCategory() {
+			Category = new CategoryViewModel(bl.GetCategoryById(Artist.CategoryId));
+		}
+
+		private void LoadCountry() {
+			Country = new CountryViewModel(bl.GetCountryById(Artist.CountryId));
 		}
 	}
 }
