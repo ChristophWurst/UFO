@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `artist` (
   `category_id` int(11) NOT NULL,
   `country_id` int(11) NOT NULL,
   `email` varchar(45) DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `fk_artist_category1_idx` (`category_id`),
   KEY `fk_artist_country1_idx` (`country_id`),
