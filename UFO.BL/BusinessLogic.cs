@@ -56,5 +56,17 @@ namespace UFO.BL {
 		public Artist UpdateArtist(Artist artist) {
 			return dalFactory.CreateArtistDAO(db).Update(artist);
 		}
+
+		public IEnumerable<Country> GetCountries() {
+			return dalFactory.CreateCountryDAO(db).GetAll();
+		}
+
+		public Category GetCategoryById(int id) {
+			return dalFactory.CreateCategoryDAO(db).GetById(id);
+		}
+
+		public Country GetCountryById(int id) {
+			return dalFactory.CreateCountryDAO(db).GetById(id);
+		}
 	}
 }

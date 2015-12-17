@@ -15,44 +15,27 @@ namespace UFO.Commander.ViewModels {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public ObservableCollection<ArtistViewModel> Artists { get; set; }
-
-		private ArtistViewModel currArtist;
-
-		public ArtistViewModel CurrArtist {
-			get { return currArtist; }
-			set {
-				if (currArtist != value) {
-					currArtist = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrArtist)));
-				}
-			}
-		}
-
-		private Category category;
-
 		private IBusinessLogic bl;
 
+		internal Category Category { get; private set; }
+
 		public CategoryViewModel(Category category) {
-			this.category = category;
+			this.Category = category;
 			bl = BusinessLogicFactory.GetBusinessLogic();
-			Artists = new ObservableCollection<ArtistViewModel>();
+		}
+
+		internal int Id {
+			get { return Category.Id; }
 		}
 
 		public String Description {
-			get { return category.Description; }
+			get { return Category.Description; }
 			set {
-				if (category.Description != value) {
-					category.Description = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(category.Description)));
+				if (Category.Description != value) {
+					Category.Description = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Category.Description)));
 				}
 			}
-		}
-
-		internal async void LoadArtists() {
-			Artists.Clear();
-			var tmpArtist = await Task.Factory.StartNew(() => bl.GetArtistsForCategory(category).Select(artist => new ArtistViewModel(artist)));
-			tmpArtist.ToList().ForEach(artist => Artists.Add(artist));
 		}
 	}
 }
