@@ -104,20 +104,17 @@ namespace UFO.Commander.ViewModels {
 		public ICommand SaveCommand {
 			get {
 				if (saveCommand == null) {
-					saveCommand = new RelayCommand(param => Artist = bl.UpdateArtist(Artist));
+					saveCommand = new RelayCommand(param => SaveArtist());
 				}
 				return saveCommand;
 			}
 		}
 
-		private ICommand createCommand;
-
-		public ICommand CreateCommand {
-			get {
-				if (createCommand == null) {
-					createCommand = new RelayCommand(param => Artist = bl.CreateArtist(Artist));
-				}
-				return createCommand;
+		private void SaveArtist() {
+			if (Artist.Id == 0) {
+				Artist = bl.CreateArtist(Artist);
+			} else {
+				bl.UpdateArtist(Artist);
 			}
 		}
 
@@ -132,12 +129,14 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
-		private void LoadCategory() {
-			Category = new CategoryViewModel(bl.GetCategoryById(Artist.CategoryId));
+		private async void LoadCategory() {
+			Category tmpCategory = new Category() { Id = Artist.CategoryId };
+			Category = new CategoryViewModel(await Task.Factory.StartNew(() => bl.GetCategoryById(tmpCategory)));
 		}
 
-		private void LoadCountry() {
-			Country = new CountryViewModel(bl.GetCountryById(Artist.CountryId));
+		private async void LoadCountry() {
+			Country tmpCountry = new Country() { Id = Artist.CountryId };
+			Country = new CountryViewModel(await Task.Factory.StartNew(() => bl.GetCountryById(tmpCountry)));
 		}
 	}
 }

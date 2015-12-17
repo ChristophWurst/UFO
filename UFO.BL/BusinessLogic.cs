@@ -61,12 +61,16 @@ namespace UFO.BL {
 			return dalFactory.CreateCountryDAO(db).GetAll();
 		}
 
-		public Category GetCategoryById(int id) {
-			return dalFactory.CreateCategoryDAO(db).GetById(id);
+		public Category GetCategoryById(Category category) {
+			return dalFactory.CreateCategoryDAO(db).GetById(category.Id);
 		}
 
-		public Country GetCountryById(int id) {
-			return dalFactory.CreateCountryDAO(db).GetById(id);
+		public Country GetCountryById(Country country) {
+			return dalFactory.CreateCountryDAO(db).GetById(country.Id);
+		}
+
+		public Artist GetArtistById(Artist artist) {
+			return dalFactory.CreateArtistDAO(db).GetById(artist.Id);
 		}
 	}
 }
