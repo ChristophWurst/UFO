@@ -8,18 +8,18 @@ using UFO.DomainClasses;
 
 namespace UFO.DAL.MySql {
 
-	public class SpectacledayTimeslotDAO : ISpectacledayTimeslotDAO {
+	public class SpectacledayTimeSlotDAO : ISpectacledayTimeSlotDAO {
 		private IDatabase db;
 
-		public SpectacledayTimeslotDAO(IDatabase db) {
+		public SpectacledayTimeSlotDAO(IDatabase db) {
 			this.db = db;
 		}
 
-		public IEnumerable<SpectacledayTimeslot> GetAll() {
+		public IEnumerable<SpectacledayTimeSlot> GetAll() {
 			throw new NotImplementedException();
 		}
 
-		public SpectacledayTimeslot GetById(int id) {
+		public SpectacledayTimeSlot GetById(int id) {
 			throw new NotImplementedException();
 		}
 	}

@@ -10,7 +10,7 @@ using UFO.DomainClasses;
 
 namespace UFO.DAL.MySql {
 
-	public class TimeslotDAO : ITimeslotDAO {
+	public class TimeSlotDAO : ITimeSlotDAO {
 		private const string SQL_SELECT_ALL = @"SELECT * FROM `timeslot`";
 		private const string SQL_SELECT = @"SELECT * FROM `timeslot` WHERE `id` = @Id";
 
@@ -24,8 +24,8 @@ namespace UFO.DAL.MySql {
 			return cmd;
 		}
 
-		private Timeslot createTimeslotFromReader(IDataReader reader) {
-			return new Timeslot() {
+		private TimeSlot createTimeSlotFromReader(IDataReader reader) {
+			return new TimeSlot() {
 				Id = (int)reader["id"],
 				Start = (TimeSpan)reader["Start"],
 				End = (TimeSpan)reader["End"]
@@ -34,27 +34,27 @@ namespace UFO.DAL.MySql {
 
 		private IDatabase db;
 
-		public TimeslotDAO(IDatabase db) {
+		public TimeSlotDAO(IDatabase db) {
 			this.db = db;
 		}
 
-		public IEnumerable<Timeslot> GetAll() {
-			var timeslot = new List<Timeslot>();
+		public IEnumerable<TimeSlot> GetAll() {
+			var timeslot = new List<TimeSlot>();
 			DbCommand cmd = createSelectAll();
 			using (IDataReader reader = db.ExecuteReader(cmd)) {
 				while (reader.Read()) {
-					timeslot.Add(createTimeslotFromReader(reader));
+					timeslot.Add(createTimeSlotFromReader(reader));
 				}
 			}
 			return timeslot;
 		}
 
-		public Timeslot GetById(int id) {
-			Timeslot timeslot = null;
+		public TimeSlot GetById(int id) {
+			TimeSlot timeslot = null;
 			DbCommand cmd = createSelectByIdCommand(id);
 			using (IDataReader reader = db.ExecuteReader(cmd)) {
 				if (reader.Read()) {
-					timeslot = createTimeslotFromReader(reader);
+					timeslot = createTimeSlotFromReader(reader);
 				}
 			}
 			if (timeslot == null) {

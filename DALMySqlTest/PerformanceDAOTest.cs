@@ -14,7 +14,7 @@ namespace DALMySqlTest {
 			return p1.Id == p2.Id
 				&& p1.VenueId == p2.VenueId
 				&& p1.ArtistId == p2.ArtistId
-				&& p1.SpectacledayTimeslot == p2.SpectacledayTimeslot;
+				&& p1.SpectacledayTimeSlot == p2.SpectacledayTimeSlot;
 		}
 	}
 
@@ -36,7 +36,7 @@ namespace DALMySqlTest {
 			performance1 = new Performance {
 				Id = 1,
 				ArtistId = 1,
-				SpectacledayTimeslot = 1,
+				SpectacledayTimeSlot = 1,
 				VenueId = 1
 			};
 
@@ -44,7 +44,7 @@ namespace DALMySqlTest {
 				Id = 2,
 				ArtistId = 2,
 				VenueId = 2,
-				SpectacledayTimeslot = 2
+				SpectacledayTimeSlot = 2
 			};
 
 			IList<string> sqls = new List<string> {
@@ -103,11 +103,11 @@ namespace DALMySqlTest {
 				Id = performance1.Id,
 				ArtistId = performance1.ArtistId,
 				VenueId = 1,
-				SpectacledayTimeslot = performance1.SpectacledayTimeslot
+				SpectacledayTimeSlot = performance1.SpectacledayTimeSlot
 			};
 			Assert.True(performance1.IsEqualTo(v1Tmp));
 			performance1.ArtistId = 3;
-			performance1.SpectacledayTimeslot = 3;
+			performance1.SpectacledayTimeSlot = 3;
 			performance1.VenueId = 3;
 			Assert.False(performance1.IsEqualTo(v1Tmp));
 			Assert.True(dao.Update(performance1).IsEqualTo(performance1));
@@ -125,7 +125,7 @@ namespace DALMySqlTest {
 				Id = -1,
 				ArtistId = 3,
 				VenueId = 3,
-				SpectacledayTimeslot = 3
+				SpectacledayTimeSlot = 3
 			};
 			newPerformance = dao.Create(newPerformance);
 			Assert.True(newPerformance.Id != -1);

@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace UFO.DomainClasses {
 
 	[Serializable]
-	public class SpectacledayTimeslot {
+	public class SpectacledayTimeSlot {
 		public int Id { get; set; }
-		public int TimeslotId { get; set; }
+		public int TimeSlotId { get; set; }
 		public int SpectacledayId { get; set; }
 
 		public override string ToString() {
-			return "[" + Id.ToString() + "] TimeslotId: [" + TimeslotId + "] SpectacledayId: [" + SpectacledayId + "]";
+			return "[" + Id.ToString() + "] TimeSlotId: [" + TimeSlotId + "] SpectacledayId: [" + SpectacledayId + "]";
 		}
 	}
 }

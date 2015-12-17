@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UFO.BL;
+using UFO.Commander.ViewModels;
 using UFO.DomainClasses;
 
 namespace UFO.Commander {
@@ -20,15 +22,18 @@ namespace UFO.Commander {
 	/// Interaktionslogik für ScheduleTab.xaml
 	/// </summary>
 	public partial class ScheduleTab : TabItem {
-		private IList<Venue> performances;
 
 		public ScheduleTab() {
 			InitializeComponent();
 
-			performances = new List<Venue> {
-				new Venue() { ShortDescription = "AAA" },
-				new Venue() { ShortDescription = "BBB" }
+			IBusinessLogic bl = BusinessLogicFactory.GetBusinessLogic();
+
+			Loaded += (s, e) => {
+				DataContext = new ScheduleTabViewModel(bl);
 			};
+		}
+
+		private void ListView_Selected(object sender, RoutedEventArgs e) {
 		}
 	}
 }

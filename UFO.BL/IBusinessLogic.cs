@@ -26,5 +26,7 @@ namespace UFO.BL {
 		Artist CreateArtist(Artist artist);
 
 		void DeleteArtist(Artist artist);
+
+		IEnumerable<TimeSlot> GetTimeSlots();
 	}
 }

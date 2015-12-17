@@ -10,9 +10,9 @@ using UFO.DomainClasses;
 
 namespace DALMySqlTest {
 
-	public static class TimeslotExtension {
+	public static class TimeSlotExtension {
 
-		public static bool IsEqualTo(this Timeslot t1, Timeslot t2) {
+		public static bool IsEqualTo(this TimeSlot t1, TimeSlot t2) {
 			return t1.Id == t2.Id &&
 				t1.Start == t2.Start &&
 				t1.End == t2.End;
@@ -20,25 +20,25 @@ namespace DALMySqlTest {
 	}
 
 	[TestFixture]
-	internal class TimeslotDAOTest : IntegrationTest {
+	internal class TimeSlotDAOTest : IntegrationTest {
 		private TransactionScope transaction;
 		private IDatabase db;
-		private ITimeslotDAO dao;
-		private Timeslot timeslot1;
-		private Timeslot timeslot2;
+		private ITimeSlotDAO dao;
+		private TimeSlot timeslot1;
+		private TimeSlot timeslot2;
 
 		[SetUp]
 		public void SetUp() {
 			transaction = new TransactionScope();
 			DALFactory factory = DALFactory.GetInstance();
 			db = factory.CreateDatabase();
-			dao = factory.CreateTimeslotDAO(db);
-			timeslot1 = new Timeslot {
+			dao = factory.CreateTimeSlotDAO(db);
+			timeslot1 = new TimeSlot {
 				Id = 1,
 				Start = new TimeSpan(1, 2, 3),
 				End = new TimeSpan(4, 5, 6)
 			};
-			timeslot2 = new Timeslot {
+			timeslot2 = new TimeSlot {
 				Id = 2,
 				Start = new TimeSpan(3, 2, 1),
 				End = new TimeSpan(6, 5, 4)

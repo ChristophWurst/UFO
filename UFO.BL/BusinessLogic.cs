@@ -56,5 +56,9 @@ namespace UFO.BL {
 		public Artist UpdateArtist(Artist artist) {
 			return dalFactory.CreateArtistDAO(db).Update(artist);
 		}
+
+		public IEnumerable<TimeSlot> GetTimeSlots() {
+			return dalFactory.CreateTimeSlotDAO(db).GetAll();
+		}
 	}
 }
