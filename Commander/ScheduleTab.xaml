@@ -7,25 +7,121 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             Header="Schedule">
-    <Grid>
-        <DataGrid ItemsSource="{Binding Path=performances}">
-            <DataGrid.Columns>
-                <DataGridTextColumn  Header="14-15"></DataGridTextColumn>
-                <DataGridTextColumn  Header="15-16"></DataGridTextColumn>
-                <DataGridTextColumn  Header="16-17"></DataGridTextColumn>
-                <DataGridTextColumn  Header="17-18"></DataGridTextColumn>
-                <DataGridTextColumn  Header="18-19"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <DataGrid ItemsSource="{Binding}" Margin="0,-2,0,2">
-            <DataGrid.Columns>
-                <DataGridTextColumn  Header="14-15" />
-                <DataGridTextColumn  Header="15-16" />
-                <DataGridTextColumn  Header="16-17" />
-                <DataGridTextColumn  Header="17-18" />
-                <DataGridTextColumn  Header="18-19" />
-            </DataGrid.Columns>
-        </DataGrid>
-    </Grid>
+             Header="Schedule"
+             Name="tabSched">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto"
+                  BorderThickness="0">
+        <ListView ItemsSource="{Binding Path=Areas}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Focusable" Value="false" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <!-- area grid: header + venues -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <!-- area header -->
+                        <Grid Grid.Row="0"
+                              Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <!-- area name -->
+                            <Label Grid.Row="0"
+                                   Grid.Column="0"
+                                   Content="{Binding Path=Name}" />
+                            <!-- timeslot header -->
+                            <ListView Grid.Row="0"
+                                  Grid.Column="1"
+                                  BorderThickness="0"
+                                  ItemsSource="{Binding ElementName=tabSched, Path=DataContext.TimeSlots}">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Focusable" Value="false" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Path=Label}"
+                                               Width="100"
+                                               HorizontalAlignment="Stretch"
+                                               HorizontalContentAlignment="Center" />
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                        <!-- venue list -->
+                        <ListView Grid.Row="1"
+                                  Grid.Column="0"
+                                  ItemsSource="{Binding Path=Venues}"
+                                  BorderThickness="0">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Focusable" Value="false" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="200" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Row="0"
+                                               Grid.Column="0"
+                                               Content="{Binding Path=Description}" />
+                                        <!-- performances -->
+                                        <ListView Grid.Row="0"
+                                                  Grid.Column="1"
+                                                  BorderThickness="0"
+                                                  ItemsSource="{Binding ElementName=tabSched, Path=DataContext.TimeSlots}">
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="ListViewItem">
+                                                    <Setter Property="Focusable" Value="false" />
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+                                            <ListView.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal" />
+                                                </ItemsPanelTemplate>
+                                            </ListView.ItemsPanel>
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Label Content="{Binding Path=Label}"
+                                                           Width="100"
+                                                           HorizontalAlignment="Stretch"
+                                                           HorizontalContentAlignment="Center" />
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ScrollViewer>
 </TabItem>

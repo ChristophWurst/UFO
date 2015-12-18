@@ -104,16 +104,16 @@ namespace UFO.DAL.Common {
 			return Activator.CreateInstance(classType, new object[] { database }) as ISpectacledayDAO;
 		}
 
-		public ITimeslotDAO CreateTimeslotDAO(IDatabase database) {
-			Type classType = this.GetType(this.assemblyName + ".TimeslotDAO");
+		public ITimeSlotDAO CreateTimeSlotDAO(IDatabase database) {
+			Type classType = this.GetType(this.assemblyName + ".TimeSlotDAO");
 			this.EnsureConstructorExists(classType, typeof(IDatabase));
-			return Activator.CreateInstance(classType, new object[] { database }) as ITimeslotDAO;
+			return Activator.CreateInstance(classType, new object[] { database }) as ITimeSlotDAO;
 		}
 
-		public ISpectacledayTimeslotDAO CreateSpectacledayTimeslotDAO(IDatabase database) {
-			Type classType = this.GetType(this.assemblyName + ".SpectacledayTimeslotDAO");
+		public ISpectacledayTimeSlotDAO CreateSpectacledayTimeSlotDAO(IDatabase database) {
+			Type classType = this.GetType(this.assemblyName + ".SpectacledayTimeSlotDAO");
 			this.EnsureConstructorExists(classType, typeof(IDatabase));
-			return Activator.CreateInstance(classType, new object[] { database }) as ISpectacledayTimeslotDAO;
+			return Activator.CreateInstance(classType, new object[] { database }) as ISpectacledayTimeSlotDAO;
 		}
 	}
 }

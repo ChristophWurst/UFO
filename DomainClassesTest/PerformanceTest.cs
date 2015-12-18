@@ -22,9 +22,9 @@ namespace UFO.Test.DomainClasses {
 		}
 
 		[Test]
-		public void TestSpectacledasTimeslot() {
-			performance.SpectacledayTimeslot = 1;
-			Assert.AreEqual(1, performance.SpectacledayTimeslot);
+		public void TestSpectacledasTimeSlot() {
+			performance.SpectacledayTimeSlot = 1;
+			Assert.AreEqual(1, performance.SpectacledayTimeSlot);
 		}
 
 		[Test]

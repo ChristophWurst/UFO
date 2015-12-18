@@ -9,12 +9,12 @@ using UFO.DomainClasses;
 namespace UFO.Test.DomainClasses {
 
 	[TestFixture]
-	internal class TimeslotTest {
-		private Timeslot timeslot;
+	internal class TimeSlotTest {
+		private TimeSlot timeslot;
 
 		[SetUp]
 		public void SetUp() {
-			timeslot = new Timeslot();
+			timeslot = new TimeSlot();
 		}
 
 		[Test]
