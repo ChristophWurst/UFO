@@ -72,12 +72,9 @@
     <Compile Include="VenueTab.xaml.cs">
       <DependentUpon>VenueTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ArtistCollectionViewModel.cs" />
-    <Compile Include="ViewModels\ArtistManagerViewModel.cs" />
+    <Compile Include="ViewModels\ArtistTabViewModel.cs" />
     <Compile Include="ViewModels\ArtistViewModel.cs" />
-    <Compile Include="ViewModels\CategoriesCollectionViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
-    <Compile Include="ViewModels\CountriesCollectionViewModel.cs" />
     <Compile Include="ViewModels\CountryViewModel.cs" />
     <Compile Include="ViewModels\SpectacledayViewModel.cs" />
     <Compile Include="ViewModels\TimeslotViewModel.cs" />

@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
 
         <ListView Grid.Row="0"
-                  ItemsSource="{Binding Path=CategoriesCollection.Categories}"
+                  ItemsSource="{Binding Path=Categories}"
                   SelectedItem="{Binding Path=CurrCategory, Mode=TwoWay}"
                   Grid.Column="0">
             <ListView.ItemTemplate>
@@ -40,7 +40,7 @@
                 <ColumnDefinition Width="auto" MinWidth="100" />
             </Grid.ColumnDefinitions>
 
-            <ListView  Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=ArtistsCollection.Artists}" SelectedItem="{Binding Path=CurrArtist, Mode=TwoWay}">
+            <ListView  Grid.Column="0" Grid.Row="0" ItemsSource="{Binding Path=Artists}" SelectedItem="{Binding Path=CurrArtist, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Path=Name}"></TextBlock>
@@ -58,14 +58,15 @@
                     <ColumnDefinition Width="50*" MinWidth="100" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Row="0" Grid.Column="0" DockPanel.Dock="Bottom" Command="{Binding Path=CreateCommand}">
+                <Button Grid.Row="0" Grid.Column="0" DockPanel.Dock="Bottom" Command="{Binding Path=AddCommand}">
                     <Label>+</Label>
                 </Button>
-                <Button Grid.Row="0" Grid.Column="1" Command="{Binding Path=CurrArtist.DeleteCommand}">
+                <Button Grid.Row="0" Grid.Column="1" Command="{Binding Path=RemoveCommand}">
                     <Label>-</Label>
                 </Button>
             </Grid>
         </Grid>
+
         <Grid Grid.Row="0"
               Grid.Column="2">
             <Grid.RowDefinitions>
@@ -77,6 +78,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Row="0" Grid.Column="0">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
@@ -101,7 +103,15 @@
                 <TextBox Text="{Binding Path=CurrArtist.Video}"
                      Grid.Row="2"
                      Grid.Column="1" />
+                <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Path=Categories}" SelectedItem="{Binding Path=SelCategory, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Description}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </Grid>
+
             <Grid Grid.Row="1"
                 Grid.Column="0">
                 <Grid.RowDefinitions>
@@ -111,7 +121,7 @@
                     <ColumnDefinition Width="50*" />
                     <ColumnDefinition Width="50*" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Row="0" Grid.Column="0" Command="{Binding Path=CurrArtist.SaveCommand}">
+                <Button Grid.Row="0" Grid.Column="0" Command="{Binding Path=SaveCommand}">
                     <Label>SAVE</Label>
                 </Button>
             </Grid>
