@@ -9,12 +9,12 @@ using UFO.DomainClasses;
 namespace UFO.Test.DomainClasses {
 
 	[TestFixture]
-	internal class SpectracledayTimeslotTest {
-		private SpectacledayTimeslot st;
+	internal class SpectracledayTimeSlotTest {
+		private SpectacledayTimeSlot st;
 
 		[SetUp]
 		public void SetUp() {
-			st = new SpectacledayTimeslot();
+			st = new SpectacledayTimeSlot();
 		}
 
 		[Test]
@@ -25,10 +25,10 @@ namespace UFO.Test.DomainClasses {
 		}
 
 		[Test]
-		public void TestTimeslotId() {
+		public void TestTimeSlotId() {
 			int id = 3;
-			st.TimeslotId = id;
-			Assert.AreEqual(id, st.TimeslotId);
+			st.TimeSlotId = id;
+			Assert.AreEqual(id, st.TimeSlotId);
 		}
 
 		[Test]
@@ -41,10 +41,10 @@ namespace UFO.Test.DomainClasses {
 		[Test]
 		public void TestToString() {
 			st.Id = 1;
-			st.TimeslotId = 2;
+			st.TimeSlotId = 2;
 			st.SpectacledayId = 3;
 
-			string expected = $"[{st.Id}] TimeslotId: [{st.TimeslotId}] SpectacledayId: [{st.SpectacledayId}]";
+			string expected = $"[{st.Id}] TimeSlotId: [{st.TimeSlotId}] SpectacledayId: [{st.SpectacledayId}]";
 			Assert.AreEqual(expected, st.ToString());
 		}
 	}

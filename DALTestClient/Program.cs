@@ -72,7 +72,7 @@ namespace DALTestClient {
 			Console.WriteLine(performanceDAO.GetById(1));
 
 			Performance performance1 = new Performance() {
-				SpectacledayTimeslot = 1,
+				SpectacledayTimeSlot = 1,
 				ArtistId = 1
 			};
 			Performance newPerformance = performanceDAO.Create(performance1);

@@ -8,33 +8,16 @@ using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
-	internal class TimeslotViewModel : INotifyPropertyChanged {
+	internal class TimeSlotViewModel {
+		private TimeSlot timeslot;
 
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		private Timeslot timeslot;
-
-		public TimeslotViewModel(Timeslot timeslot) {
+		public TimeSlotViewModel(TimeSlot timeslot) {
 			this.timeslot = timeslot;
 		}
 
-		public TimeSpan Start {
-			get { return timeslot.Start; }
-			set {
-				if (timeslot.Start != value) {
-					timeslot.Start = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(timeslot.Start)));
-				}
-			}
-		}
-
-		public TimeSpan End {
-			get { return timeslot.End; }
-			set {
-				if (timeslot.End != value) {
-					timeslot.End = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(timeslot.End)));
-				}
+		public string Label {
+			get {
+				return timeslot.Start.Hours.ToString() + " – " + timeslot.End.Hours.ToString();
 			}
 		}
 	}

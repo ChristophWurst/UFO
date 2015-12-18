@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace UFO.DomainClasses {
 
 	[Serializable]
-	public class Timeslot {
+	public class TimeSlot {
 		public int Id { get; set; }
 		public TimeSpan Start { get; set; }
 		public TimeSpan End { get; set; }
