@@ -36,5 +36,7 @@ namespace UFO.BL {
 		Country GetCountryById(Country country);
 
 		Artist GetArtistById(Artist artist);
+
+		void MailPerformanceChangesToArtists(IEnumerable<Artist> artists, IEnumerable<Performance> performances);
 	}
 }

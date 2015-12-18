@@ -11,10 +11,18 @@ namespace UFO.BL {
 	internal class BusinessLogic : IBusinessLogic {
 		private DALFactory dalFactory;
 		private IDatabase db;
+		private IMailService ms;
+
+		public BusinessLogic(DALFactory dalFactory, IMailService ms) {
+			this.db = dalFactory.CreateDatabase();
+			this.dalFactory = dalFactory;
+			this.ms = ms;
+		}
 
 		public BusinessLogic(DALFactory dalFactory) {
 			this.db = dalFactory.CreateDatabase();
 			this.dalFactory = dalFactory;
+			this.ms = new MailService();
 		}
 
 		public Artist CreateArtist(Artist artist) {
@@ -75,6 +83,10 @@ namespace UFO.BL {
 
 		public Artist GetArtistById(Artist artist) {
 			return dalFactory.CreateArtistDAO(db).GetById(artist.Id);
+		}
+
+		public void MailPerformanceChangesToArtists(IEnumerable<Artist> artists, IEnumerable<Performance> performances) {
+			throw new NotImplementedException();
 		}
 	}
 }
