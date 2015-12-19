@@ -19,6 +19,8 @@ namespace UFO.BL {
 
 		Venue UpdateVenue(Venue venue);
 
+		IEnumerable<Artist> GetArtists();
+
 		IEnumerable<Artist> GetArtistsForCategory(Category category);
 
 		Artist UpdateArtist(Artist artist);
