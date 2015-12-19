@@ -15,6 +15,8 @@ namespace UFO.BL {
 		private IDatabase db;
 		private IMailService ms;
 		private IPdfMaker pdf;
+		private string pdfPath;
+		private string pdfName;
 
 		public BusinessLogic(DALFactory dalFactory, IMailService ms, IPdfMaker pdf) {
 			this.db = dalFactory.CreateDatabase();
@@ -33,7 +35,9 @@ namespace UFO.BL {
 			var pwd = appSettings["pwd"];
 			var port = int.Parse(appSettings["port"]);
 			ms = new MailService(smtpServer, port, user, pwd, mailAddress);
-			pdf = new PdfMaker(appSettings["pdfName"], appSettings["pdfPath"]);
+			pdfPath = appSettings["pdfPath"];
+			pdfName = appSettings["pdfName"];
+			pdf = new PdfMaker(pdfPath, pdfName);
 		}
 
 		public Artist CreateArtist(Artist artist) {
@@ -108,8 +112,9 @@ namespace UFO.BL {
 			return dalFactory.CreatePerformanceDAO(db).GetForSpectacleDay(day);
 		}
 
-		public void MailPerformanceChangesToArtists(IEnumerable<Artist> artists, IEnumerable<Performance> performances) {
-			// TO DO
+		public void MailPerformanceChangesToArtists(IEnumerable<Artist> artists, IEnumerable<Performance> performances, Spectacleday day) {
+			CreatePdfScheduleForSpectacleDay(day);
+			ms.MailToArtists(artists, day, pdfPath, pdfName);
 		}
 
 		public IEnumerable<Venue> GetVenues() {
