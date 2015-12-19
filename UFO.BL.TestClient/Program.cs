@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Net.Mail;
 using UFO.DomainClasses;
 
@@ -9,6 +10,16 @@ namespace UFO.BL.TestClient {
 
 		private static void Main(string[] args) {
 			var appSettings = ConfigurationManager.AppSettings;
+			TestMailService(appSettings);
+			TestPdfMaker(appSettings);
+		}
+
+		private static void TestPdfMaker(System.Collections.Specialized.NameValueCollection appSettings) {
+			var pdf = new PdfMaker(appSettings["pdfName"], appSettings["pdfPath"]);
+			pdf.MakeSpectacleSchedule(new List<SpectacledayTimeSlot>(), new List<Performance>());
+		}
+
+		private static void TestMailService(System.Collections.Specialized.NameValueCollection appSettings) {
 			var smtpServer = appSettings["smtpServer"];
 			var mailAddress = new MailAddress(appSettings["mailAddress"], appSettings["sender"]);
 			var user = appSettings["user"];

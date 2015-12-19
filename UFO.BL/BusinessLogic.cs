@@ -14,14 +14,18 @@ namespace UFO.BL {
 		private DALFactory dalFactory;
 		private IDatabase db;
 		private IMailService ms;
+		private IPdfMaker pdf;
 
-		public BusinessLogic(DALFactory dalFactory, IMailService ms) {
+		public BusinessLogic(DALFactory dalFactory, IMailService ms, IPdfMaker pdf) {
 			this.db = dalFactory.CreateDatabase();
 			this.dalFactory = dalFactory;
 			this.ms = ms;
+			this.pdf = pdf;
 		}
 
 		public BusinessLogic(DALFactory dalFactory) {
+			this.db = dalFactory.CreateDatabase();
+			this.dalFactory = dalFactory;
 			var appSettings = ConfigurationManager.AppSettings;
 			var smtpServer = appSettings["smtpServer"];
 			var mailAddress = new MailAddress(appSettings["mailAddress"], appSettings["sender"]);
@@ -29,6 +33,7 @@ namespace UFO.BL {
 			var pwd = appSettings["pwd"];
 			var port = int.Parse(appSettings["port"]);
 			ms = new MailService(smtpServer, port, user, pwd, mailAddress);
+			pdf = new PdfMaker(appSettings["pdfName"], appSettings["pdfPath"]);
 		}
 
 		public Artist CreateArtist(Artist artist) {
@@ -93,6 +98,10 @@ namespace UFO.BL {
 
 		public void MailPerformanceChangesToArtists(IEnumerable<Artist> artists, IEnumerable<Performance> performances) {
 			// TO DO
+		}
+
+		private void CreatePdfSchedule(IEnumerable<SpectacledayTimeSlot> spectacledayTimeslots, IEnumerable<Performance> performances) {
+			pdf.MakeSpectacleSchedule(spectacledayTimeslots, performances);
 		}
 	}
 }
