@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
@@ -22,13 +23,18 @@ namespace UFO.BL {
 			return new MailService(smtpServer, port, user, pwd, mailAddress);
 		}
 
+		private static IPdfMaker GetPdfMaker() {
+			var appSettings = ConfigurationManager.AppSettings;
+			return new PdfMaker(appSettings["pdfName"], appSettings["pdfPath"]);
+		}
+
 		public static IBusinessLogic GetBusinessLogic() {
 			if (bl == null) {
 				DALFactory dalFactory = DALFactory.GetInstance();
 				IMailService mailService = GetMailService();
-				bl = new BusinessLogic(dalFactory, mailService);
+				IPdfMaker pdfMaker = GetPdfMaker();
+				bl = new BusinessLogic(dalFactory, mailService, pdfMaker);
 			}
-
 			return bl;
 		}
 	}

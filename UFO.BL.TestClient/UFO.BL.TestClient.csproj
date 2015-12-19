@@ -51,6 +51,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DALMySql\DALMySql.csproj">
+      <Project>{a811effc-ce32-4619-ab43-9ae0637c8085}</Project>
+      <Name>DALMySql</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DomainClasses\DomainClasses.csproj">
       <Project>{e2d07154-5acb-4098-acd5-07d0c2dd1df7}</Project>
       <Name>DomainClasses</Name>

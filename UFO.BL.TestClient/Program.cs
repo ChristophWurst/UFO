@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Diagnostics;
 using System.Net.Mail;
@@ -10,13 +11,14 @@ namespace UFO.BL.TestClient {
 
 		private static void Main(string[] args) {
 			var appSettings = ConfigurationManager.AppSettings;
-			TestMailService(appSettings);
+			//TestMailService(appSettings);
 			TestPdfMaker(appSettings);
 		}
 
-		private static void TestPdfMaker(System.Collections.Specialized.NameValueCollection appSettings) {
-			var pdf = new PdfMaker(appSettings["pdfName"], appSettings["pdfPath"]);
-			pdf.MakeSpectacleSchedule(new List<SpectacledayTimeSlot>(), new List<Performance>());
+		private static void TestPdfMaker(NameValueCollection appSettings) {
+			IBusinessLogic bl = BusinessLogicFactory.GetBusinessLogic();
+			List<Spectacleday> days = new List<Spectacleday>(bl.GetSpectacleDays());
+			bl.CreatePdfScheduleForSpectacleDay(days[1]);
 		}
 
 		private static void TestMailService(System.Collections.Specialized.NameValueCollection appSettings) {

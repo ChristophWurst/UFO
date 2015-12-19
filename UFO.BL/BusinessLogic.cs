@@ -78,8 +78,8 @@ namespace UFO.BL {
 
 		public IEnumerable<TimeSlot> GetTimeSlots() {
 			return dalFactory.CreateTimeSlotDAO(db).GetAll();
-
 		}
+
 		public IEnumerable<Country> GetCountries() {
 			return dalFactory.CreateCountryDAO(db).GetAll();
 		}
@@ -112,8 +112,12 @@ namespace UFO.BL {
 			// TO DO
 		}
 
-		private void CreatePdfSchedule(IEnumerable<SpectacledayTimeSlot> spectacledayTimeslots, IEnumerable<Performance> performances) {
-			pdf.MakeSpectacleSchedule(spectacledayTimeslots, performances);
+		public IEnumerable<Venue> GetVenues() {
+			return dalFactory.CreateVenueDAO(db).GetAll();
+		}
+
+		public void CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay) {
+			pdf.MakeSpectacleSchedule(GetSpectacleDayTimeSlotsForSpectacleDay(spectacleDay), GetPerformanesForSpetacleDay(spectacleDay), GetAreas(), GetVenues(), GetTimeSlots(), GetArtists());
 		}
 	}
 }
