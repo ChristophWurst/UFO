@@ -37,6 +37,12 @@ namespace UFO.BL {
 
 		Artist GetArtistById(Artist artist);
 
+		IEnumerable<Spectacleday> GetSpectacleDays();
+
+		IEnumerable<SpectacledayTimeSlot> GetSpectacleDayTimeSlotsForSpectacleDay(Spectacleday day);
+
+		IEnumerable<Performance> GetPerformanesForSpetacleDay(Spectacleday day);
+
 		void MailPerformanceChangesToArtists(IEnumerable<Artist> artists, IEnumerable<Performance> performances);
 	}
 }

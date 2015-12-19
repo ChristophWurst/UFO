@@ -76,6 +76,7 @@
     <Compile Include="ViewModels\ArtistViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\CountryViewModel.cs" />
+    <Compile Include="ViewModels\PerformanceViewModel.cs" />
     <Compile Include="ViewModels\ScheduleAreaViewModel.cs" />
     <Compile Include="ViewModels\ScheduleTabViewModel.cs" />
     <Compile Include="ViewModels\ScheduleVenueViewModel.cs" />
