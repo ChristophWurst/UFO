@@ -12,28 +12,21 @@ namespace UFO.Commander.ViewModels {
 
 	internal class ScheduleAreaViewModel : INotifyPropertyChanged {
 		private Area area;
-		private ObservableCollection<ScheduleVenueViewModel> venues;
 		private IBusinessLogic bl;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		public ObservableCollection<TimeSlotViewModel> TimeSlots { get; set; }
 		public ObservableCollection<ScheduleVenueViewModel> Venues { get; set; }
 
-		public ScheduleAreaViewModel(Area area, IBusinessLogic bl) {
+		public ScheduleAreaViewModel(Area area,
+									 ObservableCollection<TimeSlotViewModel> timeslots,
+									 ObservableCollection<ScheduleVenueViewModel> venues,
+									 IBusinessLogic bl) {
 			this.area = area;
+			TimeSlots = timeslots;
+			Venues = venues;
 			this.bl = bl;
-
-			Venues = new ObservableCollection<ScheduleVenueViewModel>();
-
-			LoadVenues();
-		}
-
-		private void LoadVenues() {
-			Venues.Clear();
-			var venues = bl.GetVenuesForArea(area);
-			foreach (var v in venues) {
-				Venues.Add(new ScheduleVenueViewModel(v));
-			}
 		}
 
 		public string Name {

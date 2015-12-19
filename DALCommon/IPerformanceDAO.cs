@@ -9,6 +9,8 @@ namespace UFO.DAL.Common {
 
 		IEnumerable<Performance> GetAll();
 
+		IEnumerable<Performance> GetForSpectacleDay(Spectacleday spectacleDay);
+
 		Performance Create(Performance Performance);
 
 		Performance Update(Performance Performance);
