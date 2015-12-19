@@ -12,5 +12,7 @@ namespace UFO.DAL.Common {
 		SpectacledayTimeSlot GetById(int id);
 
 		IEnumerable<SpectacledayTimeSlot> GetAll();
+
+		IEnumerable<SpectacledayTimeSlot> GetForSpectacleDay(Spectacleday spectacleDay);
 	}
 }

@@ -76,5 +76,17 @@ namespace UFO.BL {
 		public Artist GetArtistById(Artist artist) {
 			return dalFactory.CreateArtistDAO(db).GetById(artist.Id);
 		}
+
+		public IEnumerable<Spectacleday> GetSpectacleDays() {
+			return dalFactory.CreateSpectacledayDAO(db).GetAll();
+		}
+
+		public IEnumerable<SpectacledayTimeSlot> GetSpectacleDayTimeSlotsForSpectacleDay(Spectacleday day) {
+			return dalFactory.CreateSpectacledayTimeSlotDAO(db).GetForSpectacleDay(day);
+		}
+
+		public IEnumerable<Performance> GetPerformanesForSpetacleDay(Spectacleday day) {
+			return dalFactory.CreatePerformanceDAO(db).GetForSpectacleDay(day);
+		}
 	}
 }

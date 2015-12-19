@@ -36,5 +36,11 @@ namespace UFO.BL {
 		Country GetCountryById(Country country);
 
 		Artist GetArtistById(Artist artist);
+
+		IEnumerable<Spectacleday> GetSpectacleDays();
+
+		IEnumerable<SpectacledayTimeSlot> GetSpectacleDayTimeSlotsForSpectacleDay(Spectacleday day);
+
+		IEnumerable<Performance> GetPerformanesForSpetacleDay(Spectacleday day);
 	}
 }

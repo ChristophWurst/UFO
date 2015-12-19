@@ -13,6 +13,12 @@ namespace UFO.DAL.MySql {
 		private const string SQL_SELECT_ALL = "SELECT * "
 											+ "FROM `performance`";
 
+		private const string SQL_SELECT_FOR_SPECTACLE_DAY = "SELECT p.* "
+														  + "FROM `performance` p "
+														  + "RIGHT OUTER JOIN `spectacleday_timeslot` ts "
+														  + "ON p.`spectacleday_timeslot_id` = ts.`id` "
+														  + "WHERE ts.`spectacleday_id` = @SpectacleDayId";
+
 		private const string SQL_SELECT = "SELECT * "
 										+ "FROM `performance` "
 										+ "WHERE `id` = @Id";
@@ -34,6 +40,12 @@ namespace UFO.DAL.MySql {
 
 		private DbCommand CreateSelectAllCommand() {
 			return this.db.CreateCommand(SQL_SELECT_ALL);
+		}
+
+		private DbCommand CreateSelectForSpectacleDay(int id) {
+			var cmd = db.CreateCommand(SQL_SELECT_FOR_SPECTACLE_DAY);
+			db.DefineParameter(cmd, "@SpectacleDayId", DbType.Int32, id);
+			return cmd;
 		}
 
 		private DbCommand CreateSelectByIdCommand(int id) {
@@ -81,6 +93,17 @@ namespace UFO.DAL.MySql {
 		public IEnumerable<Performance> GetAll() {
 			var result = new List<Performance>();
 			var cmd = CreateSelectAllCommand();
+			using (IDataReader reader = db.ExecuteReader(cmd)) {
+				while (reader.Read()) {
+					result.Add(CreatePerformanceFromReader(reader));
+				}
+				return result;
+			}
+		}
+
+		public IEnumerable<Performance> GetForSpectacleDay(Spectacleday spectacleDay) {
+			var result = new List<Performance>();
+			var cmd = CreateSelectForSpectacleDay(spectacleDay.Id);
 			using (IDataReader reader = db.ExecuteReader(cmd)) {
 				while (reader.Read()) {
 					result.Add(CreatePerformanceFromReader(reader));

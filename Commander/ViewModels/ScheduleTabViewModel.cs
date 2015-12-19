@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UFO.BL;
+using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
@@ -14,40 +15,57 @@ namespace UFO.Commander.ViewModels {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public ObservableCollection<TimeSlotViewModel> TimeSlots { get; set; }
+		public ObservableCollection<SpectacledayViewModel> SpectacleDays { get; set; }
+		public SpectacledayViewModel activeSpectacleDay;
 
-		private ObservableCollection<ScheduleAreaViewModel> a;
-
-		public ObservableCollection<ScheduleAreaViewModel> Areas {
-			get {
-				return a;
+		public SpectacledayViewModel ActiveSpectacleDay {
+			get { return activeSpectacleDay; }
+			set {
+				if (value != activeSpectacleDay) {
+					activeSpectacleDay = value;
+					activeSpectacleDay.LoadPerformances();
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveSpectacleDay)));
+				}
 			}
-			set { a = value; }
 		}
+
+		public ObservableCollection<TimeSlotViewModel> TimeSlots2 { get; set; }
+		public ObservableCollection<ScheduleAreaViewModel> Areas2 { get; set; }
 
 		public ScheduleTabViewModel(IBusinessLogic bl) {
 			this.bl = bl;
 
-			TimeSlots = new ObservableCollection<TimeSlotViewModel>();
-			Areas = new ObservableCollection<ScheduleAreaViewModel>();
+			SpectacleDays = new ObservableCollection<SpectacledayViewModel>();
+			TimeSlots2 = new ObservableCollection<TimeSlotViewModel>();
+			Areas2 = new ObservableCollection<ScheduleAreaViewModel>();
 
-			LoadTimeSlots();
-			LoadAreas();
+			LoadSpectacleDays();
+			//LoadTimeSlots();
+			//LoadAreas();
+		}
+
+		private void LoadSpectacleDays() {
+			SpectacleDays.Clear();
+			var days = bl.GetSpectacleDays();
+			foreach (var sd in days) {
+				SpectacleDays.Add(new SpectacledayViewModel(sd, bl));
+			}
+			ActiveSpectacleDay = SpectacleDays.FirstOrDefault();
 		}
 
 		private void LoadAreas() {
-			Areas.Clear();
+			Areas2.Clear();
 			var areas = bl.GetAreas();
 			foreach (var a in areas) {
-				Areas.Add(new ScheduleAreaViewModel(a, bl));
+				//Areas2.Add(new ScheduleAreaViewModel(a, bl));
 			}
 		}
 
 		private void LoadTimeSlots() {
-			TimeSlots.Clear();
+			TimeSlots2.Clear();
 			var timeSlots = bl.GetTimeSlots();
 			foreach (var ts in timeSlots) {
-				TimeSlots.Add(new TimeSlotViewModel(ts));
+				TimeSlots2.Add(new TimeSlotViewModel(ts));
 			}
 		}
 	}
