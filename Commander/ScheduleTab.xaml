@@ -129,10 +129,6 @@
                                                 </ListView.ItemsPanel>
                                                 <ListView.ItemTemplate>
                                                     <DataTemplate>
-                                                        <!--<Label Content="{Binding Path=Name}"
-                                                               Width="100"
-                                                               HorizontalAlignment="Stretch"
-                                                               HorizontalContentAlignment="Center" />-->
                                                         <ComboBox ItemsSource="{Binding ElementName=tabSched, Path=DataContext.Artists}"
                                                                   SelectedValue="{Binding Path=ArtistId}"
                                                                   SelectedValuePath="Id">
