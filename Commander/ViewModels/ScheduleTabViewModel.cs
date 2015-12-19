@@ -16,6 +16,7 @@ namespace UFO.Commander.ViewModels {
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		public ObservableCollection<SpectacledayViewModel> SpectacleDays { get; set; }
+		public ObservableCollection<ScheduleArtistViewModel> Artists { get; set; }
 		public SpectacledayViewModel activeSpectacleDay;
 
 		public SpectacledayViewModel ActiveSpectacleDay {
@@ -29,19 +30,14 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
-		public ObservableCollection<TimeSlotViewModel> TimeSlots2 { get; set; }
-		public ObservableCollection<ScheduleAreaViewModel> Areas2 { get; set; }
-
 		public ScheduleTabViewModel(IBusinessLogic bl) {
 			this.bl = bl;
 
 			SpectacleDays = new ObservableCollection<SpectacledayViewModel>();
-			TimeSlots2 = new ObservableCollection<TimeSlotViewModel>();
-			Areas2 = new ObservableCollection<ScheduleAreaViewModel>();
+			Artists = new ObservableCollection<ScheduleArtistViewModel>();
 
 			LoadSpectacleDays();
-			//LoadTimeSlots();
-			//LoadAreas();
+			LoadArtists();
 		}
 
 		private void LoadSpectacleDays() {
@@ -53,19 +49,11 @@ namespace UFO.Commander.ViewModels {
 			ActiveSpectacleDay = SpectacleDays.FirstOrDefault();
 		}
 
-		private void LoadAreas() {
-			Areas2.Clear();
-			var areas = bl.GetAreas();
-			foreach (var a in areas) {
-				//Areas2.Add(new ScheduleAreaViewModel(a, bl));
-			}
-		}
-
-		private void LoadTimeSlots() {
-			TimeSlots2.Clear();
-			var timeSlots = bl.GetTimeSlots();
-			foreach (var ts in timeSlots) {
-				TimeSlots2.Add(new TimeSlotViewModel(ts));
+		private void LoadArtists() {
+			Artists.Clear();
+			var artists = bl.GetArtists();
+			foreach (var a in artists) {
+				Artists.Add(new ScheduleArtistViewModel(a));
 			}
 		}
 	}

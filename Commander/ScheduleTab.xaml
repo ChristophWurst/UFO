@@ -9,6 +9,16 @@
              d:DesignWidth="800"
              Header="Schedule"
              Name="tabSched">
+    <TabItem.Resources>
+        <Style TargetType="ListView">
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style TargetType="ListViewItem">
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+    </TabItem.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -34,11 +44,6 @@
                       VerticalScrollBarVisibility="Auto"
                       BorderThickness="0">
             <ListView ItemsSource="{Binding Path=Areas}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Focusable" Value="false" />
-                    </Style>
-                </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <!-- area grid: header + venues -->
@@ -60,23 +65,29 @@
                                     <ColumnDefinition Width="200" />
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
+                                <!-- background -->
+                                <Border Grid.Row="0"
+                                        Grid.ColumnSpan="2">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="LightGray" />
+                                    </Border.Background>
+                                </Border>
+
                                 <!-- area name -->
                                 <Label Grid.Row="0"
                                        Grid.Column="0"
-                                       Content="{Binding Path=Name}" />
+                                       Content="{Binding Path=Name}"
+                                       FontSize="14" />
                                 <!-- timeslot header -->
                                 <ListView Grid.Row="0"
                                           Grid.Column="1"
                                           BorderThickness="0"
                                           ItemsSource="{Binding Path=TimeSlots}">
-                                    <ListView.ItemContainerStyle>
-                                        <Style TargetType="ListViewItem">
-                                            <Setter Property="Focusable" Value="false" />
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <StackPanel Orientation="Horizontal" />
+                                            <StackPanel Orientation="Horizontal"
+                                                        Opacity="50"
+                                                        Background="LightGray" />
                                         </ItemsPanelTemplate>
                                     </ListView.ItemsPanel>
                                     <ListView.ItemTemplate>
@@ -84,7 +95,8 @@
                                             <Label Content="{Binding Path=Label}"
                                                    Width="100"
                                                    HorizontalAlignment="Stretch"
-                                                   HorizontalContentAlignment="Center" />
+                                                   HorizontalContentAlignment="Center"
+                                                   Background="LightGray" />
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
@@ -94,11 +106,6 @@
                                       Grid.Column="0"
                                       ItemsSource="{Binding Path=Venues}"
                                       BorderThickness="0">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="Focusable" Value="false" />
-                                    </Style>
-                                </ListView.ItemContainerStyle>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -117,11 +124,6 @@
                                                         Grid.Column="1"
                                                         BorderThickness="0"
                                                         ItemsSource="{Binding Path=Performances}">
-                                                <ListView.ItemContainerStyle>
-                                                    <Style TargetType="ListViewItem">
-                                                        <Setter Property="Focusable" Value="false" />
-                                                    </Style>
-                                                </ListView.ItemContainerStyle>
                                                 <ListView.ItemsPanel>
                                                     <ItemsPanelTemplate>
                                                         <StackPanel Orientation="Horizontal" />
@@ -129,10 +131,19 @@
                                                 </ListView.ItemsPanel>
                                                 <ListView.ItemTemplate>
                                                     <DataTemplate>
-                                                        <Label Content="{Binding Path=Name}"
-                                                               Width="100"
-                                                               HorizontalAlignment="Stretch"
-                                                               HorizontalContentAlignment="Center" />
+                                                        <ComboBox ItemsSource="{Binding ElementName=tabSched, Path=DataContext.Artists}"
+                                                                  SelectedValue="{Binding Path=ArtistId}"
+                                                                  SelectedValuePath="Id"
+                                                                  Width="100"
+                                                                  Margin="0,0,0,0">
+                                                            <ComboBox.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <Label Content="{Binding Path=Name}"
+                                                                           HorizontalAlignment="Stretch"
+                                                                           HorizontalContentAlignment="Center" />
+                                                                </DataTemplate>
+                                                            </ComboBox.ItemTemplate>
+                                                        </ComboBox>
                                                     </DataTemplate>
                                                 </ListView.ItemTemplate>
                                             </ListView>
