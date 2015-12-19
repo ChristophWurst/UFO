@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using UFO.DAL.Common;
@@ -11,10 +13,22 @@ namespace UFO.BL {
 	internal class BusinessLogic : IBusinessLogic {
 		private DALFactory dalFactory;
 		private IDatabase db;
+		private IMailService ms;
 
-		public BusinessLogic(DALFactory dalFactory) {
+		public BusinessLogic(DALFactory dalFactory, IMailService ms) {
 			this.db = dalFactory.CreateDatabase();
 			this.dalFactory = dalFactory;
+			this.ms = ms;
+		}
+
+		public BusinessLogic(DALFactory dalFactory) {
+			var appSettings = ConfigurationManager.AppSettings;
+			var smtpServer = appSettings["smtpServer"];
+			var mailAddress = new MailAddress(appSettings["mailAddress"], appSettings["sender"]);
+			var user = appSettings["user"];
+			var pwd = appSettings["pwd"];
+			var port = int.Parse(appSettings["port"]);
+			ms = new MailService(smtpServer, port, user, pwd, mailAddress);
 		}
 
 		public Artist CreateArtist(Artist artist) {
@@ -87,6 +101,10 @@ namespace UFO.BL {
 
 		public IEnumerable<Performance> GetPerformanesForSpetacleDay(Spectacleday day) {
 			return dalFactory.CreatePerformanceDAO(db).GetForSpectacleDay(day);
+		}
+
+		public void MailPerformanceChangesToArtists(IEnumerable<Artist> artists, IEnumerable<Performance> performances) {
+			// TO DO
 		}
 	}
 }

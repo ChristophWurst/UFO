@@ -17,11 +17,41 @@ namespace UFO.Commander.ViewModels {
 
 		private IBusinessLogic bl;
 
-		internal Artist Artist { get; private set; }
+		private Artist Artist;
 
 		public ArtistViewModel(Artist artist) {
 			this.Artist = artist;
 			bl = BusinessLogicFactory.GetBusinessLogic();
+		}
+
+		public int Id {
+			get { return Artist.Id; }
+			set {
+				if (Artist.Id != value) {
+					Artist.Id = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Artist.Id)));
+				}
+			}
+		}
+
+		public int CategoryId {
+			get { return Artist.CategoryId; }
+			set {
+				if (Artist.CategoryId != value) {
+					Artist.CategoryId = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Artist.CategoryId)));
+				}
+			}
+		}
+
+		public int CountryId {
+			get { return Artist.CountryId; }
+			set {
+				if (Artist.CountryId != value) {
+					Artist.CountryId = value;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Artist.CountryId)));
+				}
+			}
 		}
 
 		public String Name {
@@ -64,53 +94,7 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
-		private CategoryViewModel category;
-
-		public CategoryViewModel Category {
-			get {
-				if (category == null) {
-					LoadCategory();
-				}
-				return category;
-			}
-			set {
-				if (category != value) {
-					category = value;
-					Artist.CategoryId = category.Id;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Category)));
-				}
-			}
-		}
-
-		private CountryViewModel country;
-
-		public CountryViewModel Country {
-			get {
-				if (country == null) {
-					LoadCountry();
-				}
-				return country;
-			}
-			set {
-				if (country != value) {
-					country = value;
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Country)));
-				}
-			}
-		}
-
-		private ICommand saveCommand;
-
-		public ICommand SaveCommand {
-			get {
-				if (saveCommand == null) {
-					saveCommand = new RelayCommand(param => SaveArtist());
-				}
-				return saveCommand;
-			}
-		}
-
-		private void SaveArtist() {
+		public void SaveArtist() {
 			if (Artist.Id == 0) {
 				Artist = bl.CreateArtist(Artist);
 			} else {
@@ -118,25 +102,10 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
-		private ICommand deleteCommand;
-
-		public ICommand DeleteCommand {
-			get {
-				if (deleteCommand == null) {
-					deleteCommand = new RelayCommand(param => bl.DeleteArtist(Artist));
-				}
-				return deleteCommand;
+		public void DeleteArtist() {
+			if (Artist.Id != 0) {
+				bl.DeleteArtist(Artist);
 			}
-		}
-
-		private async void LoadCategory() {
-			Category tmpCategory = new Category() { Id = Artist.CategoryId };
-			Category = new CategoryViewModel(await Task.Factory.StartNew(() => bl.GetCategoryById(tmpCategory)));
-		}
-
-		private async void LoadCountry() {
-			Country tmpCountry = new Country() { Id = Artist.CountryId };
-			Country = new CountryViewModel(await Task.Factory.StartNew(() => bl.GetCountryById(tmpCountry)));
 		}
 	}
 }
