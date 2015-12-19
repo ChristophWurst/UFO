@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using UFO.DAL.Common;
@@ -20,9 +22,13 @@ namespace UFO.BL {
 		}
 
 		public BusinessLogic(DALFactory dalFactory) {
-			this.db = dalFactory.CreateDatabase();
-			this.dalFactory = dalFactory;
-			this.ms = new MailService();
+			var appSettings = ConfigurationManager.AppSettings;
+			var smtpServer = appSettings["smtpServer"];
+			var mailAddress = new MailAddress(appSettings["mailAddress"], appSettings["sender"]);
+			var user = appSettings["user"];
+			var pwd = appSettings["pwd"];
+			var port = int.Parse(appSettings["port"]);
+			ms = new MailService(smtpServer, port, user, pwd, mailAddress);
 		}
 
 		public Artist CreateArtist(Artist artist) {
@@ -86,7 +92,7 @@ namespace UFO.BL {
 		}
 
 		public void MailPerformanceChangesToArtists(IEnumerable<Artist> artists, IEnumerable<Performance> performances) {
-			throw new NotImplementedException();
+			// TO DO
 		}
 	}
 }
