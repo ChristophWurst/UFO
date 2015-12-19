@@ -21,16 +21,6 @@ namespace UFO.BL {
 			this.ms = ms;
 		}
 
-		public BusinessLogic(DALFactory dalFactory) {
-			var appSettings = ConfigurationManager.AppSettings;
-			var smtpServer = appSettings["smtpServer"];
-			var mailAddress = new MailAddress(appSettings["mailAddress"], appSettings["sender"]);
-			var user = appSettings["user"];
-			var pwd = appSettings["pwd"];
-			var port = int.Parse(appSettings["port"]);
-			ms = new MailService(smtpServer, port, user, pwd, mailAddress);
-		}
-
 		public Artist CreateArtist(Artist artist) {
 			return dalFactory.CreateArtistDAO(db).Create(artist);
 		}
@@ -73,8 +63,8 @@ namespace UFO.BL {
 
 		public IEnumerable<TimeSlot> GetTimeSlots() {
 			return dalFactory.CreateTimeSlotDAO(db).GetAll();
-		}
 
+		}
 		public IEnumerable<Country> GetCountries() {
 			return dalFactory.CreateCountryDAO(db).GetAll();
 		}
