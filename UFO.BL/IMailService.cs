@@ -8,8 +8,8 @@ using UFO.DomainClasses;
 
 namespace UFO.BL {
 
-	internal interface IMailService {
+	public interface IMailService {
 
-		void MailToArtists(IEnumerable<Artist> artists, string body);
+		bool MailToArtists(IEnumerable<Artist> artists, Spectacleday day, string attPath, string attName);
 	}
 }

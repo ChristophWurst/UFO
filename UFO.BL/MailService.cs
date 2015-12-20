@@ -22,16 +22,27 @@ namespace UFO.BL {
 			this.mailAddress = mailAddress;
 		}
 
-		public void MailToArtists(IEnumerable<Artist> artists, string body) {
+		public bool MailToArtists(IEnumerable<Artist> artists, Spectacleday day, string attPath, string attName) {
 			using (SmtpClient smtpClientt = new SmtpClient(smtpServer, port))
 			using (MailMessage mailMessage = new MailMessage()) {
-				artists.ToList().ForEach(artist => mailMessage.To.Add(artist.Email));
-				mailMessage.Body = body;
-				mailMessage.From = mailAddress;
-				smtpClientt.UseDefaultCredentials = false;
-				smtpClientt.Credentials = new NetworkCredential(user, pwd);
-				smtpClientt.Send(mailMessage);
+				try {
+					artists.ToList().ForEach(artist => mailMessage.To.Add(artist.Email));
+					mailMessage.Body = CreateBody(day);
+					mailMessage.From = mailAddress;
+					Attachment attachment = new Attachment(attPath + attName);
+					mailMessage.Attachments.Add(attachment);
+					smtpClientt.UseDefaultCredentials = false;
+					smtpClientt.Credentials = new NetworkCredential(user, pwd);
+					smtpClientt.Send(mailMessage);
+					return true;
+				} catch {
+					return false;
+				}
 			}
+		}
+
+		private string CreateBody(Spectacleday day) {
+			return $"The Schedule for {day.Day} has been changed.";
 		}
 	}
 }

@@ -23,6 +23,10 @@ namespace UFO.DAL.MySql {
 										+ "FROM `performance` "
 										+ "WHERE `id` = @Id";
 
+		private const string SQL_SELECT_FOR_ARTIST = "SELECT * "
+													+ "FROM `performance` "
+													+ "WHERE `artist_id` = @ArtistId";
+
 		private const string SQL_INSERT = "INSERT INTO `performance` "
 										+ "(`artist_id`, `venue_id`, `spectacleday_timeslot_id`) VALUES "
 										+ "(@ArtistId, @VenueId, @SpectacledayTimeSlotId)";
@@ -45,6 +49,12 @@ namespace UFO.DAL.MySql {
 		private DbCommand CreateSelectForSpectacleDay(int id) {
 			var cmd = db.CreateCommand(SQL_SELECT_FOR_SPECTACLE_DAY);
 			db.DefineParameter(cmd, "@SpectacleDayId", DbType.Int32, id);
+			return cmd;
+		}
+
+		private DbCommand CreateSelectForArtist(int id) {
+			var cmd = db.CreateCommand(SQL_SELECT_FOR_ARTIST);
+			db.DefineParameter(cmd, "@ArtistId", DbType.Int32, id);
 			return cmd;
 		}
 
@@ -145,6 +155,17 @@ namespace UFO.DAL.MySql {
 			var cmd = CreateDeleteCommand(Performance.Id);
 			if (db.ExecuteNonQuery(cmd) != 1) {
 				throw new EntityNotFoundException();
+			}
+		}
+
+		public IEnumerable<Performance> GetForArtist(Artist artist) {
+			var result = new List<Performance>();
+			var cmd = CreateSelectForArtist(artist.Id);
+			using (IDataReader reader = db.ExecuteReader(cmd)) {
+				while (reader.Read()) {
+					result.Add(CreatePerformanceFromReader(reader));
+				}
+				return result;
 			}
 		}
 	}

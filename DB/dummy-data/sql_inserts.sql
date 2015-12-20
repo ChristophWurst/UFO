@@ -9,7 +9,7 @@
 /*!40101 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
--- Exportiere Daten aus Tabelle ufo.area: ~28 rows (ungefähr)
+-- Exportiere Daten aus Tabelle ufo.area: ~8 rows (ungefähr)
 /*!40000 ALTER TABLE `area` DISABLE KEYS */;
 INSERT INTO `area` (`id`, `name`) VALUES
 	(1, 'Hauptplatz'),
@@ -22,7 +22,7 @@ INSERT INTO `area` (`id`, `name`) VALUES
 	(8, 'Rathausplatz');
 /*!40000 ALTER TABLE `area` ENABLE KEYS */;
 
--- Exportiere Daten aus Tabelle ufo.artist: ~60 rows (ungefähr)
+-- Exportiere Daten aus Tabelle ufo.artist: ~67 rows (ungefähr)
 /*!40000 ALTER TABLE `artist` DISABLE KEYS */;
 INSERT INTO `artist` (`id`, `name`, `image`, `video`, `category_id`, `country_id`, `email`, `deleted`) VALUES
 	(1, 'circoPitanga', 'images/1.jpg', 'https://youtube.com/watch?v=bid2x95r4', 1, 42, 'circoPitanga@gmx.at', 0),
@@ -84,7 +84,14 @@ INSERT INTO `artist` (`id`, `name`, `image`, `video`, `category_id`, `country_id
 	(57, 'Dr. Bubbles & die Seifenblansenbande', 'images/57.jpg', 'https://youtube.com/watch?v=bn38l29t0', 11, 56, 'DrBubbles&dieSeifenblansenbande@gmail.com', 0),
 	(58, 'Puppenbühne Burattino-Koffertheater', 'images/58.jpg', 'https://youtube.com/watch?v=dkhglbh8i', 11, 56, 'PuppenbühneBurattino-Koffertheater@gmail.com', 0),
 	(59, 'Kleines Grusel Gewusel', 'images/59.jpg', 'https://youtube.com/watch?v=jugfhx10p', 11, 13, 'KleinesGruselGewusel@gmail.com', 0),
-	(60, 'Lucy Lou', 'images/60.jpg', NULL, 11, 56, 'LucyLou@gmail.com', 0);
+	(60, 'Lucy Lou', 'images/60.jpg', NULL, 11, 56, 'LucyLou@gmail.com', 0),
+	(95, 'New User', NULL, NULL, 1, 1, NULL, 1),
+	(96, 'fdadfadf', NULL, NULL, 1, 1, NULL, 1),
+	(97, 'aaa', NULL, NULL, 1, 1, NULL, 1),
+	(98, 'qw', 'ewe', 'qe', 1, 3, NULL, 1),
+	(99, 'adfasdf', NULL, NULL, 1, 1, NULL, 1),
+	(100, 'adfadf', NULL, NULL, 2, 1, NULL, 1),
+	(101, 'adfadf', NULL, NULL, 1, 1, NULL, 1);
 /*!40000 ALTER TABLE `artist` ENABLE KEYS */;
 
 -- Exportiere Daten aus Tabelle ufo.category: ~11 rows (ungefähr)
@@ -1631,46 +1638,46 @@ INSERT INTO `spectacleday` (`id`, `day`) VALUES
 /*!40000 ALTER TABLE `spectacleday_timeslot` DISABLE KEYS */;
 INSERT INTO `spectacleday_timeslot` (`id`, `timeslot_id`, `spectacleday_id`) VALUES
 	(1, 1, 1),
-	(2, 1, 2),
-	(3, 1, 3),
-	(4, 1, 4),
-	(5, 1, 5),
-	(6, 1, 6),
-	(7, 2, 1),
-	(8, 2, 2),
-	(9, 2, 3),
-	(10, 2, 4),
-	(11, 2, 5),
-	(12, 2, 6),
-	(13, 3, 1),
-	(14, 3, 2),
-	(15, 3, 3),
-	(16, 3, 4),
-	(17, 3, 5),
-	(18, 3, 6),
-	(19, 4, 1),
-	(20, 4, 2),
-	(21, 4, 3),
-	(22, 4, 4),
-	(23, 4, 5),
-	(24, 4, 6),
-	(25, 5, 1),
-	(26, 5, 2),
-	(27, 5, 3),
-	(28, 5, 4),
-	(29, 5, 5),
-	(30, 5, 6),
-	(31, 6, 1),
-	(32, 6, 2),
-	(33, 6, 3),
-	(34, 6, 4),
-	(35, 6, 5),
-	(36, 6, 6),
-	(37, 7, 1),
-	(38, 7, 2),
-	(39, 7, 3),
-	(40, 7, 4),
-	(41, 7, 5),
+	(2, 2, 1),
+	(3, 3, 1),
+	(4, 4, 1),
+	(5, 5, 1),
+	(6, 6, 1),
+	(7, 7, 1),
+	(8, 1, 2),
+	(9, 2, 2),
+	(10, 3, 2),
+	(11, 4, 2),
+	(12, 5, 2),
+	(13, 6, 2),
+	(14, 7, 2),
+	(15, 1, 3),
+	(16, 2, 3),
+	(17, 3, 3),
+	(18, 4, 3),
+	(19, 5, 3),
+	(20, 6, 3),
+	(21, 7, 3),
+	(22, 1, 4),
+	(23, 2, 4),
+	(24, 3, 4),
+	(25, 4, 4),
+	(26, 5, 4),
+	(27, 6, 4),
+	(28, 7, 4),
+	(29, 1, 5),
+	(30, 2, 5),
+	(31, 3, 5),
+	(32, 4, 5),
+	(33, 5, 5),
+	(34, 6, 5),
+	(35, 7, 5),
+	(36, 1, 6),
+	(37, 2, 6),
+	(38, 3, 6),
+	(39, 4, 6),
+	(40, 5, 6),
+	(41, 6, 6),
 	(42, 7, 6);
 /*!40000 ALTER TABLE `spectacleday_timeslot` ENABLE KEYS */;
 

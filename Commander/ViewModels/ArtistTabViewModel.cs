@@ -203,9 +203,11 @@ namespace UFO.Commander.ViewModels {
 		}
 
 		private void RemoveArtist() {
-			Artists.Remove(CurrArtist);
-			CurrArtist.DeleteArtist();
-			ResetArtist();
+			if (currArtist != null) {
+				Artists.Remove(CurrArtist);
+				CurrArtist.DeleteArtist();
+				ResetArtist();
+			}
 		}
 	}
 }

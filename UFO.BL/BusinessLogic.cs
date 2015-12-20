@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using UFO.DAL.Common;
 using UFO.DomainClasses;
 
@@ -14,11 +15,30 @@ namespace UFO.BL {
 		private DALFactory dalFactory;
 		private IDatabase db;
 		private IMailService ms;
+		private IPdfMaker pdf;
+		private string pdfPath;
+		private string pdfName;
 
-		public BusinessLogic(DALFactory dalFactory, IMailService ms) {
+		public BusinessLogic(DALFactory dalFactory, IMailService ms, IPdfMaker pdf) {
 			this.db = dalFactory.CreateDatabase();
 			this.dalFactory = dalFactory;
 			this.ms = ms;
+			this.pdf = pdf;
+		}
+
+		public BusinessLogic(DALFactory dalFactory) {
+			this.db = dalFactory.CreateDatabase();
+			this.dalFactory = dalFactory;
+			var appSettings = ConfigurationManager.AppSettings;
+			var smtpServer = appSettings["smtpServer"];
+			var mailAddress = new MailAddress(appSettings["mailAddress"], appSettings["sender"]);
+			var user = appSettings["user"];
+			var pwd = appSettings["pwd"];
+			var port = int.Parse(appSettings["port"]);
+			ms = new MailService(smtpServer, port, user, pwd, mailAddress);
+			pdfPath = appSettings["pdfPath"];
+			pdfName = appSettings["pdfName"];
+			pdf = new PdfMaker(pdfPath, pdfName);
 		}
 
 		public Artist CreateArtist(Artist artist) {
@@ -27,6 +47,15 @@ namespace UFO.BL {
 
 		public void DeleteArtist(Artist artist) {
 			dalFactory.CreateArtistDAO(db).Delete(artist);
+			var performanceDAO = dalFactory.CreatePerformanceDAO(db);
+			var performancesOfArtist = performanceDAO.GetForArtist(artist);
+			var futureSpectacleDays = dalFactory.CreateSpectacledayDAO(db).GetAll().Where(day => day.Day >= DateTime.Today);
+			var futureTimeSlots = dalFactory.CreateTimeSlotDAO(db).GetAll().Where(timeslot => timeslot.Start >= DateTime.Now.TimeOfDay);
+			var futureSpectacleDayTimeslots = dalFactory.CreateSpectacledayTimeSlotDAO(db).GetAll().Where(t => futureSpectacleDays.Select(d => d.Id).Contains(t.SpectacledayId) && futureTimeSlots.Select(o => o.Id).Contains(t.TimeSlotId));
+			var performanceToDelete = performancesOfArtist.Where(performance => futureSpectacleDayTimeslots.Select(fsdt => fsdt.Id).Contains(performance.SpectacledayTimeSlot));
+			using (new TransactionScope()) {
+				performanceToDelete.ToList().ForEach(performance => performanceDAO.Delete(performance));
+			}
 		}
 
 		public IEnumerable<Area> GetAreas() {
@@ -63,8 +92,8 @@ namespace UFO.BL {
 
 		public IEnumerable<TimeSlot> GetTimeSlots() {
 			return dalFactory.CreateTimeSlotDAO(db).GetAll();
-
 		}
+
 		public IEnumerable<Country> GetCountries() {
 			return dalFactory.CreateCountryDAO(db).GetAll();
 		}
@@ -93,8 +122,17 @@ namespace UFO.BL {
 			return dalFactory.CreatePerformanceDAO(db).GetForSpectacleDay(day);
 		}
 
-		public void MailPerformanceChangesToArtists(IEnumerable<Artist> artists, IEnumerable<Performance> performances) {
-			// TO DO
+		public void MailPerformanceChangesToArtists(IEnumerable<Artist> artists, IEnumerable<Performance> performances, Spectacleday day) {
+			CreatePdfScheduleForSpectacleDay(day);
+			ms.MailToArtists(artists, day, pdfPath, pdfName);
+		}
+
+		public IEnumerable<Venue> GetVenues() {
+			return dalFactory.CreateVenueDAO(db).GetAll();
+		}
+
+		public void CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay) {
+			pdf.MakeSpectacleSchedule(GetSpectacleDayTimeSlotsForSpectacleDay(spectacleDay), GetPerformanesForSpetacleDay(spectacleDay), GetAreas(), GetVenues(), GetTimeSlots(), GetArtists());
 		}
 	}
 }

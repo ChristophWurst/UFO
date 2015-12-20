@@ -45,6 +45,8 @@ namespace UFO.BL {
 
 		IEnumerable<Performance> GetPerformanesForSpetacleDay(Spectacleday day);
 
-		void MailPerformanceChangesToArtists(IEnumerable<Artist> artists, IEnumerable<Performance> performances);
+		IEnumerable<Venue> GetVenues();
+
+		void CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay);
 	}
 }
