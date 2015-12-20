@@ -15,10 +15,20 @@ namespace UFO.DAL.MySql {
 										+ "FROM `user` "
 										+ "WHERE `id` = @Id";
 
+		private const string SQL_SELECT_FOR_NAME = "SELECT * "
+								+ "FROM `user` "
+								+ "WHERE `email` = @Name";
+
 		private IDatabase db;
 
 		private DbCommand createSelectAllCommand() {
 			return db.CreateCommand(SQL_SELECT_ALL);
+		}
+
+		private DbCommand createSelectForNameCommand(string Name) {
+			var cmd = db.CreateCommand(SQL_SELECT_FOR_NAME);
+			db.DefineParameter(cmd, "@Name", DbType.String, Name);
+			return cmd;
 		}
 
 		private DbCommand createSelectByIdCommand(int id) {
@@ -53,6 +63,20 @@ namespace UFO.DAL.MySql {
 		public User GetById(int id) {
 			User user = null;
 			DbCommand cmd = createSelectByIdCommand(id);
+			using (IDataReader reader = db.ExecuteReader(cmd)) {
+				if (reader.Read()) {
+					user = createUserFromReader(reader);
+				}
+			}
+			if (user == null) {
+				throw new EntityNotFoundException();
+			}
+			return user;
+		}
+
+		public User GetByName(string name) {
+			User user = null;
+			DbCommand cmd = createSelectForNameCommand(name);
 			using (IDataReader reader = db.ExecuteReader(cmd)) {
 				if (reader.Read()) {
 					user = createUserFromReader(reader);

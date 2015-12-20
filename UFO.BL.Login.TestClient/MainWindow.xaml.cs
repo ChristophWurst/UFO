@@ -10,17 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UFO.Commander.ViewModels;
 
-namespace UFO.Commander {
+namespace UFO.BL.Login.TestClient {
 
 	/// <summary>
-	/// Interaktionslogik für UFOWindow.xaml
+	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class UFOWindow : Window {
+	public partial class MainWindow : Window {
 
-		public UFOWindow() {
+		public MainWindow() {
 			InitializeComponent();
+			this.Loaded += (s, e) => {
+				this.DataContext = new LoginViewModel();
+			};
 		}
 	}
 }

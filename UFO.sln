@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UFO.BL", "UFO.BL\UFO.BL.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UFO.BL.TestClient", "UFO.BL.TestClient\UFO.BL.TestClient.csproj", "{1AB2ECE6-ED2A-42A8-99AB-889EC5FE064E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PwdHashGeneratorForDummyData", "PwdHashGeneratorForDummyData\PwdHashGeneratorForDummyData.csproj", "{2366652F-F2FF-4C05-ADA1-CC8D3700FA58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{1AB2ECE6-ED2A-42A8-99AB-889EC5FE064E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AB2ECE6-ED2A-42A8-99AB-889EC5FE064E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AB2ECE6-ED2A-42A8-99AB-889EC5FE064E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2366652F-F2FF-4C05-ADA1-CC8D3700FA58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2366652F-F2FF-4C05-ADA1-CC8D3700FA58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2366652F-F2FF-4C05-ADA1-CC8D3700FA58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2366652F-F2FF-4C05-ADA1-CC8D3700FA58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

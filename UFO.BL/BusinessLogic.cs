@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -12,6 +13,8 @@ using UFO.DomainClasses;
 namespace UFO.BL {
 
 	internal class BusinessLogic : IBusinessLogic {
+		private const string SALT = "H4g3nb3Rg";
+
 		private DALFactory dalFactory;
 		private IDatabase db;
 		private IMailService ms;
@@ -147,6 +150,24 @@ namespace UFO.BL {
 
 		public void CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay) {
 			pdf.MakeSpectacleSchedule(GetSpectacleDayTimeSlotsForSpectacleDay(spectacleDay), GetPerformanesForSpetacleDay(spectacleDay), GetAreas(), GetVenues(), GetTimeSlots(), GetArtists());
+		}
+
+		public bool Login(string username, string password) {
+			try {
+				User user = dalFactory.CreateUserDAO(db).GetByName(username);
+				SHA1 sha = new SHA1CryptoServiceProvider();
+				var shaPwd = sha.ComputeHash(Encoding.ASCII.GetBytes(SALT + password + username));
+				var sb = new StringBuilder();
+
+				foreach (byte b in shaPwd) {
+					sb.AppendFormat("{0:x2}", b);
+				}
+
+				password = sb.ToString();
+				return password == user.Password;
+			} catch {
+				return false;
+			}
 		}
 	}
 }
