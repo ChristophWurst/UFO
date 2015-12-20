@@ -52,6 +52,22 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
+		internal async void SaveChanges() {
+			List<Performance> performances = new List<Performance>();
+
+			foreach (var a in Areas) {
+				foreach (var v in a.Venues) {
+					foreach (var p in v.Performances.Where(p => p.IsDirty)) {
+						var performance = p.Performance;
+
+						performances.Add(performance);
+					}
+				}
+			}
+
+			bl.UpdatePerformances(performances);
+		}
+
 		public string Label {
 			get { return spectacleDay.Day.ToString(); }
 		}
