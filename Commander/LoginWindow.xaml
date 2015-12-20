@@ -51,6 +51,7 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Padding="3,3,3,3"
+                IsDefault="True"
                 Command="{Binding LoginCommand, Mode=OneWay}"
                 CommandParameter="{Binding ElementName=Login}">
             Login
