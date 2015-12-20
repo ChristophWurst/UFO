@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using UFO.BL;
 using UFO.DomainClasses;
@@ -25,7 +24,6 @@ namespace UFO.Commander.ViewModels {
 		}
 
 		public async void LoadPerformances() {
-			Thread.Sleep(5000);
 			var areas = await Task.Factory.StartNew(() => bl.GetAreas());
 			var performances = await Task.Factory.StartNew(() => bl.GetPerformanesForSpetacleDay(spectacleDay));
 
