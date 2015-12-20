@@ -10,6 +10,6 @@ namespace UFO.BL {
 
 	public interface IMailService {
 
-		bool MailToArtists(IEnumerable<Artist> artists, Spectacleday day, string attPath, string attName);
+		void MailToArtists(IEnumerable<Artist> artists, Spectacleday day, string attPath, string attName);
 	}
 }
