@@ -5,8 +5,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using UFO.BL;
+using UFO.BL.execptions;
 using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
@@ -95,16 +97,24 @@ namespace UFO.Commander.ViewModels {
 		}
 
 		public void SaveArtist() {
-			if (Artist.Id == 0) {
-				Artist = bl.CreateArtist(Artist);
-			} else {
-				bl.UpdateArtist(Artist);
+			try {
+				if (Artist.Id == 0) {
+					Artist = bl.CreateArtist(Artist);
+				} else {
+					bl.UpdateArtist(Artist);
+				}
+			} catch (BusinessLogicException e) {
+				MessageBox.Show(e.Message, "Error");
 			}
 		}
 
 		public void DeleteArtist() {
-			if (Artist.Id != 0) {
-				bl.DeleteArtist(Artist);
+			try {
+				if (Artist != null && Artist.Id != 0) {
+					bl.DeleteArtist(Artist);
+				}
+			} catch (BusinessLogicException e) {
+				MessageBox.Show(e.Message, "Error");
 			}
 		}
 	}

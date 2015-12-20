@@ -55,6 +55,8 @@ namespace UFO.Commander.ViewModels {
 			}
 			try {
 				bl.Login(UserName, Password);
+				(new UFOWindow()).Show();
+				(window as Window).Close();
 			} catch (BusinessLogicException e) {
 				MessageBox.Show(e.Message, "Error");
 			}
