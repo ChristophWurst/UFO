@@ -60,7 +60,7 @@ namespace UFO.Commander.ViewModels {
 
 		public ICommand SaveCommand {
 			get {
-				throw new NotImplementedException();
+				return new RelayCommand(param => ActiveSpectacleDay?.SaveChanges());
 			}
 		}
 	}

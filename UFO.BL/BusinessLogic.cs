@@ -122,6 +122,20 @@ namespace UFO.BL {
 			return dalFactory.CreatePerformanceDAO(db).GetForSpectacleDay(day);
 		}
 
+		public void UpdatePerformances(IEnumerable<Performance> performances) {
+			var performanceDAO = dalFactory.CreatePerformanceDAO(db);
+			using (TransactionScope trans = new TransactionScope()) {
+				foreach (var p in performances) {
+					performanceDAO.Delete(p);
+				}
+
+				foreach (var p in performances) {
+					performanceDAO.Create(p);
+				}
+				trans.Complete();
+			}
+		}
+
 		public void MailPerformanceChangesToArtists(IEnumerable<Artist> artists, IEnumerable<Performance> performances, Spectacleday day) {
 			CreatePdfScheduleForSpectacleDay(day);
 			ms.MailToArtists(artists, day, pdfPath, pdfName);
