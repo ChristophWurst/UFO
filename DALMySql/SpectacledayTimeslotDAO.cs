@@ -17,6 +17,13 @@ namespace UFO.DAL.MySql {
 														 + "FROM `spectacleday_timeslot` "
 														 + "WHERE `spectacleday_id` = @SpectacleDayId";
 
+		private const string SQL_SELECT_ALL = "SELECT * "
+											+ "FROM `spectacleday_timeslot`";
+
+		private DbCommand CreateSelectAllCommand() {
+			return db.CreateCommand(SQL_SELECT_ALL);
+		}
+
 		private DbCommand CreateSelectForSpectacleDayCommand(Spectacleday spectacleDay) {
 			var cmd = db.CreateCommand(SQL_SELECT_FOR_SPECTACLEDAY);
 			db.DefineParameter(cmd, "@SpectacleDayId", DbType.Int32, spectacleDay.Id);
@@ -36,7 +43,14 @@ namespace UFO.DAL.MySql {
 		}
 
 		public IEnumerable<SpectacledayTimeSlot> GetAll() {
-			throw new NotImplementedException();
+			var spectacledayTimeSlots = new List<SpectacledayTimeSlot>();
+			DbCommand cmd = CreateSelectAllCommand();
+			using (IDataReader reader = db.ExecuteReader(cmd)) {
+				while (reader.Read()) {
+					spectacledayTimeSlots.Add(CreateSpectacleTimeslotFromReader(reader));
+				}
+			}
+			return spectacledayTimeSlots;
 		}
 
 		public SpectacledayTimeSlot GetById(int id) {
