@@ -46,6 +46,7 @@ namespace UFO.Commander.ViewModels {
 		}
 
 		private void Login(Object window) {
+			string Password = "";
 			var passwordContainer = window as IHavePassword;
 			if (passwordContainer != null) {
 				var secureString = passwordContainer.Password;

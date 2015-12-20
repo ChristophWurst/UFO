@@ -11,7 +11,7 @@ namespace PwdHashGeneratorForDummyData {
 
 		private static void Main(string[] args) {
 			string salt = "H4g3nb3Rg";
-			string userName = "stefan.roesch1985@gmail.com";
+			string userName = "christoph@wur.st";
 			string password = "ufo";
 			SHA1 sha = new SHA1CryptoServiceProvider();
 			var shaPwd = sha.ComputeHash(Encoding.ASCII.GetBytes(salt + password + userName));
