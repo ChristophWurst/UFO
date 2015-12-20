@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UFO.BL.execptions;
 using UFO.DomainClasses;
 
 namespace UFO.BL {
@@ -33,17 +34,21 @@ namespace UFO.BL {
 										  IEnumerable<Venue> venues,
 										  IEnumerable<TimeSlot> timeSlots,
 										  IEnumerable<Artist> artists) {
-			this.spectacleDayTimeSlots = spectacleDayTimeSlots;
-			this.performances = performances;
-			this.areas = areas;
-			this.venues = venues;
-			this.timeSlots = timeSlots;
-			this.artists = artists;
-			Document document = CreateDocument();
-			PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
-			pdfRenderer.Document = document;
-			pdfRenderer.RenderDocument();
-			pdfRenderer.PdfDocument.Save(pdfPath + pdfName);
+			try {
+				this.spectacleDayTimeSlots = spectacleDayTimeSlots;
+				this.performances = performances;
+				this.areas = areas;
+				this.venues = venues;
+				this.timeSlots = timeSlots;
+				this.artists = artists;
+				Document document = CreateDocument();
+				PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
+				pdfRenderer.Document = document;
+				pdfRenderer.RenderDocument();
+				pdfRenderer.PdfDocument.Save(pdfPath + pdfName);
+			} catch {
+				throw new BusinessLogicException("Could not create PDF-File.");
+			}
 		}
 
 		public Document CreateDocument() {

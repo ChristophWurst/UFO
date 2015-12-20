@@ -46,19 +46,29 @@ namespace UFO.BL {
 		}
 
 		public Artist CreateArtist(Artist artist) {
-			return dalFactory.CreateArtistDAO(db).Create(artist);
+			try {
+				return dalFactory.CreateArtistDAO(db).Create(artist);
+			} catch {
+				throw new BusinessLogicException($"Could not create Artist {artist.Name}.");
+			}
 		}
 
 		public void DeleteArtist(Artist artist) {
-			dalFactory.CreateArtistDAO(db).Delete(artist);
-			var performanceDAO = dalFactory.CreatePerformanceDAO(db);
-			var performancesOfArtist = performanceDAO.GetForArtist(artist);
-			var futureSpectacleDays = dalFactory.CreateSpectacledayDAO(db).GetAll().Where(day => day.Day >= DateTime.Today);
-			var futureTimeSlots = dalFactory.CreateTimeSlotDAO(db).GetAll().Where(timeslot => timeslot.Start >= DateTime.Now.TimeOfDay);
-			var futureSpectacleDayTimeslots = dalFactory.CreateSpectacledayTimeSlotDAO(db).GetAll().Where(t => futureSpectacleDays.Select(d => d.Id).Contains(t.SpectacledayId) && futureTimeSlots.Select(o => o.Id).Contains(t.TimeSlotId));
-			var performanceToDelete = performancesOfArtist.Where(performance => futureSpectacleDayTimeslots.Select(fsdt => fsdt.Id).Contains(performance.SpectacledayTimeSlot));
-			using (new TransactionScope()) {
-				performanceToDelete.ToList().ForEach(performance => performanceDAO.Delete(performance));
+			try {
+				dalFactory.CreateArtistDAO(db).Delete(artist);
+				var performanceDAO = dalFactory.CreatePerformanceDAO(db);
+				var performancesOfArtist = performanceDAO.GetForArtist(artist);
+				var futureSpectacleDays = dalFactory.CreateSpectacledayDAO(db).GetAll().Where(day => day.Day >= DateTime.Today);
+				var futureTimeSlots = dalFactory.CreateTimeSlotDAO(db).GetAll().Where(timeslot => timeslot.Start >= DateTime.Now.TimeOfDay);
+				var futureSpectacleDayTimeslots = dalFactory.CreateSpectacledayTimeSlotDAO(db).GetAll().Where(t => futureSpectacleDays.Select(d => d.Id).Contains(t.SpectacledayId) && futureTimeSlots.Select(o => o.Id).Contains(t.TimeSlotId));
+				var performanceToDelete = performancesOfArtist.Where(performance => futureSpectacleDayTimeslots.Select(fsdt => fsdt.Id).Contains(performance.SpectacledayTimeSlot));
+				using (new TransactionScope()) {
+					performanceToDelete.ToList().ForEach(performance => performanceDAO.Delete(performance));
+				}
+			} catch (EntityNotFoundException) {
+				throw new BusinessLogicException($"Could not delete Artist {artist.Name}, Artist {artist.Name} not found.");
+			} catch {
+				throw new BusinessLogicException($"Could not delete Artist {artist.Name}.");
 			}
 		}
 
@@ -91,7 +101,11 @@ namespace UFO.BL {
 		}
 
 		public Artist UpdateArtist(Artist artist) {
-			return dalFactory.CreateArtistDAO(db).Update(artist);
+			try {
+				return dalFactory.CreateArtistDAO(db).Update(artist);
+			} catch {
+				throw new BusinessLogicException($"Could not update Artist {artist.Name}.");
+			}
 		}
 
 		public IEnumerable<TimeSlot> GetTimeSlots() {

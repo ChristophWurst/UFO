@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using UFO.BL.execptions;
 using UFO.DomainClasses;
 
 namespace UFO.BL {
@@ -22,7 +23,7 @@ namespace UFO.BL {
 			this.mailAddress = mailAddress;
 		}
 
-		public bool MailToArtists(IEnumerable<Artist> artists, Spectacleday day, string attPath, string attName) {
+		public void MailToArtists(IEnumerable<Artist> artists, Spectacleday day, string attPath, string attName) {
 			using (SmtpClient smtpClientt = new SmtpClient(smtpServer, port))
 			using (MailMessage mailMessage = new MailMessage()) {
 				try {
@@ -34,9 +35,8 @@ namespace UFO.BL {
 					smtpClientt.UseDefaultCredentials = false;
 					smtpClientt.Credentials = new NetworkCredential(user, pwd);
 					smtpClientt.Send(mailMessage);
-					return true;
 				} catch {
-					return false;
+					throw new BusinessLogicException("Mailt to Artists failed.");
 				}
 			}
 		}
