@@ -5,7 +5,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using UFO.BL;
+using UFO.BL.execptions;
 using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
@@ -53,19 +55,23 @@ namespace UFO.Commander.ViewModels {
 		}
 
 		internal async void SaveChanges() {
-			List<Performance> performances = new List<Performance>();
+			try {
+				List<Performance> performances = new List<Performance>();
 
-			foreach (var a in Areas) {
-				foreach (var v in a.Venues) {
-					foreach (var p in v.Performances.Where(p => p.IsDirty)) {
-						var performance = p.Performance;
+				foreach (var a in Areas) {
+					foreach (var v in a.Venues) {
+						foreach (var p in v.Performances.Where(p => p.IsDirty)) {
+							var performance = p.Performance;
 
-						performances.Add(performance);
+							performances.Add(performance);
+						}
 					}
 				}
-			}
 
-			bl.UpdatePerformances(performances);
+				bl.UpdatePerformances(performances);
+			} catch (BusinessLogicException ble) {
+				MessageBox.Show(ble.Message);
+			}
 		}
 
 		public string Label {
