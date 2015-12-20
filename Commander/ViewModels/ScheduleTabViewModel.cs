@@ -40,18 +40,18 @@ namespace UFO.Commander.ViewModels {
 			LoadArtists();
 		}
 
-		private void LoadSpectacleDays() {
+		private async void LoadSpectacleDays() {
 			SpectacleDays.Clear();
-			var days = bl.GetSpectacleDays();
+			var days = await Task.Factory.StartNew(() => bl.GetSpectacleDays());
 			foreach (var sd in days) {
 				SpectacleDays.Add(new SpectacledayViewModel(sd, bl));
 			}
 			ActiveSpectacleDay = SpectacleDays.FirstOrDefault();
 		}
 
-		private void LoadArtists() {
+		private async void LoadArtists() {
 			Artists.Clear();
-			var artists = bl.GetArtists();
+			var artists = await Task.Factory.StartNew(() => bl.GetArtists());
 			foreach (var a in artists) {
 				Artists.Add(new ScheduleArtistViewModel(a));
 			}

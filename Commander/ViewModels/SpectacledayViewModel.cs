@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using UFO.BL;
 using UFO.DomainClasses;
@@ -21,23 +22,24 @@ namespace UFO.Commander.ViewModels {
 			this.bl = bl;
 
 			Areas = new ObservableCollection<ScheduleAreaViewModel>();
-
-			LoadPerformances();
 		}
 
-		public void LoadPerformances() {
-			var areas = bl.GetAreas();
-			var performances = bl.GetPerformanesForSpetacleDay(spectacleDay);
+		public async void LoadPerformances() {
+			Thread.Sleep(5000);
+			var areas = await Task.Factory.StartNew(() => bl.GetAreas());
+			var performances = await Task.Factory.StartNew(() => bl.GetPerformanesForSpetacleDay(spectacleDay));
 
 			Areas.Clear();
 			foreach (var area in areas) {
 				ObservableCollection<TimeSlotViewModel> timeSlotViewModels = new ObservableCollection<TimeSlotViewModel>();
-				foreach (var ts in bl.GetTimeSlots()) {
+				var timeSlots = await Task.Factory.StartNew(() => bl.GetTimeSlots());
+				foreach (var ts in timeSlots) {
 					timeSlotViewModels.Add(new TimeSlotViewModel(ts));
 				}
 
 				ObservableCollection<ScheduleVenueViewModel> venueViewModels = new ObservableCollection<ScheduleVenueViewModel>();
-				foreach (var v in bl.GetVenuesForArea(area)) {
+				var venues = await Task.Factory.StartNew(() => bl.GetVenuesForArea(area));
+				foreach (var v in venues) {
 					ObservableCollection<PerformanceViewModel> performanceViewModels = new ObservableCollection<PerformanceViewModel>();
 					var x = performances.Where(p => p.VenueId == v.Id).Count();
 					foreach (var p in performances.Where(p => p.VenueId == v.Id)) {
