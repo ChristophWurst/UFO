@@ -10,11 +10,13 @@ namespace UFO.Commander.ViewModels {
 
 	internal class PerformanceViewModel : INotifyPropertyChanged {
 		private Performance performance;
+		private bool dirty;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		public PerformanceViewModel(Performance performance) {
 			this.performance = performance;
+			dirty = false;
 		}
 
 		public int ArtistId {
@@ -22,9 +24,18 @@ namespace UFO.Commander.ViewModels {
 			set {
 				if (value != performance.ArtistId) {
 					performance.ArtistId = value;
+					dirty = true;
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ArtistId)));
 				}
 			}
+		}
+
+		public Performance Performance {
+			get { return performance; }
+		}
+
+		public bool IsDirty {
+			get { return dirty; }
 		}
 	}
 }

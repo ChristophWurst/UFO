@@ -56,5 +56,11 @@ namespace UFO.Commander.ViewModels {
 				Artists.Add(new ScheduleArtistViewModel(a));
 			}
 		}
+
+		public ICommand SaveCommand {
+			get {
+				return new RelayCommand(param => ActiveSpectacleDay?.SaveChanges());
+			}
+		}
 	}
 }
