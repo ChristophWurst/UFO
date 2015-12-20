@@ -48,5 +48,7 @@ namespace UFO.BL {
 		IEnumerable<Venue> GetVenues();
 
 		void CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay);
+
+		bool Login(string username, string password);
 	}
 }

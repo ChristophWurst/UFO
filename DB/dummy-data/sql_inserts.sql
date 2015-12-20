@@ -55,8 +55,8 @@ INSERT INTO `artist` (`id`, `name`, `image`, `video`, `category_id`, `country_id
 	(28, 'DANCEproject', 'images/28.jpg', 'https://youtube.com/watch?v=h1gx0zmva', 4, 13, 'DANCEproject@gmx.de', 0),
 	(29, 'Duo Kate and Pasi', 'images/29.jpg', 'https://youtube.com/watch?v=lu3p2vvkx', 4, 69, 'DuoKateandPasi@gmail.com', 0),
 	(30, 'Duo Looky', 'images/30.jpg', 'https://youtube.com/watch?v=oa6s4x7vg', 4, 102, 'DuoLooky@gmail.com', 0),
-	(31, 'Duo Masawa', 'images/31.jpg', 'https://youtube.com/watch?v=edgvolm3c', 4, 109, 'DuoMasawa@gmail.com', 0),
-	(32, 'Zirkus Gonzo', 'images/32.jpg', 'https://youtube.com/watch?v=4bzo9xm4f', 5, 58, 'ZirkusGonzo@gmx.de', 0),
+	(31, 'Duo Masawa', 'images/31.jpg', 'https://youtube.com/watch?v=edgvolm3c', 4, 109, 'DuoMasawa@gmail.com', 1),
+	(32, 'Zirkus Gonzo', 'images/32.jpg', 'https://youtube.com/watch?v=4bzo9xm4f', 5, 58, 'ZirkusGonzo@gmx.de', 1),
 	(33, 'Cia. Frutillas Con Crema', 'images/33.jpg', 'https://youtube.com/watch?v=j4pzkjvpa', 6, 67, 'CiaFrutillasConCrema@hotmail.com', 0),
 	(34, 'Fausto Giori', 'images/34.jpg', 'https://youtube.com/watch?v=zph0a6s3v', 6, 109, 'FaustoGiori@gmail.com', 0),
 	(35, 'Luca Bellezze', 'images/35.jpg', 'https://youtube.com/watch?v=r0h5za6t7', 6, 109, 'LucaBellezze@gmx.at', 0),
@@ -1696,8 +1696,8 @@ INSERT INTO `timeslot` (`id`, `start`, `end`) VALUES
 -- Exportiere Daten aus Tabelle ufo.user: ~2 rows (ungefähr)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `email`, `password`) VALUES
-	(1, 'christoph@wur.st', 'bab'),
-	(2, 'stefan.roesch1985@gmail.com', 'bab');
+	(1, 'christoph@wur.st', 'd5ba440eee8da7f33a22cde96c8f64a7f5e5494b'),
+	(2, 'stefan.roesch1985@gmail.com', '5ec659b2054fbc44759657afd81ee3f2be7cad44');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Exportiere Daten aus Tabelle ufo.venue: ~39 rows (ungefähr)

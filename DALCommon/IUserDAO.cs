@@ -8,5 +8,7 @@ namespace UFO.DAL.Common {
 		User GetById(int id);
 
 		IEnumerable<User> GetAll();
+
+		User GetByName(string name);
 	}
 }

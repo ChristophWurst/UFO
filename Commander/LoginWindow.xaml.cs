@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,18 +13,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UFO.Commander.CustomControls;
+using UFO.Commander.ViewModels;
 
 namespace UFO.Commander {
+
 	/// <summary>
 	/// Interaktionslogik für MainWindow.xaml
 	/// </summary>
-	public partial class LoginWindow : Window {
+	public partial class LoginWindow : Window, IHavePassword {
+
 		public LoginWindow() {
 			InitializeComponent();
+			this.Loaded += (s, e) => {
+				this.DataContext = new LoginViewModel();
+			};
 		}
 
-		private void OnLoginClick(object sender, RoutedEventArgs e) {
-			throw new NotImplementedException();
+		public SecureString Password {
+			get {
+				return UserPassword.SecurePassword;
+			}
 		}
 	}
 }
