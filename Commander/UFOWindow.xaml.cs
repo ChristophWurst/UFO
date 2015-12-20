@@ -13,10 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace UFO.Commander {
+
 	/// <summary>
 	/// Interaktionslogik für UFOWindow.xaml
 	/// </summary>
 	public partial class UFOWindow : Window {
+
 		public UFOWindow() {
 			InitializeComponent();
 		}

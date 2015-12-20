@@ -24,7 +24,6 @@ namespace UFO.Commander {
 		public ArtistTab() {
 			InitializeComponent();
 			this.Loaded += (s, e) => {
-				//this.DataContext = new ArtistManagerViewModel(new ArtistCollectionViewModel(), new CategoriesCollectionViewModel(), new CountriesCollectionViewModel());
 				this.DataContext = new ArtistTabViewModel();
 			};
 		}
