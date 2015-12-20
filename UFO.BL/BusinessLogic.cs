@@ -141,16 +141,61 @@ namespace UFO.BL {
 		}
 
 		public void UpdatePerformances(IEnumerable<Performance> performances) {
-			var performanceDAO = dalFactory.CreatePerformanceDAO(db);
-			using (TransactionScope trans = new TransactionScope()) {
-				foreach (var p in performances) {
-					performanceDAO.Delete(p);
-				}
+			if (performances.Count() == 0) {
+				return;
+			}
 
-				foreach (var p in performances) {
-					performanceDAO.Create(p);
+			var performanceDAO = dalFactory.CreatePerformanceDAO(db);
+			ValidatePerformanceChanges(performances);
+
+			try {
+				using (TransactionScope trans = new TransactionScope()) {
+					try {
+						foreach (var p in performances) {
+							performanceDAO.Delete(p);
+						}
+
+						foreach (var p in performances) {
+							performanceDAO.Create(p);
+						}
+					} catch (Exception e) {
+						throw new BusinessLogicException("Error while saving performance changes to the database");
+					}
+					try {
+						// TODO: send pdf
+					} catch (Exception e) {
+						throw new BusinessLogicException("Error while sending PDF to artists");
+					}
+
+					trans.Complete();
 				}
-				trans.Complete();
+			} catch (Exception e) {
+				throw new BusinessLogicException("Error while updating performances");
+			}
+		}
+
+		private void ValidatePerformanceChanges(IEnumerable<Performance> performances) {
+			// Let's assume all performances belong to the sam espectacleday
+			var spectacleDay = dalFactory.CreateSpectacledayDAO(db).GetForPerformance(performances.FirstOrDefault());
+
+			var allPerformances = dalFactory.CreatePerformanceDAO(db).GetForSpectacleDay(spectacleDay).ToDictionary(p => p.Id, p => p);
+
+			// Merge dirty data with DB data
+			foreach (var p in performances) {
+				allPerformances[p.Id] = p;
+			}
+
+			// Run checks
+			ValidateUniqueArtistPerTimeSlot(allPerformances);
+			// TODO: add more checks, the db does not catch all of them
+		}
+
+		private void ValidateUniqueArtistPerTimeSlot(Dictionary<int, Performance> allPerformances) {
+			foreach (var p in allPerformances) {
+				if (allPerformances.Where(pi => pi.Value.SpectacledayTimeSlot == p.Value.SpectacledayTimeSlot)
+								   .Where(pi => pi.Value.ArtistId == p.Value.ArtistId).Count() > 1) {
+					throw new BusinessLogicException("Artist can only perform once per timeslot");
+				}
 			}
 		}
 
