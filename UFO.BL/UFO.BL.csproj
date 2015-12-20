@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="BusinessLogic.cs" />
     <Compile Include="BusinessLogicFactory.cs" />
+    <Compile Include="execptions\BusinessLogicException.cs" />
     <Compile Include="IBusinessLogic.cs" />
     <Compile Include="IMailService.cs" />
     <Compile Include="IPdfMaker.cs" />

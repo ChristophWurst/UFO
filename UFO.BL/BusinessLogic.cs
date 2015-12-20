@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using UFO.BL.execptions;
 using UFO.DAL.Common;
 using UFO.DomainClasses;
 
@@ -152,7 +153,7 @@ namespace UFO.BL {
 			pdf.MakeSpectacleSchedule(GetSpectacleDayTimeSlotsForSpectacleDay(spectacleDay), GetPerformanesForSpetacleDay(spectacleDay), GetAreas(), GetVenues(), GetTimeSlots(), GetArtists());
 		}
 
-		public bool Login(string username, string password) {
+		public void Login(string username, string password) {
 			try {
 				User user = dalFactory.CreateUserDAO(db).GetByName(username);
 				SHA1 sha = new SHA1CryptoServiceProvider();
@@ -164,9 +165,11 @@ namespace UFO.BL {
 				}
 
 				password = sb.ToString();
-				return password == user.Password;
-			} catch {
-				return false;
+				if (password != user.Password) {
+					throw new BusinessLogicException("Password incorrect.");
+				}
+			} catch (EntityNotFoundException) {
+				throw new BusinessLogicException("User not found.");
 			}
 		}
 	}

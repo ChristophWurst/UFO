@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using UFO.BL;
+using UFO.BL.execptions;
 using UFO.Commander.CustomControls;
 
 namespace UFO.Commander.ViewModels {
@@ -52,9 +53,10 @@ namespace UFO.Commander.ViewModels {
 				var secureString = passwordContainer.Password;
 				Password = ConvertToUnsecureString(secureString);
 			}
-			if (bl.Login(UserName, Password)) {
-				(new UFOWindow())?.Show();
-				(window as Window)?.Close();
+			try {
+				bl.Login(UserName, Password);
+			} catch (BusinessLogicException e) {
+				MessageBox.Show(e.Message, "Error");
 			}
 		}
 
