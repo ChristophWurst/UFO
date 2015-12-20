@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using UFO.BL;
 using UFO.DomainClasses;
 
@@ -54,6 +55,12 @@ namespace UFO.Commander.ViewModels {
 			var artists = await Task.Factory.StartNew(() => bl.GetArtists());
 			foreach (var a in artists) {
 				Artists.Add(new ScheduleArtistViewModel(a));
+			}
+		}
+
+		public ICommand SaveCommand {
+			get {
+				throw new NotImplementedException();
 			}
 		}
 	}
