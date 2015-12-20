@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using UFO.DAL.Common;
 using UFO.DomainClasses;
 
@@ -46,6 +47,15 @@ namespace UFO.BL {
 
 		public void DeleteArtist(Artist artist) {
 			dalFactory.CreateArtistDAO(db).Delete(artist);
+			var performanceDAO = dalFactory.CreatePerformanceDAO(db);
+			var performancesOfArtist = performanceDAO.GetForArtist(artist);
+			var futureSpectacleDays = dalFactory.CreateSpectacledayDAO(db).GetAll().Where(day => day.Day >= DateTime.Today);
+			var futureTimeSlots = dalFactory.CreateTimeSlotDAO(db).GetAll().Where(timeslot => timeslot.Start >= DateTime.Now.TimeOfDay);
+			var futureSpectacleDayTimeslots = dalFactory.CreateSpectacledayTimeSlotDAO(db).GetAll().Where(t => futureSpectacleDays.Select(d => d.Id).Contains(t.SpectacledayId) && futureTimeSlots.Select(o => o.Id).Contains(t.TimeSlotId));
+			var performanceToDelete = performancesOfArtist.Where(performance => futureSpectacleDayTimeslots.Select(fsdt => fsdt.Id).Contains(performance.SpectacledayTimeSlot));
+			using (new TransactionScope()) {
+				performanceToDelete.ToList().ForEach(performance => performanceDAO.Delete(performance));
+			}
 		}
 
 		public IEnumerable<Area> GetAreas() {
