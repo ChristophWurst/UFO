@@ -12,5 +12,7 @@ namespace UFO.DAL.Common {
 		Spectacleday GetById(int id);
 
 		IEnumerable<Spectacleday> GetAll();
+
+		Spectacleday GetForPerformance(Performance performance);
 	}
 }
