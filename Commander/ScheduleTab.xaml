@@ -23,6 +23,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -156,5 +157,12 @@
                 </ListView.ItemTemplate>
             </ListView>
         </ScrollViewer>
+        <Button Grid.Row="2"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                Padding="3,3,3,3"
+                Command="{Binding Path=SaveCommand}">
+            Save and notify artists
+        </Button>
     </Grid>
 </TabItem>
