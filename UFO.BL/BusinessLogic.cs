@@ -132,7 +132,9 @@ namespace UFO.BL {
 			}
 
 			var performanceDAO = dalFactory.CreatePerformanceDAO(db);
-			ValidatePerformanceChanges(performances);
+			// Let's assume all performances belong to the sam espectacleday
+			var spectacleDay = dalFactory.CreateSpectacledayDAO(db).GetForPerformance(performances.FirstOrDefault());
+			ValidatePerformanceChanges(performances, spectacleDay);
 
 			try {
 				using (TransactionScope trans = new TransactionScope()) {
@@ -148,7 +150,14 @@ namespace UFO.BL {
 						throw new BusinessLogicException("Error while saving performance changes to the database");
 					}
 					try {
-						// TODO: send pdf
+						var artistIds = performances.Select(p => p.ArtistId).Distinct();
+						var artists = new List<Artist>();
+						var artistDAO = dalFactory.CreateArtistDAO(db);
+						foreach (var id in artistIds) {
+							artists.Add(artistDAO.GetById(id));
+						}
+						CreatePdfScheduleForSpectacleDay(spectacleDay);
+						ms.MailToArtists(artists, spectacleDay, pdfPath, pdfName);
 					} catch (Exception e) {
 						throw new BusinessLogicException("Error while sending PDF to artists");
 					}
@@ -156,14 +165,14 @@ namespace UFO.BL {
 					trans.Complete();
 				}
 			} catch (Exception e) {
+				if (e is BusinessLogicException) {
+					throw e;
+				}
 				throw new BusinessLogicException("Error while updating performances");
 			}
 		}
 
-		private void ValidatePerformanceChanges(IEnumerable<Performance> performances) {
-			// Let's assume all performances belong to the sam espectacleday
-			var spectacleDay = dalFactory.CreateSpectacledayDAO(db).GetForPerformance(performances.FirstOrDefault());
-
+		private void ValidatePerformanceChanges(IEnumerable<Performance> performances, Spectacleday spectacleDay) {
 			var allPerformances = dalFactory.CreatePerformanceDAO(db).GetForSpectacleDay(spectacleDay).ToDictionary(p => p.Id, p => p);
 
 			// Merge dirty data with DB data
