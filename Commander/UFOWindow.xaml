@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:UFO.Commander"
         xmlns:tabs="clr-namespace:UFO.Commander"
         mc:Ignorable="d"
+        Icon="logo.ico"
         Title="UFOWindow"
         Height="600"
         Width="800"
