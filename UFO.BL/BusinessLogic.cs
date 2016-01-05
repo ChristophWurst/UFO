@@ -208,6 +208,10 @@ namespace UFO.BL {
 
 		private void ValidateUniqueArtistPerTimeSlot(Dictionary<int, Performance> allPerformances) {
 			foreach (var p in allPerformances) {
+				if (p.Value.ArtistId == default(int)) {
+					// Empty slots may occur multiple times
+					continue;
+				}
 				if (allPerformances.Where(pi => pi.Value.SpectacledayTimeSlot == p.Value.SpectacledayTimeSlot)
 								   .Where(pi => pi.Value.ArtistId == p.Value.ArtistId).Count() > 1) {
 					throw new BusinessLogicException("Artist can only perform once per timeslot");
