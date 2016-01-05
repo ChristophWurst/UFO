@@ -133,7 +133,12 @@ namespace UFO.BL {
 		}
 
 		public IEnumerable<SpectacledayTimeSlot> GetSpectacleDayTimeSlotsForSpectacleDay(Spectacleday day) {
-			return dalFactory.CreateSpectacledayTimeSlotDAO(db).GetForSpectacleDay(day);
+			var spectacleTS = dalFactory.CreateSpectacledayTimeSlotDAO(db).GetForSpectacleDay(day);
+			var timeSlots = dalFactory.CreateTimeSlotDAO(db).GetAll();
+			foreach (var ts in spectacleTS) {
+				ts.TimeSlot = timeSlots.Where(x => x.Id == ts.TimeSlotId).First();
+			}
+			return spectacleTS;
 		}
 
 		public IEnumerable<Performance> GetPerformanesForSpetacleDay(Spectacleday day) {

@@ -28,22 +28,25 @@ namespace UFO.Commander.ViewModels {
 		public async void LoadPerformances() {
 			var areas = await Task.Factory.StartNew(() => bl.GetAreas());
 			var performances = await Task.Factory.StartNew(() => bl.GetPerformanesForSpetacleDay(spectacleDay));
+			var timeSlots = await Task.Factory.StartNew(() => bl.GetSpectacleDayTimeSlotsForSpectacleDay(spectacleDay));
+
+			ObservableCollection<TimeSlotViewModel> timeSlotViewModels = new ObservableCollection<TimeSlotViewModel>();
+			foreach (var ts in timeSlots) {
+				timeSlotViewModels.Add(new TimeSlotViewModel(ts));
+			}
 
 			Areas.Clear();
 			foreach (var area in areas) {
-				ObservableCollection<TimeSlotViewModel> timeSlotViewModels = new ObservableCollection<TimeSlotViewModel>();
-				var timeSlots = await Task.Factory.StartNew(() => bl.GetTimeSlots());
-				foreach (var ts in timeSlots) {
-					timeSlotViewModels.Add(new TimeSlotViewModel(ts));
-				}
-
 				ObservableCollection<ScheduleVenueViewModel> venueViewModels = new ObservableCollection<ScheduleVenueViewModel>();
 				var venues = await Task.Factory.StartNew(() => bl.GetVenuesForArea(area));
 				foreach (var v in venues) {
 					ObservableCollection<PerformanceViewModel> performanceViewModels = new ObservableCollection<PerformanceViewModel>();
-					var x = performances.Where(p => p.VenueId == v.Id).Count();
-					foreach (var p in performances.Where(p => p.VenueId == v.Id)) {
-						performanceViewModels.Add(new PerformanceViewModel(p));
+					foreach (var ts in timeSlots) {
+						var performance = performances
+							.Where(p => p.VenueId == v.Id)
+							.Where(p => p.SpectacledayTimeSlot == ts.Id)
+							.FirstOrDefault();
+						performanceViewModels.Add(new PerformanceViewModel(performance));
 					}
 
 					ScheduleVenueViewModel venueViewModel = new ScheduleVenueViewModel(v, performanceViewModels);
