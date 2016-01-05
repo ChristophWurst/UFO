@@ -9,15 +9,15 @@ using UFO.DomainClasses;
 namespace UFO.Commander.ViewModels {
 
 	internal class TimeSlotViewModel {
-		private TimeSlot timeslot;
+		private SpectacledayTimeSlot timeslot;
 
-		public TimeSlotViewModel(TimeSlot timeslot) {
+		public TimeSlotViewModel(SpectacledayTimeSlot timeslot) {
 			this.timeslot = timeslot;
 		}
 
 		public string Label {
 			get {
-				return timeslot.Start.Hours.ToString() + " – " + timeslot.End.Hours.ToString();
+				return timeslot.TimeSlot.Start.Hours.ToString() + " – " + timeslot.TimeSlot.End.Hours.ToString();
 			}
 		}
 	}

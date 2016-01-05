@@ -11,6 +11,7 @@ namespace UFO.DomainClasses {
 		public int Id { get; set; }
 		public int TimeSlotId { get; set; }
 		public int SpectacledayId { get; set; }
+		public TimeSlot TimeSlot { get; set; }
 
 		public override string ToString() {
 			return "[" + Id.ToString() + "] TimeSlotId: [" + TimeSlotId + "] SpectacledayId: [" + SpectacledayId + "]";
