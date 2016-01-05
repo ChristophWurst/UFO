@@ -156,18 +156,22 @@ namespace UFO.BL {
 			try {
 				using (TransactionScope trans = new TransactionScope()) {
 					try {
+						// Delete old entries
+						// Id == 0 => new timeslot - nothing old to delete
 						foreach (var p in performances.Where(p => p.Id != default(int))) {
 							performanceDAO.Delete(p);
 						}
 
-						foreach (var p in performances) {
+						// Create new entries
+						// ArtistId == 0 => new empty timeslot - nothing to create in the db
+						foreach (var p in performances.Where(p => p.ArtistId != default(int))) {
 							performanceDAO.Create(p);
 						}
 					} catch (Exception e) {
 						throw new BusinessLogicException("Error while saving performance changes to the database");
 					}
 					try {
-						var artistIds = performances.Select(p => p.ArtistId).Distinct();
+						var artistIds = performances.Where(p => p.ArtistId != default(int)).Select(p => p.ArtistId).Distinct();
 						var artists = new List<Artist>();
 						var artistDAO = dalFactory.CreateArtistDAO(db);
 						foreach (var id in artistIds) {

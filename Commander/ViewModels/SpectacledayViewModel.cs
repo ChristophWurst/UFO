@@ -13,6 +13,7 @@ using UFO.DomainClasses;
 namespace UFO.Commander.ViewModels {
 
 	internal class SpectacledayViewModel {
+		private const int NO_PERFORMANCE_ID = -1;
 		private Spectacleday spectacleDay;
 		private IBusinessLogic bl;
 
