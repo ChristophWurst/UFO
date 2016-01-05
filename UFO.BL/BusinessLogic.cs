@@ -145,20 +145,18 @@ namespace UFO.BL {
 			return dalFactory.CreatePerformanceDAO(db).GetForSpectacleDay(day);
 		}
 
-		public void UpdatePerformances(IEnumerable<Performance> performances) {
+		public void UpdatePerformances(Spectacleday spectacleDay, IEnumerable<Performance> performances) {
 			if (performances.Count() == 0) {
 				return;
 			}
 
 			var performanceDAO = dalFactory.CreatePerformanceDAO(db);
-			// Let's assume all performances belong to the sam espectacleday
-			var spectacleDay = dalFactory.CreateSpectacledayDAO(db).GetForPerformance(performances.FirstOrDefault());
 			ValidatePerformanceChanges(performances, spectacleDay);
 
 			try {
 				using (TransactionScope trans = new TransactionScope()) {
 					try {
-						foreach (var p in performances) {
+						foreach (var p in performances.Where(p => p.Id != default(int))) {
 							performanceDAO.Delete(p);
 						}
 

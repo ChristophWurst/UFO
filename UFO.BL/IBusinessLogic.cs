@@ -45,7 +45,7 @@ namespace UFO.BL {
 
 		IEnumerable<Performance> GetPerformanesForSpetacleDay(Spectacleday day);
 
-		void UpdatePerformances(IEnumerable<Performance> performances);
+		void UpdatePerformances(Spectacleday spectacleDay, IEnumerable<Performance> performances);
 
 		IEnumerable<Venue> GetVenues();
 

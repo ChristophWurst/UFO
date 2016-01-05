@@ -36,6 +36,7 @@ namespace UFO.Commander.ViewModels {
 
 		public bool IsDirty {
 			get { return dirty; }
+			set { dirty = value; }
 		}
 	}
 }
