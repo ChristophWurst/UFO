@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UFO.Commander"
         mc:Ignorable="d"
+        Icon="logo.ico"
         Title="UFO Login"
         Height="130"
         Width="250"

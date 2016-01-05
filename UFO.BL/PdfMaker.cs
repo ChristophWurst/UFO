@@ -34,20 +34,20 @@ namespace UFO.BL {
 										  IEnumerable<Venue> venues,
 										  IEnumerable<TimeSlot> timeSlots,
 										  IEnumerable<Artist> artists) {
+			this.spectacleDayTimeSlots = spectacleDayTimeSlots;
+			this.performances = performances;
+			this.areas = areas;
+			this.venues = venues;
+			this.timeSlots = timeSlots;
+			this.artists = artists;
+			Document document = CreateDocument();
+			PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
+			pdfRenderer.Document = document;
+			pdfRenderer.RenderDocument();
 			try {
-				this.spectacleDayTimeSlots = spectacleDayTimeSlots;
-				this.performances = performances;
-				this.areas = areas;
-				this.venues = venues;
-				this.timeSlots = timeSlots;
-				this.artists = artists;
-				Document document = CreateDocument();
-				PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
-				pdfRenderer.Document = document;
-				pdfRenderer.RenderDocument();
 				pdfRenderer.PdfDocument.Save(pdfPath + pdfName);
 			} catch {
-				throw new BusinessLogicException("Could not create PDF-File.");
+				throw new BusinessLogicException($"Could not save PDF-File {pdfName} to {pdfPath}.");
 			}
 		}
 
@@ -65,25 +65,29 @@ namespace UFO.BL {
 		}
 
 		private void DefineStyles(Document document) {
-			Style style = document.Styles["Normal"];
-			style.Font.Name = "Segoe UI";
+			try {
+				Style style = document.Styles["Normal"];
+				style.Font.Name = "Segoe UI";
 
-			style = document.Styles[StyleNames.Header];
-			style.ParagraphFormat.AddTabStop("16cm", TabAlignment.Right);
+				style = document.Styles[StyleNames.Header];
+				style.ParagraphFormat.AddTabStop("16cm", TabAlignment.Right);
 
-			style = document.Styles[StyleNames.Footer];
-			style.ParagraphFormat.AddTabStop("8cm", TabAlignment.Center);
+				style = document.Styles[StyleNames.Footer];
+				style.ParagraphFormat.AddTabStop("8cm", TabAlignment.Center);
 
-			style = document.Styles.AddStyle("Table", "Normal");
-			style.Font.Name = "Segoe UI";
-			style.Font.Size = 8;
+				style = document.Styles.AddStyle("Table", "Normal");
+				style.Font.Name = "Segoe UI";
+				style.Font.Size = 8;
+			} catch {
+				throw new BusinessLogicException($"Could not create PDF-File Style.");
+			}
 		}
 
 		private void CreatePage(Document document) {
 			Section section = document.AddSection();
 
 			Paragraph paragraph = section.Footers.Primary.AddParagraph();
-			paragraph.AddText("Ultimate Festival Organizer Inc.");
+			paragraph.AddText("Ultimate Festival Organizer");
 			paragraph.Format.Font.Size = 9;
 			paragraph.Format.Alignment = ParagraphAlignment.Center;
 			CreateTableForAreas(section);
@@ -108,51 +112,71 @@ namespace UFO.BL {
 		}
 
 		private void CreateDataRow(Table table, Area area) {
-			foreach (var venue in venues.Where(v => v.AreaId == area.Id)) {
-				Row row = table.AddRow();
-				row.Cells[0].AddParagraph(venue.ShortDescription + " " + venue.Description);
-				row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
-				InsertArtistsIntoCells(venue, row);
+			try {
+				foreach (var venue in venues.Where(v => v.AreaId == area.Id)) {
+					Row row = table.AddRow();
+					row.Cells[0].AddParagraph(venue.ShortDescription + " " + venue.Description);
+					row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
+					InsertArtistsIntoCells(venue, row);
+				}
+			} catch (Exception e) {
+				if (e.GetType() != typeof(BusinessLogicException)) {
+					throw new BusinessLogicException($"Could not create PDF-File table data row.");
+				} else {
+					throw;
+				}
 			}
 		}
 
 		private void InsertArtistsIntoCells(Venue venue, Row row) {
-			int i = 0;
-			foreach (var timeSlot in timeSlots) {
-				i++;
-				SpectacledayTimeSlot daySlot = spectacleDayTimeSlots.Where(s => s.TimeSlotId == timeSlot.Id).FirstOrDefault();
-				Performance performance = performances.Where(p => p.SpectacledayTimeSlot == daySlot.Id &&
-																  p.VenueId == venue.Id).FirstOrDefault();
-				Artist currArtist;
-				if (performance != null) {
-					currArtist = artists.Where(a => a.Id == performance.ArtistId).FirstOrDefault();
-				} else {
-					currArtist = new Artist() { Name = "" };
+			try {
+				int i = 0;
+				foreach (var timeSlot in timeSlots) {
+					i++;
+					SpectacledayTimeSlot daySlot = spectacleDayTimeSlots.Where(s => s.TimeSlotId == timeSlot.Id).FirstOrDefault();
+					Performance performance = performances.Where(p => p.SpectacledayTimeSlot == daySlot.Id &&
+																	  p.VenueId == venue.Id).FirstOrDefault();
+					Artist currArtist;
+					if (performance != null) {
+						currArtist = artists.Where(a => a.Id == performance.ArtistId).FirstOrDefault();
+					} else {
+						currArtist = new Artist() { Name = "" };
+					}
+					row.Cells[i].AddParagraph(currArtist.Name);
 				}
-				row.Cells[i].AddParagraph(currArtist.Name);
+			} catch {
+				throw new BusinessLogicException($"Could not create PDF-File table cell value for artist.");
 			}
 		}
 
 		private void CreateHeaderRow(Table table, Area area) {
-			Row row = table.AddRow();
-			row.Format.Alignment = ParagraphAlignment.Center;
-			row.Format.Font.Bold = true;
-			int i = 0;
-			row.Cells[i].AddParagraph(area.Name);
-			foreach (var timeSlot in timeSlots) {
-				i++;
-				row.Cells[i].AddParagraph(timeSlot.Start + "-" + timeSlot.End);
-				row.Cells[i].VerticalAlignment = VerticalAlignment.Center;
+			try {
+				Row row = table.AddRow();
+				row.Format.Alignment = ParagraphAlignment.Center;
+				row.Format.Font.Bold = true;
+				int i = 0;
+				row.Cells[i].AddParagraph(area.Name);
+				foreach (var timeSlot in timeSlots) {
+					i++;
+					row.Cells[i].AddParagraph(timeSlot.Start + "-" + timeSlot.End);
+					row.Cells[i].VerticalAlignment = VerticalAlignment.Center;
+				}
+			} catch {
+				throw new BusinessLogicException($"Could not create PDF-File table header row.");
 			}
 		}
 
 		private void CreateColumns(Table table) {
-			Column column = table.AddColumn("4cm");
-			column.Format.Alignment = ParagraphAlignment.Center;
-
-			foreach (var timeSlot in this.timeSlots) {
-				column = table.AddColumn("3cm");
+			try {
+				Column column = table.AddColumn("4cm");
 				column.Format.Alignment = ParagraphAlignment.Center;
+
+				foreach (var timeSlot in this.timeSlots) {
+					column = table.AddColumn("3cm");
+					column.Format.Alignment = ParagraphAlignment.Center;
+				}
+			} catch {
+				throw new BusinessLogicException($"Could not create PDF-File columns.");
 			}
 		}
 	}
