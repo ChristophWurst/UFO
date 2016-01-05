@@ -54,7 +54,9 @@ namespace UFO.Commander.ViewModels {
 								SpectacledayTimeSlot = ts.Id
 							};
 						}
-						performanceViewModels.Add(new PerformanceViewModel(performance));
+						var vm = new PerformanceViewModel(performance);
+						vm.PropertyChanged += PerformancePropertyChanged;
+						performanceViewModels.Add(vm);
 					}
 
 					ScheduleVenueViewModel venueViewModel = new ScheduleVenueViewModel(v, performanceViewModels);
@@ -62,6 +64,25 @@ namespace UFO.Commander.ViewModels {
 				}
 				var areaViewModel = new ScheduleAreaViewModel(area, timeSlotViewModels, venueViewModels, bl);
 				Areas.Add(areaViewModel);
+			}
+		}
+
+		private void PerformancePropertyChanged(object sender, PropertyChangedEventArgs e) {
+			if (sender is PerformanceViewModel && e.PropertyName == nameof(PerformanceViewModel.ArtistId)) {
+				var performance = (PerformanceViewModel)sender;
+				if (performance.ArtistId == default(int)) {
+					// New artist is the placeholder, nothing to do then
+					return;
+				}
+				foreach (var a in Areas) {
+					foreach (var v in a.Venues) {
+						foreach (var p in v.Performances) {
+							if (p != performance && p.ArtistId == performance.ArtistId) {
+								p.ArtistId = default(int);
+							}
+						}
+					}
+				}
 			}
 		}
 
