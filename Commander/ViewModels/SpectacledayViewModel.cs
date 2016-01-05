@@ -13,6 +13,7 @@ using UFO.DomainClasses;
 namespace UFO.Commander.ViewModels {
 
 	internal class SpectacledayViewModel {
+		private const int NO_PERFORMANCE_ID = -1;
 		private Spectacleday spectacleDay;
 		private IBusinessLogic bl;
 
@@ -46,6 +47,13 @@ namespace UFO.Commander.ViewModels {
 							.Where(p => p.VenueId == v.Id)
 							.Where(p => p.SpectacledayTimeSlot == ts.Id)
 							.FirstOrDefault();
+						if (performance == null) {
+							// Insert new performance as placeholder
+							performance = new Performance {
+								VenueId = v.Id,
+								SpectacledayTimeSlot = ts.Id
+							};
+						}
 						performanceViewModels.Add(new PerformanceViewModel(performance));
 					}
 
@@ -71,7 +79,21 @@ namespace UFO.Commander.ViewModels {
 					}
 				}
 
-				bl.UpdatePerformances(performances);
+				if (performances.Count() == 0) {
+					MessageBox.Show("No changes to save");
+					return;
+				}
+				bl.UpdatePerformances(spectacleDay, performances);
+
+				foreach (var a in Areas) {
+					foreach (var v in a.Venues) {
+						foreach (var p in v.Performances.Where(p => p.IsDirty)) {
+							p.IsDirty = false;
+						}
+					}
+				}
+
+				MessageBox.Show("Changes saves successfully");
 			} catch (BusinessLogicException ble) {
 				MessageBox.Show(ble.Message);
 			}

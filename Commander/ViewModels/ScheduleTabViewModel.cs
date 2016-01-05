@@ -52,6 +52,7 @@ namespace UFO.Commander.ViewModels {
 
 		private async void LoadArtists() {
 			Artists.Clear();
+			Artists.Add(new ScheduleArtistViewModel(new Artist { Name = "-" }));
 			var artists = await Task.Factory.StartNew(() => bl.GetArtists());
 			foreach (var a in artists) {
 				Artists.Add(new ScheduleArtistViewModel(a));
