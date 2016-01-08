@@ -10,8 +10,11 @@ using UFO.DAL.Common;
 
 namespace UFO.BL {
 
+	public enum BLType { Default, WebService }
+
 	public abstract class BusinessLogicFactory {
-		private static IBusinessLogic bl;
+		private static BusinessLogic defaultBl;
+		private static WebServiceBusinessLogic wsBl;
 
 		private static IMailService GetMailService() {
 			var appSettings = ConfigurationManager.AppSettings;
@@ -28,14 +31,21 @@ namespace UFO.BL {
 			return new PdfMaker(appSettings["pdfName"], appSettings["pdfPath"]);
 		}
 
-		public static IBusinessLogic GetBusinessLogic() {
-			if (bl == null) {
-				DALFactory dalFactory = DALFactory.GetInstance();
-				IMailService mailService = GetMailService();
-				IPdfMaker pdfMaker = GetPdfMaker();
-				bl = new BusinessLogic(dalFactory, mailService, pdfMaker);
+		public static IBusinessLogic GetBusinessLogic(BLType type = BLType.Default) {
+			if (type == BLType.Default) {
+				if (defaultBl == null) {
+					DALFactory dalFactory = DALFactory.GetInstance();
+					IMailService mailService = GetMailService();
+					IPdfMaker pdfMaker = GetPdfMaker();
+					defaultBl = new BusinessLogic(dalFactory, mailService, pdfMaker);
+				}
+				return defaultBl;
+			} else {
+				if (wsBl == null) {
+					wsBl = new WebServiceBusinessLogic();
+				}
+				return wsBl;
 			}
-			return bl;
 		}
 	}
 }
