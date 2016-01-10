@@ -9,7 +9,7 @@ using WS = UFO.BL.UFOService;
 
 namespace UFO.BL {
 
-	internal class WebServiceBusinessLogic : IBusinessLogic {
+	internal class WebServiceBusinessLogic : AbstractBusinessLogic {
 		private WS.UFO proxy;
 
 		public WebServiceBusinessLogic() {
@@ -37,94 +37,94 @@ namespace UFO.BL {
 			Mapper.CreateMap<Domain.Country, WS.Country>();
 		}
 
-		public Domain.Artist CreateArtist(Domain.Artist artist) {
+		public override Domain.Artist CreateArtist(Domain.Artist artist) {
 			return Mapper.Map<WS.Artist, Domain.Artist>(proxy.CreateArtist(Mapper.Map<Domain.Artist, WS.Artist>(artist)));
 		}
 
-		public void CreatePdfScheduleForSpectacleDay(Domain.Spectacleday spectacleDay) {
+		public override void CreatePdfScheduleForSpectacleDay(Domain.Spectacleday spectacleDay) {
 			proxy.CreatePdfScheduleForSpectacleDay(Mapper.Map<Domain.Spectacleday, WS.Spectacleday>(spectacleDay));
 		}
 
-		public Domain.Venue CreateVenue(Domain.Venue venue) {
+		public override Domain.Venue CreateVenue(Domain.Venue venue) {
 			return Mapper.Map<WS.Venue, Domain.Venue>(proxy.CreateVenue(Mapper.Map<Domain.Venue, WS.Venue>(venue)));
 		}
 
-		public void DeleteArtist(Domain.Artist artist) {
+		public override void DeleteArtist(Domain.Artist artist) {
 			proxy.DeleteArtist(Mapper.Map<Domain.Artist, WS.Artist>(artist));
 		}
 
-		public IEnumerable<Domain.Area> GetAreas() {
+		public override IEnumerable<Domain.Area> GetAreas() {
 			return Mapper.Map<IEnumerable<WS.Area>, IEnumerable<Domain.Area>>(proxy.GetAreas());
 		}
 
-		public Domain.Artist GetArtistById(Domain.Artist artist) {
+		public override Domain.Artist GetArtistById(Domain.Artist artist) {
 			return Mapper.Map<WS.Artist, Domain.Artist>(proxy.GetArtistById(Mapper.Map<Domain.Artist, WS.Artist>(artist)));
 		}
 
-		public IEnumerable<Domain.Artist> GetArtists() {
+		public override IEnumerable<Domain.Artist> GetArtists() {
 			return Mapper.Map<IEnumerable<WS.Artist>, IEnumerable<Domain.Artist>>(proxy.GetArtists());
 		}
 
-		public IEnumerable<Domain.Artist> GetArtistsForCategory(Domain.Category category) {
+		public override IEnumerable<Domain.Artist> GetArtistsForCategory(Domain.Category category) {
 			return Mapper.Map<IEnumerable<WS.Artist>, IEnumerable<Domain.Artist>>(proxy.GetArtistsForCategory(Mapper.Map<Domain.Category, WS.Category>(category)));
 		}
 
-		public IEnumerable<Domain.Category> GetCategories() {
+		public override IEnumerable<Domain.Category> GetCategories() {
 			return Mapper.Map<IEnumerable<WS.Category>, IEnumerable<Domain.Category>>(proxy.GetCategories());
 		}
 
-		public Domain.Category GetCategoryById(Domain.Category category) {
+		public override Domain.Category GetCategoryById(Domain.Category category) {
 			return Mapper.Map<WS.Category, Domain.Category>(proxy.GetCategoryById(Mapper.Map<Domain.Category, WS.Category>(category)));
 		}
 
-		public IEnumerable<Domain.Country> GetCountries() {
+		public override IEnumerable<Domain.Country> GetCountries() {
 			return Mapper.Map<IEnumerable<WS.Country>, IEnumerable<Domain.Country>>(proxy.GetCountries());
 		}
 
-		public Domain.Country GetCountryById(Domain.Country country) {
+		public override Domain.Country GetCountryById(Domain.Country country) {
 			return Mapper.Map<WS.Country, Domain.Country>(proxy.GetCountryById(Mapper.Map<Domain.Country, WS.Country>(country)));
 		}
 
-		public IEnumerable<Domain.Performance> GetPerformanesForSpetacleDay(Domain.Spectacleday day) {
+		public override IEnumerable<Domain.Performance> GetPerformanesForSpetacleDay(Domain.Spectacleday day) {
 			var d = Mapper.Map<Domain.Spectacleday, WS.Spectacleday>(day);
 			return Mapper.Map<IEnumerable<WS.Performance>, IEnumerable<Domain.Performance>>(proxy.GetPerformanesForSpetacleDay(d));
 		}
 
-		public IEnumerable<Domain.Spectacleday> GetSpectacleDays() {
+		public override IEnumerable<Domain.Spectacleday> GetSpectacleDays() {
 			return Mapper.Map<IEnumerable<WS.Spectacleday>, IEnumerable<Domain.Spectacleday>>(proxy.GetSpectacleDays());
 		}
 
-		public IEnumerable<Domain.SpectacledayTimeSlot> GetSpectacleDayTimeSlotsForSpectacleDay(Domain.Spectacleday day) {
+		public override IEnumerable<Domain.SpectacledayTimeSlot> GetSpectacleDayTimeSlotsForSpectacleDay(Domain.Spectacleday day) {
 			var d = Mapper.Map<Domain.Spectacleday, WS.Spectacleday>(day);
 			return Mapper.Map<IEnumerable<WS.SpectacledayTimeSlot>, IEnumerable<Domain.SpectacledayTimeSlot>>(proxy.GetSpectacleDayTimeSlotsForSpectacleDay(d));
 		}
 
-		public IEnumerable<Domain.TimeSlot> GetTimeSlots() {
+		public override IEnumerable<Domain.TimeSlot> GetTimeSlots() {
 			return Mapper.Map<IEnumerable<WS.TimeSlot>, IEnumerable<Domain.TimeSlot>>(proxy.GetTimeSlots());
 		}
 
-		public IEnumerable<Domain.Venue> GetVenues() {
+		public override IEnumerable<Domain.Venue> GetVenues() {
 			return Mapper.Map<IEnumerable<WS.Venue>, IEnumerable<Domain.Venue>>(proxy.GetVenues());
 		}
 
-		public IEnumerable<Domain.Venue> GetVenuesForArea(Domain.Area area) {
+		public override IEnumerable<Domain.Venue> GetVenuesForArea(Domain.Area area) {
 			var a = Mapper.Map<Domain.Area, WS.Area>(area);
 			return Mapper.Map<IEnumerable<WS.Venue>, IEnumerable<Domain.Venue>>(proxy.GetVenuesForArea(a));
 		}
 
-		public void Login(string username, string password) {
+		public override void Login(string username, string password) {
 			proxy.Login(username, password);
 		}
 
-		public Domain.Artist UpdateArtist(Domain.Artist artist) {
+		public override Domain.Artist UpdateArtist(Domain.Artist artist) {
 			return Mapper.Map<WS.Artist, Domain.Artist>(proxy.UpdateArtist(Mapper.Map<Domain.Artist, WS.Artist>(artist)));
 		}
 
-		public void UpdatePerformances(Domain.Spectacleday spectacleDay, IEnumerable<Domain.Performance> performances) {
+		public override void UpdatePerformances(Domain.Spectacleday spectacleDay, IEnumerable<Domain.Performance> performances) {
 			proxy.UpdatePerformances(Mapper.Map<Domain.Spectacleday, WS.Spectacleday>(spectacleDay), Mapper.Map<IEnumerable<Domain.Performance>, IEnumerable<WS.Performance>>(performances).ToArray());
 		}
 
-		public Domain.Venue UpdateVenue(Domain.Venue venue) {
+		public override Domain.Venue UpdateVenue(Domain.Venue venue) {
 			return Mapper.Map<WS.Venue, Domain.Venue>(proxy.UpdateVenue(Mapper.Map<Domain.Venue, WS.Venue>(venue)));
 		}
 	}
