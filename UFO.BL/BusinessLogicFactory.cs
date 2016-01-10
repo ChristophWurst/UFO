@@ -47,5 +47,9 @@ namespace UFO.BL {
 				return wsBl;
 			}
 		}
+
+		public static IBusinessLogicAsync GetBusinessLogicAsync(BLType type = BLType.Default) {
+			return (IBusinessLogicAsync)GetBusinessLogic(type);
+		}
 	}
 }
