@@ -12,10 +12,10 @@ using UFO.DomainClasses;
 namespace UFO.Commander.ViewModels {
 
 	internal class ArtistTabViewModel : INotifyPropertyChanged {
-		private IBusinessLogic bl;
+		private IBusinessLogicAsync bl;
 
 		public ArtistTabViewModel() {
-			bl = BusinessLogicFactory.GetBusinessLogic();
+			bl = BusinessLogicFactory.GetBusinessLogicAsync();
 			Artists = new ObservableCollection<ArtistViewModel>();
 			Categories = new ObservableCollection<CategoryViewModel>();
 			Countries = new ObservableCollection<CountryViewModel>();
@@ -91,7 +91,7 @@ namespace UFO.Commander.ViewModels {
 			set {
 				if (currCategory != value && value != null) {
 					currCategory = value;
-					LoadArtistForCategory(currCategory);
+					LoadArtistsForCategory(currCategory);
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrCategory)));
 				}
 			}
@@ -135,20 +135,20 @@ namespace UFO.Commander.ViewModels {
 
 		private async void LoadCategories() {
 			Categories.Clear();
-			var tmpCategories = await Task.Factory.StartNew(() => bl.GetCategories().Select(category => new CategoryViewModel(category)));
+			var tmpCategories = (await bl.GetCategoriesAsync()).Select(category => new CategoryViewModel(category));
 			tmpCategories.ToList().ForEach(category => Categories.Add(category));
 		}
 
 		private async void LoadCountries() {
 			Countries.Clear();
-			var tmpCountries = await Task.Factory.StartNew(() => bl.GetCountries().Select(country => new CountryViewModel(country)));
+			var tmpCountries = (await bl.GetCountriesAsync()).Select(country => new CountryViewModel(country));
 			tmpCountries.ToList().ForEach(country => Countries.Add(country));
 		}
 
-		private async void LoadArtistForCategory(CategoryViewModel category) {
+		private async void LoadArtistsForCategory(CategoryViewModel category) {
 			Artists.Clear();
-			var tmpArtist = await Task.Factory.StartNew(() => bl.GetArtistsForCategory(category.Category).Select(artist => new ArtistViewModel(artist)));
-			tmpArtist.ToList().ForEach(artist => Artists.Add(artist));
+			var tmpArtists = (await bl.GetArtistsForCategoryAsync(category.Category)).Select(artist => new ArtistViewModel(artist));
+			tmpArtists.ToList().ForEach(artist => Artists.Add(artist));
 		}
 
 		private ICommand addCommand;
@@ -191,7 +191,7 @@ namespace UFO.Commander.ViewModels {
 			CurrArtist.CategoryId = SelCategory.Id;
 			CurrArtist.CountryId = SelCountry.Id;
 			CurrArtist.SaveArtist();
-			LoadArtistForCategory(currCategory);
+			LoadArtistsForCategory(currCategory);
 			ResetArtist();
 		}
 

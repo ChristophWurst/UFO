@@ -7,7 +7,7 @@ using UFO.DomainClasses;
 
 namespace UFO.BL {
 
-	internal interface IBusinessLogicAsync {
+	public interface IBusinessLogicAsync {
 
 		Task<IEnumerable<Area>> GetAreasAsync();
 

@@ -17,13 +17,13 @@ namespace UFO.Commander.ViewModels {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private IBusinessLogic bl;
+		private IBusinessLogicAsync bl;
 
 		private Artist Artist;
 
 		public ArtistViewModel(Artist artist) {
 			this.Artist = artist;
-			bl = BusinessLogicFactory.GetBusinessLogic();
+			bl = BusinessLogicFactory.GetBusinessLogicAsync();
 		}
 
 		public int Id {
@@ -96,12 +96,12 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
-		public void SaveArtist() {
+		public async void SaveArtist() {
 			try {
 				if (Artist.Id == 0) {
-					Artist = bl.CreateArtist(Artist);
+					Artist = await bl.CreateArtistAsync(Artist);
 				} else {
-					bl.UpdateArtist(Artist);
+					await bl.UpdateArtistAsync(Artist);
 				}
 			} catch (BusinessLogicException e) {
 				MessageBox.Show(e.Message, "Error");
@@ -111,7 +111,7 @@ namespace UFO.Commander.ViewModels {
 		public void DeleteArtist() {
 			try {
 				if (Artist != null && Artist.Id != 0) {
-					bl.DeleteArtist(Artist);
+					bl.DeleteArtistAsync(Artist);
 				}
 			} catch (BusinessLogicException e) {
 				MessageBox.Show(e.Message, "Error");
