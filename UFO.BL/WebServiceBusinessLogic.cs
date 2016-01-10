@@ -26,10 +26,15 @@ namespace UFO.BL {
 			Mapper.CreateMap<Domain.Area, WS.Area>();
 			Mapper.CreateMap<WS.Artist, Domain.Artist>();
 			Mapper.CreateMap<WS.Performance, Domain.Performance>();
+			Mapper.CreateMap<Domain.Performance, WS.Performance>();
 			Mapper.CreateMap<WS.Spectacleday, Domain.Spectacleday>();
 			Mapper.CreateMap<Domain.Spectacleday, WS.Spectacleday>();
 			Mapper.CreateMap<Domain.SpectacledayTimeSlot, WS.SpectacledayTimeSlot>();
 			Mapper.CreateMap<WS.TimeSlot, Domain.TimeSlot>();
+			Mapper.CreateMap<WS.Category, Domain.Category>();
+			Mapper.CreateMap<Domain.Category, WS.Category>();
+			Mapper.CreateMap<WS.Country, Domain.Country>();
+			Mapper.CreateMap<Domain.Country, WS.Country>();
 		}
 
 		public Domain.Artist CreateArtist(Domain.Artist artist) {
@@ -45,7 +50,7 @@ namespace UFO.BL {
 		}
 
 		public void DeleteArtist(Domain.Artist artist) {
-			throw new NotImplementedException();
+			proxy.DeleteArtist(Mapper.Map<Domain.Artist, WS.Artist>(artist));
 		}
 
 		public IEnumerable<Domain.Area> GetAreas() {
@@ -53,7 +58,7 @@ namespace UFO.BL {
 		}
 
 		public Domain.Artist GetArtistById(Domain.Artist artist) {
-			throw new NotImplementedException();
+			return Mapper.Map<WS.Artist, Domain.Artist>(proxy.GetArtistById(Mapper.Map<Domain.Artist, WS.Artist>(artist)));
 		}
 
 		public IEnumerable<Domain.Artist> GetArtists() {
@@ -61,23 +66,23 @@ namespace UFO.BL {
 		}
 
 		public IEnumerable<Domain.Artist> GetArtistsForCategory(Domain.Category category) {
-			throw new NotImplementedException();
+			return Mapper.Map<IEnumerable<WS.Artist>, IEnumerable<Domain.Artist>>(proxy.GetArtistsForCategory(Mapper.Map<Domain.Category, WS.Category>(category)));
 		}
 
 		public IEnumerable<Domain.Category> GetCategories() {
-			throw new NotImplementedException();
+			return Mapper.Map<IEnumerable<WS.Category>, IEnumerable<Domain.Category>>(proxy.GetCategories());
 		}
 
 		public Domain.Category GetCategoryById(Domain.Category category) {
-			throw new NotImplementedException();
+			return Mapper.Map<WS.Category, Domain.Category>(proxy.GetCategoryById(Mapper.Map<Domain.Category, WS.Category>(category)));
 		}
 
 		public IEnumerable<Domain.Country> GetCountries() {
-			throw new NotImplementedException();
+			return Mapper.Map<IEnumerable<WS.Country>, IEnumerable<Domain.Country>>(proxy.GetCountries());
 		}
 
 		public Domain.Country GetCountryById(Domain.Country country) {
-			throw new NotImplementedException();
+			return Mapper.Map<WS.Country, Domain.Country>(proxy.GetCountryById(Mapper.Map<Domain.Country, WS.Country>(country)));
 		}
 
 		public IEnumerable<Domain.Performance> GetPerformanesForSpetacleDay(Domain.Spectacleday day) {
@@ -99,7 +104,7 @@ namespace UFO.BL {
 		}
 
 		public IEnumerable<Domain.Venue> GetVenues() {
-			throw new NotImplementedException();
+			return Mapper.Map<IEnumerable<WS.Venue>, IEnumerable<Domain.Venue>>(proxy.GetVenues());
 		}
 
 		public IEnumerable<Domain.Venue> GetVenuesForArea(Domain.Area area) {
@@ -112,15 +117,15 @@ namespace UFO.BL {
 		}
 
 		public Domain.Artist UpdateArtist(Domain.Artist artist) {
-			throw new NotImplementedException();
+			return Mapper.Map<WS.Artist, Domain.Artist>(proxy.UpdateArtist(Mapper.Map<Domain.Artist, WS.Artist>(artist)));
 		}
 
 		public void UpdatePerformances(Domain.Spectacleday spectacleDay, IEnumerable<Domain.Performance> performances) {
-			throw new NotImplementedException();
+			proxy.UpdatePerformances(Mapper.Map<Domain.Spectacleday, WS.Spectacleday>(spectacleDay), Mapper.Map<IEnumerable<Domain.Performance>, IEnumerable<WS.Performance>>(performances).ToArray());
 		}
 
 		public Domain.Venue UpdateVenue(Domain.Venue venue) {
-			throw new NotImplementedException();
+			return Mapper.Map<WS.Venue, Domain.Venue>(proxy.UpdateVenue(Mapper.Map<Domain.Venue, WS.Venue>(venue)));
 		}
 	}
 }
