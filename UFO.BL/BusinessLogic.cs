@@ -13,7 +13,7 @@ using UFO.DomainClasses;
 
 namespace UFO.BL {
 
-	internal class BusinessLogic : IBusinessLogic {
+	internal class BusinessLogic : AbstractBusinessLogic {
 		private const string SALT = "H4g3nb3Rg";
 
 		private DALFactory dalFactory;
@@ -45,7 +45,7 @@ namespace UFO.BL {
 			pdf = new PdfMaker(pdfPath, pdfName);
 		}
 
-		public Artist CreateArtist(Artist artist) {
+		public override Artist CreateArtist(Artist artist) {
 			try {
 				return dalFactory.CreateArtistDAO(db).Create(artist);
 			} catch {
@@ -53,7 +53,7 @@ namespace UFO.BL {
 			}
 		}
 
-		public void DeleteArtist(Artist artist) {
+		public override void DeleteArtist(Artist artist) {
 			try {
 				dalFactory.CreateArtistDAO(db).Delete(artist);
 				var performanceDAO = dalFactory.CreatePerformanceDAO(db);
@@ -72,35 +72,35 @@ namespace UFO.BL {
 			}
 		}
 
-		public IEnumerable<Area> GetAreas() {
+		public override IEnumerable<Area> GetAreas() {
 			return dalFactory.CreateAreaDAO(db).GetAll();
 		}
 
-		public IEnumerable<Artist> GetArtists() {
+		public override IEnumerable<Artist> GetArtists() {
 			return dalFactory.CreateArtistDAO(db).GetAll();
 		}
 
-		public IEnumerable<Artist> GetArtistsForCategory(Category category) {
+		public override IEnumerable<Artist> GetArtistsForCategory(Category category) {
 			return dalFactory.CreateArtistDAO(db).GetForCategory(category);
 		}
 
-		public IEnumerable<Category> GetCategories() {
+		public override IEnumerable<Category> GetCategories() {
 			return dalFactory.CreateCategoryDAO(db).GetAll();
 		}
 
-		public IEnumerable<Venue> GetVenuesForArea(Area area) {
+		public override IEnumerable<Venue> GetVenuesForArea(Area area) {
 			return dalFactory.CreateVenueDAO(db).GetForArea(area);
 		}
 
-		public Venue CreateVenue(Venue venue) {
+		public override Venue CreateVenue(Venue venue) {
 			return dalFactory.CreateVenueDAO(db).Create(venue);
 		}
 
-		public Venue UpdateVenue(Venue venue) {
+		public override Venue UpdateVenue(Venue venue) {
 			return dalFactory.CreateVenueDAO(db).Update(venue);
 		}
 
-		public Artist UpdateArtist(Artist artist) {
+		public override Artist UpdateArtist(Artist artist) {
 			try {
 				return dalFactory.CreateArtistDAO(db).Update(artist);
 			} catch {
@@ -108,31 +108,31 @@ namespace UFO.BL {
 			}
 		}
 
-		public IEnumerable<TimeSlot> GetTimeSlots() {
+		public override IEnumerable<TimeSlot> GetTimeSlots() {
 			return dalFactory.CreateTimeSlotDAO(db).GetAll();
 		}
 
-		public IEnumerable<Country> GetCountries() {
+		public override IEnumerable<Country> GetCountries() {
 			return dalFactory.CreateCountryDAO(db).GetAll();
 		}
 
-		public Category GetCategoryById(Category category) {
+		public override Category GetCategoryById(Category category) {
 			return dalFactory.CreateCategoryDAO(db).GetById(category.Id);
 		}
 
-		public Country GetCountryById(Country country) {
+		public override Country GetCountryById(Country country) {
 			return dalFactory.CreateCountryDAO(db).GetById(country.Id);
 		}
 
-		public Artist GetArtistById(Artist artist) {
+		public override Artist GetArtistById(Artist artist) {
 			return dalFactory.CreateArtistDAO(db).GetById(artist.Id);
 		}
 
-		public IEnumerable<Spectacleday> GetSpectacleDays() {
+		public override IEnumerable<Spectacleday> GetSpectacleDays() {
 			return dalFactory.CreateSpectacledayDAO(db).GetAll();
 		}
 
-		public IEnumerable<SpectacledayTimeSlot> GetSpectacleDayTimeSlotsForSpectacleDay(Spectacleday day) {
+		public override IEnumerable<SpectacledayTimeSlot> GetSpectacleDayTimeSlotsForSpectacleDay(Spectacleday day) {
 			var spectacleTS = dalFactory.CreateSpectacledayTimeSlotDAO(db).GetForSpectacleDay(day);
 			var timeSlots = dalFactory.CreateTimeSlotDAO(db).GetAll();
 			foreach (var ts in spectacleTS) {
@@ -141,11 +141,11 @@ namespace UFO.BL {
 			return spectacleTS;
 		}
 
-		public IEnumerable<Performance> GetPerformanesForSpetacleDay(Spectacleday day) {
+		public override IEnumerable<Performance> GetPerformanesForSpetacleDay(Spectacleday day) {
 			return dalFactory.CreatePerformanceDAO(db).GetForSpectacleDay(day);
 		}
 
-		public void UpdatePerformances(Spectacleday spectacleDay, IEnumerable<Performance> performances) {
+		public override void UpdatePerformances(Spectacleday spectacleDay, IEnumerable<Performance> performances) {
 			if (performances.Count() == 0) {
 				return;
 			}
@@ -224,15 +224,15 @@ namespace UFO.BL {
 			ms.MailToArtists(artists, day, pdfPath, pdfName);
 		}
 
-		public IEnumerable<Venue> GetVenues() {
+		public override IEnumerable<Venue> GetVenues() {
 			return dalFactory.CreateVenueDAO(db).GetAll();
 		}
 
-		public void CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay) {
+		public override void CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay) {
 			pdf.MakeSpectacleSchedule(GetSpectacleDayTimeSlotsForSpectacleDay(spectacleDay), GetPerformanesForSpetacleDay(spectacleDay), GetAreas(), GetVenues(), GetTimeSlots(), GetArtists());
 		}
 
-		public void Login(string username, string password) {
+		public override void Login(string username, string password) {
 			try {
 				User user = dalFactory.CreateUserDAO(db).GetByName(username);
 				SHA1 sha = new SHA1CryptoServiceProvider();
