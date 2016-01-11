@@ -53,12 +53,11 @@ namespace UFO.Commander.ViewModels {
 				var secureString = passwordContainer.Password;
 				Password = ConvertToUnsecureString(secureString);
 			}
-			try {
-				bl.Login(UserName, Password);
+			if (bl.Login(UserName, Password)) {
 				(new UFOWindow()).Show();
 				(window as Window).Close();
-			} catch (BusinessLogicException e) {
-				MessageBox.Show(e.Message, "Error");
+			} else {
+				MessageBox.Show("Could not log in", "Error");
 			}
 		}
 

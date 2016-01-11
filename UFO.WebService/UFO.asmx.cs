@@ -114,8 +114,8 @@ namespace UFO.WebService {
 		}
 
 		[WebMethod]
-		public void Login(string username, string password) {
-			bl.Login(username, password);
+		public bool Login(string username, string password) {
+			return bl.Login(username, password);
 		}
 
 		[WebMethod]

@@ -27,8 +27,8 @@ namespace UFO.DAL.MySql {
 		private TimeSlot createTimeSlotFromReader(IDataReader reader) {
 			return new TimeSlot() {
 				Id = (int)reader["id"],
-				Start = (TimeSpan)reader["Start"],
-				End = (TimeSpan)reader["End"]
+				Start = (int)reader["Start"],
+				End = (int)reader["End"]
 			};
 		}
 

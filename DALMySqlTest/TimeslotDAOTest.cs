@@ -35,13 +35,13 @@ namespace DALMySqlTest {
 			dao = factory.CreateTimeSlotDAO(db);
 			timeslot1 = new TimeSlot {
 				Id = 1,
-				Start = new TimeSpan(1, 2, 3),
-				End = new TimeSpan(4, 5, 6)
+				Start = 13,
+				End = 14
 			};
 			timeslot2 = new TimeSlot {
 				Id = 2,
-				Start = new TimeSpan(3, 2, 1),
-				End = new TimeSpan(6, 5, 4)
+				Start = 1,
+				End = 2
 			};
 
 			runDbCommands(db, new List<string> {

@@ -59,7 +59,7 @@ namespace UFO.BL {
 				var performanceDAO = dalFactory.CreatePerformanceDAO(db);
 				var performancesOfArtist = performanceDAO.GetForArtist(artist);
 				var futureSpectacleDays = dalFactory.CreateSpectacledayDAO(db).GetAll().Where(day => day.Day >= DateTime.Today);
-				var futureTimeSlots = dalFactory.CreateTimeSlotDAO(db).GetAll().Where(timeslot => timeslot.Start >= DateTime.Now.TimeOfDay);
+				var futureTimeSlots = dalFactory.CreateTimeSlotDAO(db).GetAll().Where(timeslot => timeslot.Start >= DateTime.Now.Hour);
 				var futureSpectacleDayTimeslots = dalFactory.CreateSpectacledayTimeSlotDAO(db).GetAll().Where(t => futureSpectacleDays.Select(d => d.Id).Contains(t.SpectacledayId) && futureTimeSlots.Select(o => o.Id).Contains(t.TimeSlotId));
 				var performanceToDelete = performancesOfArtist.Where(performance => futureSpectacleDayTimeslots.Select(fsdt => fsdt.Id).Contains(performance.SpectacledayTimeSlot));
 				using (new TransactionScope()) {
@@ -232,7 +232,7 @@ namespace UFO.BL {
 			pdf.MakeSpectacleSchedule(GetSpectacleDayTimeSlotsForSpectacleDay(spectacleDay), GetPerformanesForSpetacleDay(spectacleDay), GetAreas(), GetVenues(), GetTimeSlots(), GetArtists());
 		}
 
-		public override void Login(string username, string password) {
+		public override bool Login(string username, string password) {
 			try {
 				User user = dalFactory.CreateUserDAO(db).GetByName(username);
 				SHA1 sha = new SHA1CryptoServiceProvider();
@@ -244,11 +244,9 @@ namespace UFO.BL {
 				}
 
 				password = sb.ToString();
-				if (password != user.Password) {
-					throw new BusinessLogicException("Password incorrect.");
-				}
+				return password == user.Password;
 			} catch (EntityNotFoundException) {
-				throw new BusinessLogicException("User not found.");
+				return false;
 			}
 		}
 	}

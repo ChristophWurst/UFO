@@ -26,23 +26,21 @@ namespace UFO.Test.DomainClasses {
 
 		[Test]
 		public void TestStart() {
-			TimeSpan ts = new TimeSpan(1, 2, 3);
-			timeslot.Start = ts;
-			Assert.AreEqual(ts, timeslot.Start);
+			timeslot.Start = 13;
+			Assert.AreEqual(13, timeslot.Start);
 		}
 
 		[Test]
 		public void TestEnd() {
-			TimeSpan ts = new TimeSpan(3, 2, 1);
-			timeslot.End = ts;
-			Assert.AreEqual(ts, timeslot.End);
+			timeslot.End = 14;
+			Assert.AreEqual(14, timeslot.End);
 		}
 
 		[Test]
 		public void TestToString() {
 			timeslot.Id = 3;
-			timeslot.Start = new TimeSpan(1, 2, 3);
-			timeslot.End = new TimeSpan(3, 2, 1);
+			timeslot.Start = 13;
+			timeslot.End = 15;
 
 			string expected = $"[3] {timeslot.Start} {timeslot.End}";
 			Assert.AreEqual(expected, timeslot.ToString());

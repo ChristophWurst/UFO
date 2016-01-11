@@ -283,11 +283,10 @@
       <s:complexType name="TimeSlot">
         <s:sequence>
           <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="Start" type="tns:TimeSpan" />
-          <s:element minOccurs="1" maxOccurs="1" name="End" type="tns:TimeSpan" />
+          <s:element minOccurs="1" maxOccurs="1" name="Start" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="End" type="s:int" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="TimeSpan" />
       <s:element name="GetTimeSlots">
         <s:complexType />
       </s:element>
@@ -341,7 +340,11 @@
         </s:complexType>
       </s:element>
       <s:element name="LoginResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LoginResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="UpdateArtist">
         <s:complexType>

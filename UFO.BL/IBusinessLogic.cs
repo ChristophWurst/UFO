@@ -51,6 +51,6 @@ namespace UFO.BL {
 
 		void CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay);
 
-		void Login(string username, string password);
+		bool Login(string username, string password);
 	}
 }

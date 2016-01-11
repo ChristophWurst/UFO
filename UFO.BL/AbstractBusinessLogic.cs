@@ -45,7 +45,7 @@ namespace UFO.BL {
 
 		public abstract IEnumerable<Venue> GetVenuesForArea(Area area);
 
-		public abstract void Login(string username, string password);
+		public abstract bool Login(string username, string password);
 
 		public abstract Artist UpdateArtist(Artist artist);
 
@@ -125,8 +125,8 @@ namespace UFO.BL {
 			return Task.Run(() => GetVenuesForArea(area));
 		}
 
-		public void LoginAsync(string username, string password) {
-			Task.Run(() => Login(username, password));
+		public Task<bool> LoginAsync(string username, string password) {
+			return Task.Run(() => Login(username, password));
 		}
 
 		public Task<Artist> UpdateArtistAsync(Artist artist) {
