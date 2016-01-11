@@ -22,7 +22,7 @@ INSERT INTO `area` (`id`, `name`) VALUES
 	(8, 'Rathausplatz');
 /*!40000 ALTER TABLE `area` ENABLE KEYS */;
 
--- Exportiere Daten aus Tabelle ufo.artist: ~67 rows (ungefähr)
+-- Exportiere Daten aus Tabelle ufo.artist: ~60 rows (ungefähr)
 /*!40000 ALTER TABLE `artist` DISABLE KEYS */;
 INSERT INTO `artist` (`id`, `name`, `image`, `video`, `category_id`, `country_id`, `email`, `deleted`) VALUES
 	(1, 'circoPitanga', 'images/1.jpg', 'https://youtube.com/watch?v=bid2x95r4', 1, 42, 'circoPitanga@gmx.at', 0),
@@ -55,8 +55,8 @@ INSERT INTO `artist` (`id`, `name`, `image`, `video`, `category_id`, `country_id
 	(28, 'DANCEproject', 'images/28.jpg', 'https://youtube.com/watch?v=h1gx0zmva', 4, 13, 'DANCEproject@gmx.de', 0),
 	(29, 'Duo Kate and Pasi', 'images/29.jpg', 'https://youtube.com/watch?v=lu3p2vvkx', 4, 69, 'DuoKateandPasi@gmail.com', 0),
 	(30, 'Duo Looky', 'images/30.jpg', 'https://youtube.com/watch?v=oa6s4x7vg', 4, 102, 'DuoLooky@gmail.com', 0),
-	(31, 'Duo Masawa', 'images/31.jpg', 'https://youtube.com/watch?v=edgvolm3c', 4, 109, 'DuoMasawa@gmail.com', 1),
-	(32, 'Zirkus Gonzo', 'images/32.jpg', 'https://youtube.com/watch?v=4bzo9xm4f', 5, 58, 'ZirkusGonzo@gmx.de', 1),
+	(31, 'Duo Masawa', 'images/31.jpg', 'https://youtube.com/watch?v=edgvolm3c', 4, 109, 'DuoMasawa@gmail.com', 0),
+	(32, 'Zirkus Gonzo', 'images/32.jpg', 'https://youtube.com/watch?v=4bzo9xm4f', 5, 58, 'ZirkusGonzo@gmx.de', 0),
 	(33, 'Cia. Frutillas Con Crema', 'images/33.jpg', 'https://youtube.com/watch?v=j4pzkjvpa', 6, 67, 'CiaFrutillasConCrema@hotmail.com', 0),
 	(34, 'Fausto Giori', 'images/34.jpg', 'https://youtube.com/watch?v=zph0a6s3v', 6, 109, 'FaustoGiori@gmail.com', 0),
 	(35, 'Luca Bellezze', 'images/35.jpg', 'https://youtube.com/watch?v=r0h5za6t7', 6, 109, 'LucaBellezze@gmx.at', 0),
@@ -84,14 +84,7 @@ INSERT INTO `artist` (`id`, `name`, `image`, `video`, `category_id`, `country_id
 	(57, 'Dr. Bubbles & die Seifenblansenbande', 'images/57.jpg', 'https://youtube.com/watch?v=bn38l29t0', 11, 56, 'DrBubbles&dieSeifenblansenbande@gmail.com', 0),
 	(58, 'Puppenbühne Burattino-Koffertheater', 'images/58.jpg', 'https://youtube.com/watch?v=dkhglbh8i', 11, 56, 'PuppenbühneBurattino-Koffertheater@gmail.com', 0),
 	(59, 'Kleines Grusel Gewusel', 'images/59.jpg', 'https://youtube.com/watch?v=jugfhx10p', 11, 13, 'KleinesGruselGewusel@gmail.com', 0),
-	(60, 'Lucy Lou', 'images/60.jpg', NULL, 11, 56, 'LucyLou@gmail.com', 0),
-	(95, 'New User', NULL, NULL, 1, 1, NULL, 1),
-	(96, 'fdadfadf', NULL, NULL, 1, 1, NULL, 1),
-	(97, 'aaa', NULL, NULL, 1, 1, NULL, 1),
-	(98, 'qw', 'ewe', 'qe', 1, 3, NULL, 1),
-	(99, 'adfasdf', NULL, NULL, 1, 1, NULL, 1),
-	(100, 'adfadf', NULL, NULL, 2, 1, NULL, 1),
-	(101, 'adfadf', NULL, NULL, 1, 1, NULL, 1);
+	(60, 'Lucy Lou', 'images/60.jpg', NULL, 11, 56, 'LucyLou@gmail.com', 0);
 /*!40000 ALTER TABLE `artist` ENABLE KEYS */;
 
 -- Exportiere Daten aus Tabelle ufo.category: ~11 rows (ungefähr)
@@ -391,7 +384,6 @@ INSERT INTO `performance` (`id`, `artist_id`, `venue_id`, `spectacleday_timeslot
 	(28, 28, 35, 1),
 	(29, 29, 36, 1),
 	(30, 30, 37, 1),
-	(31, 31, 1, 2),
 	(32, 32, 2, 2),
 	(33, 33, 3, 2),
 	(34, 34, 4, 2),
@@ -421,7 +413,6 @@ INSERT INTO `performance` (`id`, `artist_id`, `venue_id`, `spectacleday_timeslot
 	(58, 58, 36, 2),
 	(59, 59, 37, 2),
 	(60, 60, 38, 2),
-	(61, 1, 1, 3),
 	(62, 2, 2, 3),
 	(63, 3, 3, 3),
 	(64, 4, 4, 3),
@@ -1620,7 +1611,9 @@ INSERT INTO `performance` (`id`, `artist_id`, `venue_id`, `spectacleday_timeslot
 	(1257, 57, 35, 42),
 	(1258, 58, 36, 42),
 	(1259, 59, 37, 42),
-	(1260, 60, 38, 42);
+	(1260, 60, 38, 42),
+	(1263, 1, 1, 3),
+	(1264, 7, 1, 2);
 /*!40000 ALTER TABLE `performance` ENABLE KEYS */;
 
 -- Exportiere Daten aus Tabelle ufo.spectacleday: ~6 rows (ungefähr)
@@ -1684,13 +1677,13 @@ INSERT INTO `spectacleday_timeslot` (`id`, `timeslot_id`, `spectacleday_id`) VAL
 -- Exportiere Daten aus Tabelle ufo.timeslot: ~7 rows (ungefähr)
 /*!40000 ALTER TABLE `timeslot` DISABLE KEYS */;
 INSERT INTO `timeslot` (`id`, `start`, `end`) VALUES
-	(1, '16:00:00', '17:00:00'),
-	(2, '17:00:00', '18:00:00'),
-	(3, '18:00:00', '19:00:00'),
-	(4, '19:00:00', '20:00:00'),
-	(5, '20:00:00', '21:00:00'),
-	(6, '21:00:00', '22:00:00'),
-	(7, '22:00:00', '23:00:00');
+	(1, 14, 15),
+	(2, 15, 16),
+	(3, 16, 17),
+	(4, 17, 18),
+	(5, 18, 19),
+	(6, 19, 20),
+	(7, 20, 21);
 /*!40000 ALTER TABLE `timeslot` ENABLE KEYS */;
 
 -- Exportiere Daten aus Tabelle ufo.user: ~2 rows (ungefähr)

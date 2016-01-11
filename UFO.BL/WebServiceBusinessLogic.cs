@@ -30,6 +30,7 @@ namespace UFO.BL {
 			Mapper.CreateMap<WS.Spectacleday, Domain.Spectacleday>();
 			Mapper.CreateMap<Domain.Spectacleday, WS.Spectacleday>();
 			Mapper.CreateMap<Domain.SpectacledayTimeSlot, WS.SpectacledayTimeSlot>();
+			Mapper.CreateMap<WS.SpectacledayTimeSlot, Domain.SpectacledayTimeSlot>();
 			Mapper.CreateMap<WS.TimeSlot, Domain.TimeSlot>();
 			Mapper.CreateMap<WS.Category, Domain.Category>();
 			Mapper.CreateMap<Domain.Category, WS.Category>();
@@ -96,7 +97,7 @@ namespace UFO.BL {
 
 		public override IEnumerable<Domain.SpectacledayTimeSlot> GetSpectacleDayTimeSlotsForSpectacleDay(Domain.Spectacleday day) {
 			var d = Mapper.Map<Domain.Spectacleday, WS.Spectacleday>(day);
-			return Mapper.Map<IEnumerable<WS.SpectacledayTimeSlot>, IEnumerable<Domain.SpectacledayTimeSlot>>(proxy.GetSpectacleDayTimeSlotsForSpectacleDay(d));
+			return Mapper.Map<IEnumerable<WS.SpectacledayTimeSlot>, IEnumerable<Domain.SpectacledayTimeSlot>>(proxy.GetSpectacleDayTimeSlotsForSpectacleDay(Mapper.Map<Domain.Spectacleday, WS.Spectacleday>(day)));
 		}
 
 		public override IEnumerable<Domain.TimeSlot> GetTimeSlots() {
@@ -112,8 +113,8 @@ namespace UFO.BL {
 			return Mapper.Map<IEnumerable<WS.Venue>, IEnumerable<Domain.Venue>>(proxy.GetVenuesForArea(a));
 		}
 
-		public override void Login(string username, string password) {
-			proxy.Login(username, password);
+		public override bool Login(string username, string password) {
+			return proxy.Login(username, password);
 		}
 
 		public override Domain.Artist UpdateArtist(Domain.Artist artist) {

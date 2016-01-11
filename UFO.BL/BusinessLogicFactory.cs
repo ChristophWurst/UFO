@@ -10,9 +10,9 @@ using UFO.DAL.Common;
 
 namespace UFO.BL {
 
-	public enum BLType { Default, WebService }
-
 	public abstract class BusinessLogicFactory {
+		private const string DEFAULT = "default";
+		private const string WEBSERVICE = "webservice";
 		private static BusinessLogic defaultBl;
 		private static WebServiceBusinessLogic wsBl;
 
@@ -31,25 +31,56 @@ namespace UFO.BL {
 			return new PdfMaker(appSettings["pdfName"], appSettings["pdfPath"]);
 		}
 
-		public static IBusinessLogic GetBusinessLogic(BLType type = BLType.Default) {
-			if (type == BLType.Default) {
-				if (defaultBl == null) {
-					DALFactory dalFactory = DALFactory.GetInstance();
-					IMailService mailService = GetMailService();
-					IPdfMaker pdfMaker = GetPdfMaker();
-					defaultBl = new BusinessLogic(dalFactory, mailService, pdfMaker);
+		public static IBusinessLogic GetBusinessLogic() {
+			string BusinessLogicType = "";
+			if (defaultBl == null) {
+				BusinessLogicType = GetBusinessLogicType();
+				if (BusinessLogicType == DEFAULT) {
+					return CreateDefaultBL();
 				}
-				return defaultBl;
-			} else {
-				if (wsBl == null) {
-					wsBl = new WebServiceBusinessLogic();
+			}
+			if (wsBl == null) {
+				if (BusinessLogicType == "") {
+					BusinessLogicType = GetBusinessLogicType();
 				}
+				if (BusinessLogicType == WEBSERVICE) {
+					return CreateWebServiceBL();
+				}
+			}
+			if (BusinessLogicType == "") {
+				BusinessLogicType = GetBusinessLogicType();
+			}
+			if (BusinessLogicType == WEBSERVICE) {
 				return wsBl;
 			}
+			return defaultBl;
 		}
 
-		public static IBusinessLogicAsync GetBusinessLogicAsync(BLType type = BLType.Default) {
-			return (IBusinessLogicAsync)GetBusinessLogic(type);
+		private static IBusinessLogic CreateWebServiceBL() {
+			wsBl = new WebServiceBusinessLogic();
+			return wsBl;
+		}
+
+		private static IBusinessLogic CreateDefaultBL() {
+			DALFactory dalFactory = DALFactory.GetInstance();
+			IMailService mailService = GetMailService();
+			IPdfMaker pdfMaker = GetPdfMaker();
+			defaultBl = new BusinessLogic(dalFactory, mailService, pdfMaker);
+			return defaultBl;
+		}
+
+		private static string GetBusinessLogicType() {
+			string BusinessLogicType;
+			try {
+				BusinessLogicType = ConfigurationManager.AppSettings["BusinessLogicType"];
+			} catch {
+				BusinessLogicType = DEFAULT;
+			}
+			return BusinessLogicType == null ? DEFAULT : BusinessLogicType;
+		}
+
+		public static IBusinessLogicAsync GetBusinessLogicAsync() {
+			return (IBusinessLogicAsync)GetBusinessLogic();
 		}
 	}
 }

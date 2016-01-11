@@ -17,7 +17,7 @@ namespace UFO.Commander.ViewModels {
 
 		public string Label {
 			get {
-				return timeslot.TimeSlot.Start.Hours.ToString() + " – " + timeslot.TimeSlot.End.Hours.ToString();
+				return timeslot.TimeSlot.Start.ToString() + " – " + timeslot.TimeSlot.End.ToString();
 			}
 		}
 	}
