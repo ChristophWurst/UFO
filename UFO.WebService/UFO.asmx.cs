@@ -132,5 +132,10 @@ namespace UFO.WebService {
 		public Venue UpdateVenue(Venue venue) {
 			return bl.UpdateVenue(venue);
 		}
+
+		[WebMethod]
+		public List<Performance> GetPerformancesForArtist(Artist artist) {
+			return bl.GetPerformancesForArtist(artist).ToList();
+		}
 	}
 }

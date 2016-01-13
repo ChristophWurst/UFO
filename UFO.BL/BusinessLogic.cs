@@ -249,5 +249,9 @@ namespace UFO.BL {
 				return false;
 			}
 		}
+
+		public override IEnumerable<Performance> GetPerformancesForArtist(Artist artist) {
+			return dalFactory.CreatePerformanceDAO(db).GetForArtist(artist);
+		}
 	}
 }
