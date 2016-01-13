@@ -52,5 +52,7 @@ namespace UFO.BL {
 		void CreatePdfScheduleForSpectacleDayAsync(Spectacleday spectacleDay);
 
 		Task<bool> LoginAsync(string username, string password);
+
+		Task<IEnumerable<Performance>> GetPerformancesForArtistAsync(Artist artist);
 	}
 }

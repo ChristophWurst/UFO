@@ -73,6 +73,8 @@ namespace UFO.BL.UFOService {
         
         private System.Threading.SendOrPostCallback UpdateVenueOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetPerformancesForArtistOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -176,6 +178,9 @@ namespace UFO.BL.UFOService {
         
         /// <remarks/>
         public event UpdateVenueCompletedEventHandler UpdateVenueCompleted;
+        
+        /// <remarks/>
+        public event GetPerformancesForArtistCompletedEventHandler GetPerformancesForArtistCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ufo.fh-hagenberg.at/CreateArtist", RequestNamespace="http://ufo.fh-hagenberg.at/", ResponseNamespace="http://ufo.fh-hagenberg.at/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -799,6 +804,35 @@ namespace UFO.BL.UFOService {
             if ((this.UpdateVenueCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.UpdateVenueCompleted(this, new UpdateVenueCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ufo.fh-hagenberg.at/GetPerformancesForArtist", RequestNamespace="http://ufo.fh-hagenberg.at/", ResponseNamespace="http://ufo.fh-hagenberg.at/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Performance[] GetPerformancesForArtist(Artist artist) {
+            object[] results = this.Invoke("GetPerformancesForArtist", new object[] {
+                        artist});
+            return ((Performance[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPerformancesForArtistAsync(Artist artist) {
+            this.GetPerformancesForArtistAsync(artist, null);
+        }
+        
+        /// <remarks/>
+        public void GetPerformancesForArtistAsync(Artist artist, object userState) {
+            if ((this.GetPerformancesForArtistOperationCompleted == null)) {
+                this.GetPerformancesForArtistOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPerformancesForArtistOperationCompleted);
+            }
+            this.InvokeAsync("GetPerformancesForArtist", new object[] {
+                        artist}, this.GetPerformancesForArtistOperationCompleted, userState);
+        }
+        
+        private void OnGetPerformancesForArtistOperationCompleted(object arg) {
+            if ((this.GetPerformancesForArtistCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPerformancesForArtistCompleted(this, new GetPerformancesForArtistCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1788,6 +1822,32 @@ namespace UFO.BL.UFOService {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((Venue)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void GetPerformancesForArtistCompletedEventHandler(object sender, GetPerformancesForArtistCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPerformancesForArtistCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPerformancesForArtistCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Performance[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Performance[])(this.results[0]));
             }
         }
     }
