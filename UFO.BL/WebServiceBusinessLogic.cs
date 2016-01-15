@@ -132,5 +132,21 @@ namespace UFO.BL {
 		public override IEnumerable<Domain.Performance> GetPerformancesForArtist(Domain.Artist artist) {
 			return Mapper.Map<IEnumerable<WS.Performance>, IEnumerable<Domain.Performance>>(proxy.GetPerformancesForArtist(Mapper.Map<Domain.Artist, WS.Artist>(artist)));
 		}
+
+		public override Domain.TimeSlot GetTimeSlotForPerformance(Domain.Performance performance) {
+			return Mapper.Map<WS.TimeSlot, Domain.TimeSlot>(proxy.GetTimeSlotForPerformance(Mapper.Map<Domain.Performance, WS.Performance>(performance)));
+		}
+
+		public override IEnumerable<Domain.TimeSlot> GetTimeSlotsForPerformances(IEnumerable<Domain.Performance> performances) {
+			return Mapper.Map<IEnumerable<WS.TimeSlot>, IEnumerable<Domain.TimeSlot>>(proxy.GetTimeSlotsForPerformances(Mapper.Map<IEnumerable<Domain.Performance>, IEnumerable<WS.Performance>>(performances).ToArray()));
+		}
+
+		public override IEnumerable<Domain.Artist> GetArtistsForPerformances(IEnumerable<Domain.Performance> performances) {
+			return Mapper.Map<IEnumerable<WS.Artist>, IEnumerable<Domain.Artist>>(proxy.GetArtistsForPerformances(Mapper.Map<IEnumerable<Domain.Performance>, IEnumerable<WS.Performance>>(performances).ToArray()));
+		}
+
+		public override IEnumerable<Domain.Venue> GetVenuesForPerformances(IEnumerable<Domain.Performance> performances) {
+			return Mapper.Map<IEnumerable<WS.Venue>, IEnumerable<Domain.Venue>>(proxy.GetVenuesForPerformances(Mapper.Map<IEnumerable<Domain.Performance>, IEnumerable<WS.Performance>>(performances).ToArray()));
+		}
 	}
 }

@@ -55,6 +55,14 @@ namespace UFO.BL {
 
 		public abstract IEnumerable<Performance> GetPerformancesForArtist(Artist artist);
 
+		public abstract TimeSlot GetTimeSlotForPerformance(Performance performance);
+
+		public abstract IEnumerable<TimeSlot> GetTimeSlotsForPerformances(IEnumerable<Performance> performances);
+
+		public abstract IEnumerable<Artist> GetArtistsForPerformances(IEnumerable<Performance> performances);
+
+		public abstract IEnumerable<Venue> GetVenuesForPerformances(IEnumerable<Performance> performances);
+
 		public Task<Artist> CreateArtistAsync(Artist artist) {
 			return Task.Run(() => CreateArtist(artist));
 		}
@@ -145,6 +153,22 @@ namespace UFO.BL {
 
 		public Task<IEnumerable<Performance>> GetPerformancesForArtistAsync(Artist artist) {
 			return Task.Run(() => GetPerformancesForArtist(artist));
+		}
+
+		public Task<TimeSlot> GetTimeSlotForPerformanceAsync(Performance performance) {
+			return Task.Run(() => GetTimeSlotForPerformance(performance));
+		}
+
+		Task<IEnumerable<TimeSlot>> IBusinessLogicAsync.GetTimeSlotsForPerformances(IEnumerable<Performance> performances) {
+			return Task.Run(() => GetTimeSlotsForPerformances(performances));
+		}
+
+		Task<IEnumerable<Artist>> IBusinessLogicAsync.GetArtistsForPerformances(IEnumerable<Performance> performances) {
+			return Task.Run(() => GetArtistsForPerformances(performances));
+		}
+
+		Task<IEnumerable<Venue>> IBusinessLogicAsync.GetVenuesForPerformances(IEnumerable<Performance> performances) {
+			return Task.Run(() => GetVenuesForPerformances(performances));
 		}
 	}
 }

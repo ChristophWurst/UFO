@@ -156,5 +156,22 @@ namespace DALMySqlTest {
 			Assert.AreEqual(1, artists.Count());
 			Assert.AreEqual(artist2.Id, artists.FirstOrDefault().Id);
 		}
+
+		[Test]
+		public void TestGetTimeSlotsForPerformances() {
+			Performance p1 = new Performance() {
+				ArtistId = 1
+			};
+			Performance p2 = new Performance() {
+				ArtistId = 2
+			};
+			var performances = new List<Performance>();
+			performances.Add(p1);
+			performances.Add(p2);
+			var artists = dao.GetForPerformances(performances);
+			Assert.True(artists.Count() == 2);
+			Artist ts = artists.First();
+			Assert.True(artists.First().IsEqualTo(artist1));
+		}
 	}
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using UFO.DAL.Common;
 using UFO.DomainClasses;
 
@@ -32,6 +33,8 @@ namespace UFO.DAL.MySql {
 										+ "`latitude` = @Latitude, "
 										+ "`longitude` = @Longitude "
 										+ "WHERE `id` = @id";
+
+		private const string SQL_SELECT_FOR_PERFORMANCES = @"SELECT * FROM `venue` v WHERE v.id IN ({0})";
 
 		private IDatabase db;
 
@@ -81,6 +84,13 @@ namespace UFO.DAL.MySql {
 				Latitude = (double)reader["latitude"],
 				Longitude = (double)reader["longitude"]
 			};
+		}
+
+		private DbCommand createSelectForPerformances(IEnumerable<Performance> performances) {
+			var parameters = performances.Select(p => p.VenueId.ToString()).ToArray();
+			var commandString = string.Format(SQL_SELECT_FOR_PERFORMANCES, string.Join(", ", parameters));
+			DbCommand cmd = db.CreateCommand(commandString);
+			return cmd;
 		}
 
 		public VenueDAO(IDatabase db) {
@@ -136,6 +146,17 @@ namespace UFO.DAL.MySql {
 				throw new EntityNotFoundException();
 			}
 			return venue;
+		}
+
+		public IEnumerable<Venue> GetForPerformances(IEnumerable<Performance> performances) {
+			var artist = new List<Venue>();
+			DbCommand cmd = createSelectForPerformances(performances);
+			using (IDataReader reader = db.ExecuteReader(cmd)) {
+				while (reader.Read()) {
+					artist.Add(CreateVenueFromReader(reader));
+				}
+			}
+			return artist;
 		}
 	}
 }

@@ -54,5 +54,13 @@ namespace UFO.BL {
 		bool Login(string username, string password);
 
 		IEnumerable<Performance> GetPerformancesForArtist(Artist artist);
+
+		TimeSlot GetTimeSlotForPerformance(Performance performance);
+
+		IEnumerable<TimeSlot> GetTimeSlotsForPerformances(IEnumerable<Performance> performances);
+
+		IEnumerable<Artist> GetArtistsForPerformances(IEnumerable<Performance> performances);
+
+		IEnumerable<Venue> GetVenuesForPerformances(IEnumerable<Performance> performances);
 	}
 }

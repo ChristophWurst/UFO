@@ -399,6 +399,62 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetTimeSlotForPerformance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="performance" type="tns:Performance" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTimeSlotForPerformanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTimeSlotForPerformanceResult" type="tns:TimeSlot" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTimeSlotsForPerformances">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="performances" type="tns:ArrayOfPerformance" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTimeSlotsForPerformancesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTimeSlotsForPerformancesResult" type="tns:ArrayOfTimeSlot" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetArtistsForPerformances">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="performances" type="tns:ArrayOfPerformance" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetArtistsForPerformancesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetArtistsForPerformancesResult" type="tns:ArrayOfArtist" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVenuesForPerformances">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="performances" type="tns:ArrayOfPerformance" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVenuesForPerformancesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVenuesForPerformancesResult" type="tns:ArrayOfVenue" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="CreateArtistSoapIn">
@@ -539,6 +595,30 @@
   <wsdl:message name="GetPerformancesForArtistSoapOut">
     <wsdl:part name="parameters" element="tns:GetPerformancesForArtistResponse" />
   </wsdl:message>
+  <wsdl:message name="GetTimeSlotForPerformanceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTimeSlotForPerformance" />
+  </wsdl:message>
+  <wsdl:message name="GetTimeSlotForPerformanceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTimeSlotForPerformanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTimeSlotsForPerformancesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTimeSlotsForPerformances" />
+  </wsdl:message>
+  <wsdl:message name="GetTimeSlotsForPerformancesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTimeSlotsForPerformancesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetArtistsForPerformancesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetArtistsForPerformances" />
+  </wsdl:message>
+  <wsdl:message name="GetArtistsForPerformancesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetArtistsForPerformancesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVenuesForPerformancesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVenuesForPerformances" />
+  </wsdl:message>
+  <wsdl:message name="GetVenuesForPerformancesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVenuesForPerformancesResponse" />
+  </wsdl:message>
   <wsdl:portType name="UFOSoap">
     <wsdl:operation name="CreateArtist">
       <wsdl:input message="tns:CreateArtistSoapIn" />
@@ -631,6 +711,22 @@
     <wsdl:operation name="GetPerformancesForArtist">
       <wsdl:input message="tns:GetPerformancesForArtistSoapIn" />
       <wsdl:output message="tns:GetPerformancesForArtistSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTimeSlotForPerformance">
+      <wsdl:input message="tns:GetTimeSlotForPerformanceSoapIn" />
+      <wsdl:output message="tns:GetTimeSlotForPerformanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTimeSlotsForPerformances">
+      <wsdl:input message="tns:GetTimeSlotsForPerformancesSoapIn" />
+      <wsdl:output message="tns:GetTimeSlotsForPerformancesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetArtistsForPerformances">
+      <wsdl:input message="tns:GetArtistsForPerformancesSoapIn" />
+      <wsdl:output message="tns:GetArtistsForPerformancesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVenuesForPerformances">
+      <wsdl:input message="tns:GetVenuesForPerformancesSoapIn" />
+      <wsdl:output message="tns:GetVenuesForPerformancesSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="UFOSoap" type="tns:UFOSoap">
@@ -842,6 +938,42 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTimeSlotForPerformance">
+      <soap:operation soapAction="http://ufo.fh-hagenberg.at/GetTimeSlotForPerformance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTimeSlotsForPerformances">
+      <soap:operation soapAction="http://ufo.fh-hagenberg.at/GetTimeSlotsForPerformances" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArtistsForPerformances">
+      <soap:operation soapAction="http://ufo.fh-hagenberg.at/GetArtistsForPerformances" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVenuesForPerformances">
+      <soap:operation soapAction="http://ufo.fh-hagenberg.at/GetVenuesForPerformances" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="UFOSoap12" type="tns:UFOSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -1045,6 +1177,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetPerformancesForArtist">
       <soap12:operation soapAction="http://ufo.fh-hagenberg.at/GetPerformancesForArtist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTimeSlotForPerformance">
+      <soap12:operation soapAction="http://ufo.fh-hagenberg.at/GetTimeSlotForPerformance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTimeSlotsForPerformances">
+      <soap12:operation soapAction="http://ufo.fh-hagenberg.at/GetTimeSlotsForPerformances" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArtistsForPerformances">
+      <soap12:operation soapAction="http://ufo.fh-hagenberg.at/GetArtistsForPerformances" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVenuesForPerformances">
+      <soap12:operation soapAction="http://ufo.fh-hagenberg.at/GetVenuesForPerformances" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

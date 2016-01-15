@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 using UFO.DAL.Common;
 using UFO.DomainClasses;
 
@@ -27,6 +28,8 @@ namespace UFO.DAL.MySql {
 		private const string SQL_SELECT_FOR_CATEGORY = "SELECT * "
 												 + "FROM `artist`"
 												 + "WHERE `category_id` = @CategoryId AND `deleted` = @Deleted";
+
+		private const string SQL_SELECT_FOR_PERFORMANCES = @"SELECT * FROM `artist` a WHERE a.id IN ({0})";
 
 		private IDatabase db;
 
@@ -82,6 +85,13 @@ namespace UFO.DAL.MySql {
 			DbCommand cmd = db.CreateCommand(SQL_DELETE);
 			db.DefineParameter(cmd, "@Id", DbType.Int32, id);
 			db.DefineParameter(cmd, "@Deleted", DbType.Boolean, true);
+			return cmd;
+		}
+
+		private DbCommand createSelectForPerformances(IEnumerable<Performance> performances) {
+			var parameters = performances.Select(p => p.ArtistId.ToString()).ToArray();
+			var commandString = string.Format(SQL_SELECT_FOR_PERFORMANCES, string.Join(", ", parameters));
+			DbCommand cmd = db.CreateCommand(commandString);
 			return cmd;
 		}
 
@@ -153,6 +163,17 @@ namespace UFO.DAL.MySql {
 				}
 			}
 			return result;
+		}
+
+		public IEnumerable<Artist> GetForPerformances(IEnumerable<Performance> performances) {
+			var artist = new List<Artist>();
+			DbCommand cmd = createSelectForPerformances(performances);
+			using (IDataReader reader = db.ExecuteReader(cmd)) {
+				while (reader.Read()) {
+					artist.Add(createArtistFromReader(reader));
+				}
+			}
+			return artist;
 		}
 	}
 }
