@@ -54,5 +54,13 @@ namespace UFO.BL {
 		Task<bool> LoginAsync(string username, string password);
 
 		Task<IEnumerable<Performance>> GetPerformancesForArtistAsync(Artist artist);
+
+		Task<TimeSlot> GetTimeSlotForPerformanceAsync(Performance performance);
+
+		Task<IEnumerable<TimeSlot>> GetTimeSlotsForPerformances(IEnumerable<Performance> performances);
+
+		Task<IEnumerable<Artist>> GetArtistsForPerformances(IEnumerable<Performance> performances);
+
+		Task<IEnumerable<Venue>> GetVenuesForPerformances(IEnumerable<Performance> performances);
 	}
 }

@@ -75,6 +75,14 @@ namespace UFO.BL.UFOService {
         
         private System.Threading.SendOrPostCallback GetPerformancesForArtistOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetTimeSlotForPerformanceOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetTimeSlotsForPerformancesOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetArtistsForPerformancesOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetVenuesForPerformancesOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -181,6 +189,18 @@ namespace UFO.BL.UFOService {
         
         /// <remarks/>
         public event GetPerformancesForArtistCompletedEventHandler GetPerformancesForArtistCompleted;
+        
+        /// <remarks/>
+        public event GetTimeSlotForPerformanceCompletedEventHandler GetTimeSlotForPerformanceCompleted;
+        
+        /// <remarks/>
+        public event GetTimeSlotsForPerformancesCompletedEventHandler GetTimeSlotsForPerformancesCompleted;
+        
+        /// <remarks/>
+        public event GetArtistsForPerformancesCompletedEventHandler GetArtistsForPerformancesCompleted;
+        
+        /// <remarks/>
+        public event GetVenuesForPerformancesCompletedEventHandler GetVenuesForPerformancesCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ufo.fh-hagenberg.at/CreateArtist", RequestNamespace="http://ufo.fh-hagenberg.at/", ResponseNamespace="http://ufo.fh-hagenberg.at/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -833,6 +853,122 @@ namespace UFO.BL.UFOService {
             if ((this.GetPerformancesForArtistCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetPerformancesForArtistCompleted(this, new GetPerformancesForArtistCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ufo.fh-hagenberg.at/GetTimeSlotForPerformance", RequestNamespace="http://ufo.fh-hagenberg.at/", ResponseNamespace="http://ufo.fh-hagenberg.at/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TimeSlot GetTimeSlotForPerformance(Performance performance) {
+            object[] results = this.Invoke("GetTimeSlotForPerformance", new object[] {
+                        performance});
+            return ((TimeSlot)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetTimeSlotForPerformanceAsync(Performance performance) {
+            this.GetTimeSlotForPerformanceAsync(performance, null);
+        }
+        
+        /// <remarks/>
+        public void GetTimeSlotForPerformanceAsync(Performance performance, object userState) {
+            if ((this.GetTimeSlotForPerformanceOperationCompleted == null)) {
+                this.GetTimeSlotForPerformanceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetTimeSlotForPerformanceOperationCompleted);
+            }
+            this.InvokeAsync("GetTimeSlotForPerformance", new object[] {
+                        performance}, this.GetTimeSlotForPerformanceOperationCompleted, userState);
+        }
+        
+        private void OnGetTimeSlotForPerformanceOperationCompleted(object arg) {
+            if ((this.GetTimeSlotForPerformanceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetTimeSlotForPerformanceCompleted(this, new GetTimeSlotForPerformanceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ufo.fh-hagenberg.at/GetTimeSlotsForPerformances", RequestNamespace="http://ufo.fh-hagenberg.at/", ResponseNamespace="http://ufo.fh-hagenberg.at/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TimeSlot[] GetTimeSlotsForPerformances(Performance[] performances) {
+            object[] results = this.Invoke("GetTimeSlotsForPerformances", new object[] {
+                        performances});
+            return ((TimeSlot[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetTimeSlotsForPerformancesAsync(Performance[] performances) {
+            this.GetTimeSlotsForPerformancesAsync(performances, null);
+        }
+        
+        /// <remarks/>
+        public void GetTimeSlotsForPerformancesAsync(Performance[] performances, object userState) {
+            if ((this.GetTimeSlotsForPerformancesOperationCompleted == null)) {
+                this.GetTimeSlotsForPerformancesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetTimeSlotsForPerformancesOperationCompleted);
+            }
+            this.InvokeAsync("GetTimeSlotsForPerformances", new object[] {
+                        performances}, this.GetTimeSlotsForPerformancesOperationCompleted, userState);
+        }
+        
+        private void OnGetTimeSlotsForPerformancesOperationCompleted(object arg) {
+            if ((this.GetTimeSlotsForPerformancesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetTimeSlotsForPerformancesCompleted(this, new GetTimeSlotsForPerformancesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ufo.fh-hagenberg.at/GetArtistsForPerformances", RequestNamespace="http://ufo.fh-hagenberg.at/", ResponseNamespace="http://ufo.fh-hagenberg.at/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Artist[] GetArtistsForPerformances(Performance[] performances) {
+            object[] results = this.Invoke("GetArtistsForPerformances", new object[] {
+                        performances});
+            return ((Artist[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetArtistsForPerformancesAsync(Performance[] performances) {
+            this.GetArtistsForPerformancesAsync(performances, null);
+        }
+        
+        /// <remarks/>
+        public void GetArtistsForPerformancesAsync(Performance[] performances, object userState) {
+            if ((this.GetArtistsForPerformancesOperationCompleted == null)) {
+                this.GetArtistsForPerformancesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetArtistsForPerformancesOperationCompleted);
+            }
+            this.InvokeAsync("GetArtistsForPerformances", new object[] {
+                        performances}, this.GetArtistsForPerformancesOperationCompleted, userState);
+        }
+        
+        private void OnGetArtistsForPerformancesOperationCompleted(object arg) {
+            if ((this.GetArtistsForPerformancesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetArtistsForPerformancesCompleted(this, new GetArtistsForPerformancesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ufo.fh-hagenberg.at/GetVenuesForPerformances", RequestNamespace="http://ufo.fh-hagenberg.at/", ResponseNamespace="http://ufo.fh-hagenberg.at/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Venue[] GetVenuesForPerformances(Performance[] performances) {
+            object[] results = this.Invoke("GetVenuesForPerformances", new object[] {
+                        performances});
+            return ((Venue[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetVenuesForPerformancesAsync(Performance[] performances) {
+            this.GetVenuesForPerformancesAsync(performances, null);
+        }
+        
+        /// <remarks/>
+        public void GetVenuesForPerformancesAsync(Performance[] performances, object userState) {
+            if ((this.GetVenuesForPerformancesOperationCompleted == null)) {
+                this.GetVenuesForPerformancesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetVenuesForPerformancesOperationCompleted);
+            }
+            this.InvokeAsync("GetVenuesForPerformances", new object[] {
+                        performances}, this.GetVenuesForPerformancesOperationCompleted, userState);
+        }
+        
+        private void OnGetVenuesForPerformancesOperationCompleted(object arg) {
+            if ((this.GetVenuesForPerformancesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetVenuesForPerformancesCompleted(this, new GetVenuesForPerformancesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1848,6 +1984,110 @@ namespace UFO.BL.UFOService {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((Performance[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void GetTimeSlotForPerformanceCompletedEventHandler(object sender, GetTimeSlotForPerformanceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetTimeSlotForPerformanceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetTimeSlotForPerformanceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TimeSlot Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TimeSlot)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void GetTimeSlotsForPerformancesCompletedEventHandler(object sender, GetTimeSlotsForPerformancesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetTimeSlotsForPerformancesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetTimeSlotsForPerformancesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TimeSlot[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TimeSlot[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void GetArtistsForPerformancesCompletedEventHandler(object sender, GetArtistsForPerformancesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetArtistsForPerformancesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetArtistsForPerformancesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Artist[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Artist[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void GetVenuesForPerformancesCompletedEventHandler(object sender, GetVenuesForPerformancesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetVenuesForPerformancesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetVenuesForPerformancesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Venue[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Venue[])(this.results[0]));
             }
         }
     }

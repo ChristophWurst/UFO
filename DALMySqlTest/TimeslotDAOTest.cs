@@ -48,7 +48,10 @@ namespace DALMySqlTest {
 				"SET FOREIGN_KEY_CHECKS=0",
 				"DELETE FROM `timeslot`",
 				$"INSERT INTO `timeslot` VALUES (1, '{timeslot1.Start}', '{timeslot1.End}')",
-				$"INSERT INTO `timeslot` VALUES (2, '{timeslot2.Start}', '{timeslot2.End}')"
+				$"INSERT INTO `timeslot` VALUES (2, '{timeslot2.Start}', '{timeslot2.End}')",
+				"DELETE FROM `spectacleday_timeslot`",
+				$"INSERT INTO `spectacleday_timeslot` VALUES (1, 1, 1)",
+				$"INSERT INTO `spectacleday_timeslot` VALUES (2, 1, 1)"
 			});
 		}
 
@@ -80,6 +83,31 @@ namespace DALMySqlTest {
 		[Test]
 		public void TestGetByIdFail() {
 			Assert.Throws<EntityNotFoundException>(() => dao.GetById(3));
+		}
+
+		[Test]
+		public void TestGetForPerformance() {
+			Performance p = new Performance() {
+				SpectacledayTimeSlot = 1
+			};
+			Assert.IsTrue(dao.GetForPerformance(p) != null);
+		}
+
+		[Test]
+		public void TestGetTimeSlotsForPerformances() {
+			Performance p1 = new Performance() {
+				SpectacledayTimeSlot = 1
+			};
+			Performance p2 = new Performance() {
+				SpectacledayTimeSlot = 2
+			};
+			var performances = new List<Performance>();
+			performances.Add(p1);
+			performances.Add(p2);
+			var timeSlots = dao.GetForPerformances(performances);
+			Assert.True(timeSlots.Count() == 2);
+			TimeSlot ts = timeSlots.First();
+			Assert.True(timeSlots.First().IsEqualTo(timeslot1));
 		}
 	}
 }

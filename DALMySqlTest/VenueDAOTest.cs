@@ -141,5 +141,22 @@ namespace DALMySqlTest {
 			Assert.True(newVenue.Id != -1);
 			Assert.True(dao.GetById(newVenue.Id).IsEqualTo(newVenue));
 		}
+
+		[Test]
+		public void TestGetTimeSlotsForPerformances() {
+			Performance p1 = new Performance() {
+				VenueId = 1
+			};
+			Performance p2 = new Performance() {
+				VenueId = 2
+			};
+			var performances = new List<Performance>();
+			performances.Add(p1);
+			performances.Add(p2);
+			var venues = dao.GetForPerformances(performances);
+			Assert.True(venues.Count() == 2);
+			Venue ts = venues.First();
+			Assert.True(venues.First().IsEqualTo(venue1));
+		}
 	}
 }

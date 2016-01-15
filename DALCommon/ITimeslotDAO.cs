@@ -12,5 +12,9 @@ namespace UFO.DAL.Common {
 		TimeSlot GetById(int id);
 
 		IEnumerable<TimeSlot> GetAll();
+
+		TimeSlot GetForPerformance(Performance performance);
+
+		IEnumerable<TimeSlot> GetForPerformances(IEnumerable<Performance> performances);
 	}
 }
