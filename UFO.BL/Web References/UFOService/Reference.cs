@@ -83,6 +83,12 @@ namespace UFO.BL.UFOService {
         
         private System.Threading.SendOrPostCallback GetVenuesForPerformancesOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetSpectacleDaysForPerformancesOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetSpectacledayTimeSlotsForPerformancesOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPerformancesForVenueOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -201,6 +207,15 @@ namespace UFO.BL.UFOService {
         
         /// <remarks/>
         public event GetVenuesForPerformancesCompletedEventHandler GetVenuesForPerformancesCompleted;
+        
+        /// <remarks/>
+        public event GetSpectacleDaysForPerformancesCompletedEventHandler GetSpectacleDaysForPerformancesCompleted;
+        
+        /// <remarks/>
+        public event GetSpectacledayTimeSlotsForPerformancesCompletedEventHandler GetSpectacledayTimeSlotsForPerformancesCompleted;
+        
+        /// <remarks/>
+        public event GetPerformancesForVenueCompletedEventHandler GetPerformancesForVenueCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ufo.fh-hagenberg.at/CreateArtist", RequestNamespace="http://ufo.fh-hagenberg.at/", ResponseNamespace="http://ufo.fh-hagenberg.at/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -969,6 +984,93 @@ namespace UFO.BL.UFOService {
             if ((this.GetVenuesForPerformancesCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetVenuesForPerformancesCompleted(this, new GetVenuesForPerformancesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ufo.fh-hagenberg.at/GetSpectacleDaysForPerformances", RequestNamespace="http://ufo.fh-hagenberg.at/", ResponseNamespace="http://ufo.fh-hagenberg.at/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Spectacleday[] GetSpectacleDaysForPerformances(Performance[] performances) {
+            object[] results = this.Invoke("GetSpectacleDaysForPerformances", new object[] {
+                        performances});
+            return ((Spectacleday[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetSpectacleDaysForPerformancesAsync(Performance[] performances) {
+            this.GetSpectacleDaysForPerformancesAsync(performances, null);
+        }
+        
+        /// <remarks/>
+        public void GetSpectacleDaysForPerformancesAsync(Performance[] performances, object userState) {
+            if ((this.GetSpectacleDaysForPerformancesOperationCompleted == null)) {
+                this.GetSpectacleDaysForPerformancesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetSpectacleDaysForPerformancesOperationCompleted);
+            }
+            this.InvokeAsync("GetSpectacleDaysForPerformances", new object[] {
+                        performances}, this.GetSpectacleDaysForPerformancesOperationCompleted, userState);
+        }
+        
+        private void OnGetSpectacleDaysForPerformancesOperationCompleted(object arg) {
+            if ((this.GetSpectacleDaysForPerformancesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetSpectacleDaysForPerformancesCompleted(this, new GetSpectacleDaysForPerformancesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ufo.fh-hagenberg.at/GetSpectacledayTimeSlotsForPerformances", RequestNamespace="http://ufo.fh-hagenberg.at/", ResponseNamespace="http://ufo.fh-hagenberg.at/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public SpectacledayTimeSlot[] GetSpectacledayTimeSlotsForPerformances(Performance[] performances) {
+            object[] results = this.Invoke("GetSpectacledayTimeSlotsForPerformances", new object[] {
+                        performances});
+            return ((SpectacledayTimeSlot[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetSpectacledayTimeSlotsForPerformancesAsync(Performance[] performances) {
+            this.GetSpectacledayTimeSlotsForPerformancesAsync(performances, null);
+        }
+        
+        /// <remarks/>
+        public void GetSpectacledayTimeSlotsForPerformancesAsync(Performance[] performances, object userState) {
+            if ((this.GetSpectacledayTimeSlotsForPerformancesOperationCompleted == null)) {
+                this.GetSpectacledayTimeSlotsForPerformancesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetSpectacledayTimeSlotsForPerformancesOperationCompleted);
+            }
+            this.InvokeAsync("GetSpectacledayTimeSlotsForPerformances", new object[] {
+                        performances}, this.GetSpectacledayTimeSlotsForPerformancesOperationCompleted, userState);
+        }
+        
+        private void OnGetSpectacledayTimeSlotsForPerformancesOperationCompleted(object arg) {
+            if ((this.GetSpectacledayTimeSlotsForPerformancesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetSpectacledayTimeSlotsForPerformancesCompleted(this, new GetSpectacledayTimeSlotsForPerformancesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ufo.fh-hagenberg.at/GetPerformancesForVenue", RequestNamespace="http://ufo.fh-hagenberg.at/", ResponseNamespace="http://ufo.fh-hagenberg.at/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Performance[] GetPerformancesForVenue(Venue venue) {
+            object[] results = this.Invoke("GetPerformancesForVenue", new object[] {
+                        venue});
+            return ((Performance[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPerformancesForVenueAsync(Venue venue) {
+            this.GetPerformancesForVenueAsync(venue, null);
+        }
+        
+        /// <remarks/>
+        public void GetPerformancesForVenueAsync(Venue venue, object userState) {
+            if ((this.GetPerformancesForVenueOperationCompleted == null)) {
+                this.GetPerformancesForVenueOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPerformancesForVenueOperationCompleted);
+            }
+            this.InvokeAsync("GetPerformancesForVenue", new object[] {
+                        venue}, this.GetPerformancesForVenueOperationCompleted, userState);
+        }
+        
+        private void OnGetPerformancesForVenueOperationCompleted(object arg) {
+            if ((this.GetPerformancesForVenueCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPerformancesForVenueCompleted(this, new GetPerformancesForVenueCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -2088,6 +2190,84 @@ namespace UFO.BL.UFOService {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((Venue[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void GetSpectacleDaysForPerformancesCompletedEventHandler(object sender, GetSpectacleDaysForPerformancesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetSpectacleDaysForPerformancesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetSpectacleDaysForPerformancesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Spectacleday[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Spectacleday[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void GetSpectacledayTimeSlotsForPerformancesCompletedEventHandler(object sender, GetSpectacledayTimeSlotsForPerformancesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetSpectacledayTimeSlotsForPerformancesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetSpectacledayTimeSlotsForPerformancesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public SpectacledayTimeSlot[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((SpectacledayTimeSlot[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    public delegate void GetPerformancesForVenueCompletedEventHandler(object sender, GetPerformancesForVenueCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPerformancesForVenueCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPerformancesForVenueCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Performance[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Performance[])(this.results[0]));
             }
         }
     }

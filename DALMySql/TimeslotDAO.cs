@@ -15,7 +15,7 @@ namespace UFO.DAL.MySql {
 		private const string SQL_SELECT = @"SELECT * FROM `timeslot` WHERE `id` = @Id";
 		private const string SQL_SELECT_FOR_PERFORMANCE = @"SELECT t.id, t.Start, t.End FROM `timeslot` t, `spectacleday_timeslot` s WHERE t.id = s.timeslot_id AND s.id = @Id";
 
-		private const string SQL_SELECT_FOR_PERFORMANCES = @"SELECT t.id, t.Start, t.End
+		private const string SQL_SELECT_FOR_PERFORMANCES = @"SELECT DISTINCT t.id, t.Start, t.End
 														     FROM `timeslot` t, `spectacleday_timeslot` s
 															 WHERE t.id = s.timeslot_id AND s.id IN ({0})";
 

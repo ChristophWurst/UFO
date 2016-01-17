@@ -157,5 +157,20 @@ namespace UFO.WebService {
 		public List<Venue> GetVenuesForPerformances(List<Performance> performances) {
 			return bl.GetVenuesForPerformances(performances).ToList();
 		}
+
+		[WebMethod]
+		public List<Spectacleday> GetSpectacleDaysForPerformances(List<Performance> performances) {
+			return bl.GetSpectacleDaysForPerformances(performances).ToList();
+		}
+
+		[WebMethod]
+		public List<SpectacledayTimeSlot> GetSpectacledayTimeSlotsForPerformances(List<Performance> performances) {
+			return bl.GetSpectacledayTimeSlotsForPerformances(performances).ToList();
+		}
+
+		[WebMethod]
+		public List<Performance> GetPerformancesForVenue(Venue venue) {
+			return bl.GetPerformancesForVenue(venue).ToList();
+		}
 	}
 }

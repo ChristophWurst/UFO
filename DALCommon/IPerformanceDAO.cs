@@ -18,5 +18,7 @@ namespace UFO.DAL.Common {
 		Performance Update(Performance Performance);
 
 		void Delete(Performance Performance);
+
+		IEnumerable<Performance> GetForVenue(Venue venue);
 	}
 }

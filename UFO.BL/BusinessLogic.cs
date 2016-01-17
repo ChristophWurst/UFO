@@ -269,5 +269,17 @@ namespace UFO.BL {
 		public override IEnumerable<Venue> GetVenuesForPerformances(IEnumerable<Performance> performances) {
 			return dalFactory.CreateVenueDAO(db).GetForPerformances(performances);
 		}
+
+		public override IEnumerable<Spectacleday> GetSpectacleDaysForPerformances(IEnumerable<Performance> performances) {
+			return dalFactory.CreateSpectacledayDAO(db).GetForPerformances(performances);
+		}
+
+		public override IEnumerable<SpectacledayTimeSlot> GetSpectacledayTimeSlotsForPerformances(IEnumerable<Performance> performances) {
+			return dalFactory.CreateSpectacledayTimeSlotDAO(db).GetForPerformances(performances);
+		}
+
+		public override IEnumerable<Performance> GetPerformancesForVenue(Venue venue) {
+			return dalFactory.CreatePerformanceDAO(db).GetForVenue(venue);
+		}
 	}
 }

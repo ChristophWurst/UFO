@@ -63,6 +63,12 @@ namespace UFO.BL {
 
 		public abstract IEnumerable<Venue> GetVenuesForPerformances(IEnumerable<Performance> performances);
 
+		public abstract IEnumerable<Spectacleday> GetSpectacleDaysForPerformances(IEnumerable<Performance> performances);
+
+		public abstract IEnumerable<SpectacledayTimeSlot> GetSpectacledayTimeSlotsForPerformances(IEnumerable<Performance> performances);
+
+		public abstract IEnumerable<Performance> GetPerformancesForVenue(Venue venue);
+
 		public Task<Artist> CreateArtistAsync(Artist artist) {
 			return Task.Run(() => CreateArtist(artist));
 		}
@@ -169,6 +175,18 @@ namespace UFO.BL {
 
 		Task<IEnumerable<Venue>> IBusinessLogicAsync.GetVenuesForPerformances(IEnumerable<Performance> performances) {
 			return Task.Run(() => GetVenuesForPerformances(performances));
+		}
+
+		Task<IEnumerable<Spectacleday>> IBusinessLogicAsync.GetSpectacleDaysForPerformances(IEnumerable<Performance> performances) {
+			return Task.Run(() => GetSpectacleDaysForPerformances(performances));
+		}
+
+		Task<IEnumerable<SpectacledayTimeSlot>> IBusinessLogicAsync.GetSpectacledayTimeSlotsForPerformances(IEnumerable<Performance> performances) {
+			return Task.Run(() => GetSpectacledayTimeSlotsForPerformances(performances));
+		}
+
+		Task<IEnumerable<Performance>> IBusinessLogicAsync.GetPerformancesForVenue(Venue venue) {
+			return Task.Run(() => GetPerformancesForVenue(venue));
 		}
 	}
 }

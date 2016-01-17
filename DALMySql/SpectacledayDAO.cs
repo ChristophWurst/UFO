@@ -23,6 +23,10 @@ namespace UFO.DAL.MySql {
 															ON sts.`spectacleday_id` = sd.`id`
 															WHERE p.`id` = @PerformanceId;";
 
+		private const string SQL_SELECT_FOR_PERFORMANCES = @"SELECT DISTINCT d.id, d.day
+														     FROM `spectacleday` d, `spectacleday_timeslot` s
+															 WHERE d.id = s.spectacleday_id AND s.id IN ({0})";
+
 		private DbCommand createSelectAll() {
 			return db.CreateCommand(SQL_SELECT_ALL);
 		}
@@ -36,6 +40,13 @@ namespace UFO.DAL.MySql {
 		private DbCommand createSelectForPerformanceCommand(int id) {
 			DbCommand cmd = db.CreateCommand(SQL_SELECT_FOR_PERFORMANCE);
 			db.DefineParameter(cmd, "@PerformanceId", System.Data.DbType.Int32, id);
+			return cmd;
+		}
+
+		private DbCommand createSelectForPerformances(IEnumerable<Performance> performances) {
+			var parameters = performances.Select(p => p.SpectacledayTimeSlot.ToString()).ToArray();
+			var commandString = string.Format(SQL_SELECT_FOR_PERFORMANCES, string.Join(", ", parameters));
+			DbCommand cmd = db.CreateCommand(commandString);
 			return cmd;
 		}
 
@@ -87,6 +98,17 @@ namespace UFO.DAL.MySql {
 			}
 			if (spectacleday == null) {
 				throw new EntityNotFoundException();
+			}
+			return spectacleday;
+		}
+
+		public IEnumerable<Spectacleday> GetForPerformances(IEnumerable<Performance> performances) {
+			var spectacleday = new List<Spectacleday>();
+			DbCommand cmd = createSelectForPerformances(performances);
+			using (IDataReader reader = db.ExecuteReader(cmd)) {
+				while (reader.Read()) {
+					spectacleday.Add(createSpectacledayFromReader(reader));
+				}
 			}
 			return spectacleday;
 		}
