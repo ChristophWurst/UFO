@@ -14,5 +14,7 @@ namespace UFO.DAL.Common {
 		IEnumerable<SpectacledayTimeSlot> GetAll();
 
 		IEnumerable<SpectacledayTimeSlot> GetForSpectacleDay(Spectacleday spectacleDay);
+
+		IEnumerable<SpectacledayTimeSlot> GetForPerformances(IEnumerable<Performance> performances);
 	}
 }

@@ -148,5 +148,17 @@ namespace UFO.BL {
 		public override IEnumerable<Domain.Venue> GetVenuesForPerformances(IEnumerable<Domain.Performance> performances) {
 			return Mapper.Map<IEnumerable<WS.Venue>, IEnumerable<Domain.Venue>>(proxy.GetVenuesForPerformances(Mapper.Map<IEnumerable<Domain.Performance>, IEnumerable<WS.Performance>>(performances).ToArray()));
 		}
+
+		public override IEnumerable<Domain.Spectacleday> GetSpectacleDaysForPerformances(IEnumerable<Domain.Performance> performances) {
+			return Mapper.Map<IEnumerable<WS.Spectacleday>, IEnumerable<Domain.Spectacleday>>(proxy.GetSpectacleDaysForPerformances(Mapper.Map<IEnumerable<Domain.Performance>, IEnumerable<WS.Performance>>(performances).ToArray()));
+		}
+
+		public override IEnumerable<Domain.SpectacledayTimeSlot> GetSpectacledayTimeSlotsForPerformances(IEnumerable<Domain.Performance> performances) {
+			return Mapper.Map<IEnumerable<WS.SpectacledayTimeSlot>, IEnumerable<Domain.SpectacledayTimeSlot>>(proxy.GetSpectacledayTimeSlotsForPerformances(Mapper.Map<IEnumerable<Domain.Performance>, IEnumerable<WS.Performance>>(performances).ToArray()));
+		}
+
+		public override IEnumerable<Domain.Performance> GetPerformancesForVenue(Domain.Venue venue) {
+			return Mapper.Map<IEnumerable<WS.Performance>, IEnumerable<Domain.Performance>>(proxy.GetPerformancesForVenue(Mapper.Map<Domain.Venue, WS.Venue>(venue)));
+		}
 	}
 }

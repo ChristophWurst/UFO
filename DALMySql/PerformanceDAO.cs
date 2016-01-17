@@ -27,6 +27,10 @@ namespace UFO.DAL.MySql {
 													+ "FROM `performance` "
 													+ "WHERE `artist_id` = @ArtistId";
 
+		private const string SQL_SELECT_FOR_VENUE = "SELECT * "
+											+ "FROM `performance` "
+											+ "WHERE `venue_id` = @VenueId";
+
 		private const string SQL_INSERT = "INSERT INTO `performance` "
 										+ "(`artist_id`, `venue_id`, `spectacleday_timeslot_id`) VALUES "
 										+ "(@ArtistId, @VenueId, @SpectacledayTimeSlotId)";
@@ -55,6 +59,12 @@ namespace UFO.DAL.MySql {
 		private DbCommand CreateSelectForArtist(int id) {
 			var cmd = db.CreateCommand(SQL_SELECT_FOR_ARTIST);
 			db.DefineParameter(cmd, "@ArtistId", DbType.Int32, id);
+			return cmd;
+		}
+
+		private DbCommand CreateSelectForVenue(int id) {
+			var cmd = db.CreateCommand(SQL_SELECT_FOR_VENUE);
+			db.DefineParameter(cmd, "@VenueId", DbType.Int32, id);
 			return cmd;
 		}
 
@@ -161,6 +171,17 @@ namespace UFO.DAL.MySql {
 		public IEnumerable<Performance> GetForArtist(Artist artist) {
 			var result = new List<Performance>();
 			var cmd = CreateSelectForArtist(artist.Id);
+			using (IDataReader reader = db.ExecuteReader(cmd)) {
+				while (reader.Read()) {
+					result.Add(CreatePerformanceFromReader(reader));
+				}
+				return result;
+			}
+		}
+
+		public IEnumerable<Performance> GetForVenue(Venue venue) {
+			var result = new List<Performance>();
+			var cmd = CreateSelectForVenue(venue.Id);
 			using (IDataReader reader = db.ExecuteReader(cmd)) {
 				while (reader.Read()) {
 					result.Add(CreatePerformanceFromReader(reader));

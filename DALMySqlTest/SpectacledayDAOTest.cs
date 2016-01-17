@@ -46,7 +46,10 @@ namespace DALMySqlTest {
 				"SET FOREIGN_KEY_CHECKS=0",
 				"DELETE FROM `spectacleday`",
 				"INSERT INTO `spectacleday` VALUES (1, '1985-11-13')",
-				"INSERT INTO `spectacleday` VALUES (2, '2015-12-15')"
+				"INSERT INTO `spectacleday` VALUES (2, '2015-12-15')",
+				"DELETE FROM `spectacleday_timeslot`",
+				$"INSERT INTO `spectacleday_timeslot` VALUES (1, 1, 1)",
+				$"INSERT INTO `spectacleday_timeslot` VALUES (2, 1, 2)"
 			});
 		}
 
@@ -76,6 +79,23 @@ namespace DALMySqlTest {
 		[Test]
 		public void TestGetByIdFail() {
 			Assert.Throws<EntityNotFoundException>(() => dao.GetById(3));
+		}
+
+		[Test]
+		public void TestGetForPerformances() {
+			Performance p1 = new Performance() {
+				SpectacledayTimeSlot = 1
+			};
+			Performance p2 = new Performance() {
+				SpectacledayTimeSlot = 2
+			};
+			var performances = new List<Performance>();
+			performances.Add(p1);
+			performances.Add(p2);
+			var spectacleDays = dao.GetForPerformances(performances);
+			Assert.True(spectacleDays.Count() == 2);
+			var ts = spectacleDays.First();
+			Assert.True(spectacleDays.First().IsEqualTo(spectacleday1));
 		}
 	}
 }

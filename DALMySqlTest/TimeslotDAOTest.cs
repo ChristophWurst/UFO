@@ -51,7 +51,7 @@ namespace DALMySqlTest {
 				$"INSERT INTO `timeslot` VALUES (2, '{timeslot2.Start}', '{timeslot2.End}')",
 				"DELETE FROM `spectacleday_timeslot`",
 				$"INSERT INTO `spectacleday_timeslot` VALUES (1, 1, 1)",
-				$"INSERT INTO `spectacleday_timeslot` VALUES (2, 1, 1)"
+				$"INSERT INTO `spectacleday_timeslot` VALUES (2, 2, 1)"
 			});
 		}
 

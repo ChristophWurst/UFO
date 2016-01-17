@@ -62,5 +62,11 @@ namespace UFO.BL {
 		Task<IEnumerable<Artist>> GetArtistsForPerformances(IEnumerable<Performance> performances);
 
 		Task<IEnumerable<Venue>> GetVenuesForPerformances(IEnumerable<Performance> performances);
+
+		Task<IEnumerable<Spectacleday>> GetSpectacleDaysForPerformances(IEnumerable<Performance> performances);
+
+		Task<IEnumerable<SpectacledayTimeSlot>> GetSpectacledayTimeSlotsForPerformances(IEnumerable<Performance> performances);
+
+		Task<IEnumerable<Performance>> GetPerformancesForVenue(Venue venue);
 	}
 }

@@ -20,6 +20,8 @@ namespace UFO.DAL.MySql {
 		private const string SQL_SELECT_ALL = "SELECT * "
 											+ "FROM `spectacleday_timeslot`";
 
+		private const string SQL_SELECT_FOR_PERFORMANCES = @"SELECT * FROM `spectacleday_timeslot` s WHERE s.id IN ({0})";
+
 		private DbCommand CreateSelectAllCommand() {
 			return db.CreateCommand(SQL_SELECT_ALL);
 		}
@@ -27,6 +29,13 @@ namespace UFO.DAL.MySql {
 		private DbCommand CreateSelectForSpectacleDayCommand(Spectacleday spectacleDay) {
 			var cmd = db.CreateCommand(SQL_SELECT_FOR_SPECTACLEDAY);
 			db.DefineParameter(cmd, "@SpectacleDayId", DbType.Int32, spectacleDay.Id);
+			return cmd;
+		}
+
+		private DbCommand createSelectForPerformances(IEnumerable<Performance> performances) {
+			var parameters = performances.Select(p => p.SpectacledayTimeSlot.ToString()).ToArray();
+			var commandString = string.Format(SQL_SELECT_FOR_PERFORMANCES, string.Join(", ", parameters));
+			DbCommand cmd = db.CreateCommand(commandString);
 			return cmd;
 		}
 
@@ -66,6 +75,17 @@ namespace UFO.DAL.MySql {
 				}
 			}
 			return result;
+		}
+
+		public IEnumerable<SpectacledayTimeSlot> GetForPerformances(IEnumerable<Performance> performances) {
+			var spectacledayTimeSlot = new List<SpectacledayTimeSlot>();
+			DbCommand cmd = createSelectForPerformances(performances);
+			using (IDataReader reader = db.ExecuteReader(cmd)) {
+				while (reader.Read()) {
+					spectacledayTimeSlot.Add(CreateSpectacleTimeslotFromReader(reader));
+				}
+			}
+			return spectacledayTimeSlot;
 		}
 	}
 }

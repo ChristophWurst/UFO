@@ -62,5 +62,11 @@ namespace UFO.BL {
 		IEnumerable<Artist> GetArtistsForPerformances(IEnumerable<Performance> performances);
 
 		IEnumerable<Venue> GetVenuesForPerformances(IEnumerable<Performance> performances);
+
+		IEnumerable<Spectacleday> GetSpectacleDaysForPerformances(IEnumerable<Performance> performances);
+
+		IEnumerable<SpectacledayTimeSlot> GetSpectacledayTimeSlotsForPerformances(IEnumerable<Performance> performances);
+
+		IEnumerable<Performance> GetPerformancesForVenue(Venue venue);
 	}
 }
