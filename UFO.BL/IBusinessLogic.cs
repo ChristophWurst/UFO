@@ -53,6 +53,8 @@ namespace UFO.BL {
 
 		bool Login(string username, string password);
 
+		Performance GetPerformance(int id);
+
 		IEnumerable<Performance> GetPerformancesForArtist(Artist artist);
 
 		TimeSlot GetTimeSlotForPerformance(Performance performance);

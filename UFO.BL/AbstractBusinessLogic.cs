@@ -67,6 +67,8 @@ namespace UFO.BL {
 
 		public abstract IEnumerable<SpectacledayTimeSlot> GetSpectacledayTimeSlotsForPerformances(IEnumerable<Performance> performances);
 
+		public abstract Performance GetPerformance(int id);
+
 		public abstract IEnumerable<Performance> GetPerformancesForVenue(Venue venue);
 
 		public Task<Artist> CreateArtistAsync(Artist artist) {
@@ -155,6 +157,10 @@ namespace UFO.BL {
 
 		public Task<Venue> UpdateVenueAsync(Venue venue) {
 			return Task.Run(() => UpdateVenue(venue));
+		}
+
+		public Task<Performance> GetPerformanceAsync(int id) {
+			return Task.Run(() => GetPerformance(id));
 		}
 
 		public Task<IEnumerable<Performance>> GetPerformancesForArtistAsync(Artist artist) {

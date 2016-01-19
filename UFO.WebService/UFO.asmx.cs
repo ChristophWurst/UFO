@@ -134,6 +134,11 @@ namespace UFO.WebService {
 		}
 
 		[WebMethod]
+		public Performance GetPerformance(int id) {
+			return bl.GetPerformance(id);
+		}
+
+		[WebMethod]
 		public List<Performance> GetPerformancesForArtist(Artist artist) {
 			return bl.GetPerformancesForArtist(artist).ToList();
 		}
