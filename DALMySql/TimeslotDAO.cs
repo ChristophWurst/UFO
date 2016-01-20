@@ -17,9 +17,7 @@ namespace UFO.DAL.MySql {
 
 		private const string SQL_SELECT_FOR_PERFORMANCES = @"SELECT DISTINCT t.id, t.Start, t.End
 														     FROM `timeslot` t, `spectacleday_timeslot` s
-															 WHERE t.id = s.timeslot_id AND s.id IN ({0})";
-
-		private string VALUES;
+															 WHERE t.id = s.timeslot_id AND s.id IN ({0});";
 
 		private DbCommand createSelectAll() {
 			return db.CreateCommand(SQL_SELECT_ALL);
@@ -99,6 +97,9 @@ namespace UFO.DAL.MySql {
 
 		public IEnumerable<TimeSlot> GetForPerformances(IEnumerable<Performance> performances) {
 			var timeslot = new List<TimeSlot>();
+			if (performances.Count() == 0) {
+				return timeslot;
+			}
 			DbCommand cmd = createSelectForPerformances(performances);
 			using (IDataReader reader = db.ExecuteReader(cmd)) {
 				while (reader.Read()) {

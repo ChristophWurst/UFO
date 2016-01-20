@@ -149,14 +149,17 @@ namespace UFO.DAL.MySql {
 		}
 
 		public IEnumerable<Venue> GetForPerformances(IEnumerable<Performance> performances) {
-			var artist = new List<Venue>();
+			var venue = new List<Venue>();
+			if (performances.Count() == 0) {
+				return venue;
+			}
 			DbCommand cmd = createSelectForPerformances(performances);
 			using (IDataReader reader = db.ExecuteReader(cmd)) {
 				while (reader.Read()) {
-					artist.Add(CreateVenueFromReader(reader));
+					venue.Add(CreateVenueFromReader(reader));
 				}
 			}
-			return artist;
+			return venue;
 		}
 	}
 }
