@@ -29,6 +29,14 @@ namespace UFO.Test.DomainClasses {
 		}
 
 		[Test]
+		public void TestColor() {
+			string color = "Test color";
+
+			category.Color = color;
+			Assert.AreEqual(color, category.Color);
+		}
+
+		[Test]
 		public void TestToString() {
 			category.Id = 3;
 			category.Description = "Test Category";

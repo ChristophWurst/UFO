@@ -79,6 +79,9 @@ namespace UFO.DAL.MySql {
 
 		public IEnumerable<SpectacledayTimeSlot> GetForPerformances(IEnumerable<Performance> performances) {
 			var spectacledayTimeSlot = new List<SpectacledayTimeSlot>();
+			if (performances.Count() == 0) {
+				return spectacledayTimeSlot;
+			}
 			DbCommand cmd = createSelectForPerformances(performances);
 			using (IDataReader reader = db.ExecuteReader(cmd)) {
 				while (reader.Read()) {

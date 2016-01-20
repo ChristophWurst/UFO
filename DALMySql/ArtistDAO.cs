@@ -167,6 +167,9 @@ namespace UFO.DAL.MySql {
 
 		public IEnumerable<Artist> GetForPerformances(IEnumerable<Performance> performances) {
 			var artist = new List<Artist>();
+			if (performances.Count() == 0) {
+				return artist;
+			}
 			DbCommand cmd = createSelectForPerformances(performances);
 			using (IDataReader reader = db.ExecuteReader(cmd)) {
 				while (reader.Read()) {
