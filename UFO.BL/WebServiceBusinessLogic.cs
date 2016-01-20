@@ -129,6 +129,11 @@ namespace UFO.BL {
 			return Mapper.Map<WS.Venue, Domain.Venue>(proxy.UpdateVenue(Mapper.Map<Domain.Venue, WS.Venue>(venue)));
 		}
 
+		public override Domain.Performance GetPerformance(int id) {
+			//return Mapper.Map<WS.Performance, Domain.Performance>(proxy.getperform)
+			throw new NotImplementedException();
+		}
+
 		public override IEnumerable<Domain.Performance> GetPerformancesForArtist(Domain.Artist artist) {
 			return Mapper.Map<IEnumerable<WS.Performance>, IEnumerable<Domain.Performance>>(proxy.GetPerformancesForArtist(Mapper.Map<Domain.Artist, WS.Artist>(artist)));
 		}

@@ -250,6 +250,10 @@ namespace UFO.BL {
 			}
 		}
 
+		public override Performance GetPerformance(int id) {
+			return dalFactory.CreatePerformanceDAO(db).GetById(id);
+		}
+
 		public override IEnumerable<Performance> GetPerformancesForArtist(Artist artist) {
 			return dalFactory.CreatePerformanceDAO(db).GetForArtist(artist);
 		}
