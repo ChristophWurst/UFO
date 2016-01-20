@@ -168,7 +168,7 @@ namespace UFO.BL {
 							performanceDAO.Create(p);
 						}
 					} catch (Exception e) {
-						throw new BusinessLogicException("Error while saving performance changes to the database");
+						throw new BusinessLogicException("Error while saving performance changes to the database: " + e.Message);
 					}
 					try {
 						var artistIds = performances.Where(p => p.ArtistId != default(int)).Select(p => p.ArtistId).Distinct();
@@ -212,8 +212,9 @@ namespace UFO.BL {
 					// Empty slots may occur multiple times
 					continue;
 				}
-				if (allPerformances.Where(pi => pi.Value.SpectacledayTimeSlot == p.Value.SpectacledayTimeSlot)
-								   .Where(pi => pi.Value.ArtistId == p.Value.ArtistId).Count() > 1) {
+				if (allPerformances.Where(pi => pi.Value.Id != p.Value.Id) // not the same performance
+								   .Where(pi => pi.Value.SpectacledayTimeSlot == p.Value.SpectacledayTimeSlot) // same timeslot
+								   .Where(pi => pi.Value.ArtistId == p.Value.ArtistId).Count() > 1) { // same artist
 					throw new BusinessLogicException("Artist can only perform once per timeslot");
 				}
 			}
