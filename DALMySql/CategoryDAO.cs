@@ -34,7 +34,8 @@ namespace UFO.DAL.MySql {
 		private Category createCategoryFromReader(IDataReader reader) {
 			return new Category() {
 				Id = (int)reader["id"],
-				Description = (string)reader["description"]
+				Description = (string)reader["description"],
+				Color = (string)reader["color"]
 			};
 		}
 

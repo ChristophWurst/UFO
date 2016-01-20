@@ -177,8 +177,8 @@ namespace UFO.BL {
 						foreach (var id in artistIds) {
 							artists.Add(artistDAO.GetById(id));
 						}
-						CreatePdfScheduleForSpectacleDay(spectacleDay);
-						ms.MailToArtists(artists, spectacleDay, pdfPath, pdfName);
+						//						CreatePdfScheduleForSpectacleDay(spectacleDay);
+						//						ms.MailToArtists(artists, spectacleDay, pdfPath, pdfName);
 					} catch (Exception e) {
 						throw new BusinessLogicException("Error while sending PDF to artists");
 					}

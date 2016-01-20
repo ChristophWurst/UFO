@@ -1390,6 +1390,8 @@ namespace UFO.BL.UFOService {
         
         private string descriptionField;
         
+        private string colorField;
+        
         /// <remarks/>
         public int Id {
             get {
@@ -1407,6 +1409,16 @@ namespace UFO.BL.UFOService {
             }
             set {
                 this.descriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Color {
+            get {
+                return this.colorField;
+            }
+            set {
+                this.colorField = value;
             }
         }
     }

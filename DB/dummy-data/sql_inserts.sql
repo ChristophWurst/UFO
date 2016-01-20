@@ -89,18 +89,18 @@ INSERT INTO `artist` (`id`, `name`, `image`, `video`, `category_id`, `country_id
 
 -- Exportiere Daten aus Tabelle ufo.category: ~11 rows (ungefähr)
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` (`id`, `description`) VALUES
-	(1, 'Straßentheater'),
-	(2, 'Local Art'),
-	(3, 'Comedy & Jonglage'),
-	(4, 'Akrobatik & Tanz'),
-	(5, 'Luftakrobatik'),
-	(6, 'Clownerie & Pantomime'),
-	(7, 'Walkact, Stelzen, Stehstill'),
-	(8, 'Musik, Samba, Precussion'),
-	(9, 'Feuerperformances'),
-	(10, 'Figuren- und Objekttheater'),
-	(11, 'Kinderprogramm');
+INSERT INTO `category` (`id`, `description`, `color`) VALUES
+	(1, 'Straßentheater', '#FFCEFF'),
+	(2, 'Local Art', '#E8C6FF'),
+	(3, 'Comedy & Jonglage', '#D7D1F8'),
+	(4, 'Akrobatik & Tanz', '#B8E2EF'),
+	(5, 'Luftakrobatik', '#FFCECE'),
+	(6, 'Clownerie & Pantomime', '#FFC8E3'),
+	(7, 'Walkact, Stelzen, Stehstill', '#F5CAFF'),
+	(8, 'Musik, Samba, Precussion', '#DDCEFF'),
+	(9, 'Feuerperformances', '#CAFEB8'),
+	(10, 'Figuren- und Objekttheater', '#D1FFB3'),
+	(11, 'Kinderprogramm', '#F5F7C4');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 
 -- Exportiere Daten aus Tabelle ufo.country: ~243 rows (ungefähr)
@@ -351,7 +351,7 @@ INSERT INTO `country` (`id`, `name`) VALUES
 	(243, 'Simbabwe');
 /*!40000 ALTER TABLE `country` ENABLE KEYS */;
 
--- Exportiere Daten aus Tabelle ufo.performance: ~1 260 rows (ungefähr)
+-- Exportiere Daten aus Tabelle ufo.performance: ~1 259 rows (ungefähr)
 /*!40000 ALTER TABLE `performance` DISABLE KEYS */;
 INSERT INTO `performance` (`id`, `artist_id`, `venue_id`, `spectacleday_timeslot_id`) VALUES
 	(1, 1, 2, 1),
