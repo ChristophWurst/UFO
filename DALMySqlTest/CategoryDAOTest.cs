@@ -11,7 +11,8 @@ namespace DALMySqlTest {
 
 		public static bool IsEqualTo(this Category c1, Category c2) {
 			return c1.Id == c2.Id
-				&& c1.Description == c2.Description;
+				&& c1.Description == c2.Description
+				&& c1.Color == c2.Color;
 		}
 	}
 
@@ -30,14 +31,15 @@ namespace DALMySqlTest {
 			dao = factory.CreateCategoryDAO(db);
 			category = new Category {
 				Id = 1,
-				Description = "Musik"
+				Description = "Musik",
+				Color = "red"
 			};
 
 			runDbCommands(db, new List<string> {
 				"SET FOREIGN_KEY_CHECKS=0",
 				"DELETE FROM `category`",
-				"INSERT INTO `category` VALUES (1, 'Musik')",
-				"INSERT INTO `category` VALUES (2, 'Tanz')"
+				"INSERT INTO `category` VALUES (1, 'Musik', 'red')",
+				"INSERT INTO `category` VALUES (2, 'Tanz', 'blue')"
 			});
 		}
 
