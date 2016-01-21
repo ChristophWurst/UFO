@@ -12,7 +12,7 @@ using UFO.DomainClasses;
 namespace UFO.Commander.ViewModels {
 
 	internal class ScheduleTabViewModel : INotifyPropertyChanged {
-		private IBusinessLogic bl;
+		private IBusinessLogicAsync bl;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -31,7 +31,7 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
-		public ScheduleTabViewModel(IBusinessLogic bl) {
+		public ScheduleTabViewModel(IBusinessLogicAsync bl) {
 			this.bl = bl;
 
 			SpectacleDays = new ObservableCollection<SpectacledayViewModel>();
@@ -43,7 +43,7 @@ namespace UFO.Commander.ViewModels {
 
 		private async void LoadSpectacleDays() {
 			SpectacleDays.Clear();
-			var days = await Task.Factory.StartNew(() => bl.GetSpectacleDays());
+			var days = await bl.GetSpectacleDaysAsync();
 			foreach (var sd in days) {
 				SpectacleDays.Add(new SpectacledayViewModel(sd, bl));
 			}
@@ -51,11 +51,11 @@ namespace UFO.Commander.ViewModels {
 		}
 
 		private async void LoadArtists() {
-			var categories = bl.GetCategories();
+			var categories = await bl.GetCategoriesAsync();
 
 			Artists.Clear();
 			Artists.Add(new ScheduleArtistViewModel(new Artist { Name = "-" }, null));
-			var artists = await Task.Factory.StartNew(() => bl.GetArtists());
+			var artists = await bl.GetArtistsAsync();
 			foreach (var a in artists) {
 				var cat = categories.Where(c => c.Id == a.CategoryId).FirstOrDefault();
 				Artists.Add(new ScheduleArtistViewModel(a, cat));

@@ -16,21 +16,6 @@ namespace UFO.BL {
 		private static BusinessLogic defaultBl;
 		private static WebServiceBusinessLogic wsBl;
 
-		private static IMailService GetMailService() {
-			var appSettings = ConfigurationManager.AppSettings;
-			var smtpServer = appSettings["smtpServer"];
-			var mailAddress = new MailAddress(appSettings["mailAddress"], appSettings["sender"]);
-			var user = appSettings["user"];
-			var pwd = appSettings["pwd"];
-			var port = int.Parse(appSettings["port"]);
-			return new MailService(smtpServer, port, user, pwd, mailAddress);
-		}
-
-		private static IPdfMaker GetPdfMaker() {
-			var appSettings = ConfigurationManager.AppSettings;
-			return new PdfMaker(appSettings["pdfName"], appSettings["pdfPath"]);
-		}
-
 		public static IBusinessLogic GetBusinessLogic() {
 			string BusinessLogicType = "";
 			if (defaultBl == null) {
@@ -63,9 +48,7 @@ namespace UFO.BL {
 
 		private static IBusinessLogic CreateDefaultBL() {
 			DALFactory dalFactory = DALFactory.GetInstance();
-			IMailService mailService = GetMailService();
-			IPdfMaker pdfMaker = GetPdfMaker();
-			defaultBl = new BusinessLogic(dalFactory, mailService, pdfMaker);
+			defaultBl = new BusinessLogic(dalFactory);
 			return defaultBl;
 		}
 

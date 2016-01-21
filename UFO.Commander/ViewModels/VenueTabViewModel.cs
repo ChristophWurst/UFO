@@ -12,15 +12,15 @@ namespace UFO.Commander.ViewModels {
 
 	internal class VenueTabViewModel : INotifyPropertyChanged {
 		private AreaViewModel currentArea;
-		private IBusinessLogic bl;
+		private IBusinessLogicAsync bl;
 
-		private void LoadAreas() {
+		private async void LoadAreas() {
 			Areas = new ObservableCollection<AreaViewModel>();
-			bl.GetAreas().Select(a => new AreaViewModel(a, bl)).ToList().ForEach(a => Areas.Add(a));
+			(await bl.GetAreasAsync()).Select(a => new AreaViewModel(a, bl)).ToList().ForEach(a => Areas.Add(a));
 			CurrentArea = Areas.FirstOrDefault();
 		}
 
-		public VenueTabViewModel(IBusinessLogic bl) {
+		public VenueTabViewModel(IBusinessLogicAsync bl) {
 			this.bl = bl;
 
 			LoadAreas();

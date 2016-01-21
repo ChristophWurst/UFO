@@ -127,7 +127,7 @@ namespace UFO.DAL.MySql {
 				}
 			}
 			if (artist == null) {
-				throw new EntityNotFoundException();
+				throw new EntityNotFoundException($"Artist with Id {id} not found");
 			}
 			return artist;
 		}

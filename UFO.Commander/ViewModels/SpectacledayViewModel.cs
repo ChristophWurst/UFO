@@ -15,11 +15,11 @@ namespace UFO.Commander.ViewModels {
 	internal class SpectacledayViewModel {
 		private const int NO_PERFORMANCE_ID = -1;
 		private Spectacleday spectacleDay;
-		private IBusinessLogic bl;
+		private IBusinessLogicAsync bl;
 
 		public ObservableCollection<ScheduleAreaViewModel> Areas { get; set; }
 
-		public SpectacledayViewModel(Spectacleday spectacleday, IBusinessLogic bl) {
+		public SpectacledayViewModel(Spectacleday spectacleday, IBusinessLogicAsync bl) {
 			this.spectacleDay = spectacleday;
 			this.bl = bl;
 
@@ -27,9 +27,9 @@ namespace UFO.Commander.ViewModels {
 		}
 
 		public async void LoadPerformances() {
-			var areas = await Task.Factory.StartNew(() => bl.GetAreas());
-			var performances = await Task.Factory.StartNew(() => bl.GetPerformanesForSpetacleDay(spectacleDay));
-			var timeSlots = await Task.Factory.StartNew(() => bl.GetSpectacleDayTimeSlotsForSpectacleDay(spectacleDay));
+			var areas = await bl.GetAreasAsync();
+			var performances = await bl.GetPerformanesForSpetacleDayAsync(spectacleDay);
+			var timeSlots = await bl.GetSpectacleDayTimeSlotsForSpectacleDayAsync(spectacleDay);
 
 			ObservableCollection<TimeSlotViewModel> timeSlotViewModels = new ObservableCollection<TimeSlotViewModel>();
 			foreach (var ts in timeSlots) {
@@ -39,7 +39,7 @@ namespace UFO.Commander.ViewModels {
 			Areas.Clear();
 			foreach (var area in areas) {
 				ObservableCollection<ScheduleVenueViewModel> venueViewModels = new ObservableCollection<ScheduleVenueViewModel>();
-				var venues = await Task.Factory.StartNew(() => bl.GetVenuesForArea(area));
+				var venues = await bl.GetVenuesForAreaAsync(area);
 				foreach (var v in venues) {
 					ObservableCollection<PerformanceViewModel> performanceViewModels = new ObservableCollection<PerformanceViewModel>();
 					foreach (var ts in timeSlots) {
@@ -86,7 +86,7 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
-		internal async void SaveChanges() {
+		internal void SaveChanges() {
 			try {
 				List<Performance> performances = new List<Performance>();
 
@@ -104,7 +104,7 @@ namespace UFO.Commander.ViewModels {
 					MessageBox.Show("No changes to save");
 					return;
 				}
-				bl.UpdatePerformances(spectacleDay, performances);
+				bl.UpdatePerformancesAsync(spectacleDay, performances);
 
 				foreach (var a in Areas) {
 					foreach (var v in a.Venues) {
