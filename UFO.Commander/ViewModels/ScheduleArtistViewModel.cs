@@ -9,9 +9,11 @@ namespace UFO.Commander.ViewModels {
 
 	internal class ScheduleArtistViewModel {
 		private Artist artist;
+		private Category category;
 
-		public ScheduleArtistViewModel(Artist artist) {
+		public ScheduleArtistViewModel(Artist artist, Category category) {
 			this.artist = artist;
+			this.category = category;
 		}
 
 		public int Id {
@@ -23,6 +25,12 @@ namespace UFO.Commander.ViewModels {
 		public string Name {
 			get {
 				return artist.Name;
+			}
+		}
+
+		public string Color {
+			get {
+				return category?.Color;
 			}
 		}
 	}

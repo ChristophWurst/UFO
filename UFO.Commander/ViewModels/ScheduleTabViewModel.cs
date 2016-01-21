@@ -51,11 +51,14 @@ namespace UFO.Commander.ViewModels {
 		}
 
 		private async void LoadArtists() {
+			var categories = bl.GetCategories();
+
 			Artists.Clear();
-			Artists.Add(new ScheduleArtistViewModel(new Artist { Name = "-" }));
+			Artists.Add(new ScheduleArtistViewModel(new Artist { Name = "-" }, null));
 			var artists = await Task.Factory.StartNew(() => bl.GetArtists());
 			foreach (var a in artists) {
-				Artists.Add(new ScheduleArtistViewModel(a));
+				var cat = categories.Where(c => c.Id == a.CategoryId).FirstOrDefault();
+				Artists.Add(new ScheduleArtistViewModel(a, cat));
 			}
 		}
 

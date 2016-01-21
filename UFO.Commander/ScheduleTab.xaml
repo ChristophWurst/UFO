@@ -139,9 +139,19 @@
                                                                   Margin="0,0,0,0">
                                                             <ComboBox.ItemTemplate>
                                                                 <DataTemplate>
-                                                                    <Label Content="{Binding Path=Name}"
-                                                                           HorizontalAlignment="Stretch"
-                                                                           HorizontalContentAlignment="Center" />
+                                                                    <Grid>
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="auto" />
+                                                                            <ColumnDefinition Width="auto" />
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <Rectangle Grid.Column="0"
+                                                                                   Width="5"
+                                                                                   Height="auto"
+                                                                                   Fill="{Binding Path=Color}" />
+                                                                        <TextBlock Grid.Column="1"
+                                                                                   Margin="5,0,0,0"
+                                                                                   Text="{Binding Path=Name}" />
+                                                                    </Grid>
                                                                 </DataTemplate>
                                                             </ComboBox.ItemTemplate>
                                                         </ComboBox>
