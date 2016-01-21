@@ -12,7 +12,7 @@ namespace UFO.Commander.ViewModels {
 
 	internal class ScheduleAreaViewModel : INotifyPropertyChanged {
 		private Area area;
-		private IBusinessLogic bl;
+		private IBusinessLogicAsync bl;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -22,7 +22,7 @@ namespace UFO.Commander.ViewModels {
 		public ScheduleAreaViewModel(Area area,
 									 ObservableCollection<TimeSlotViewModel> timeslots,
 									 ObservableCollection<ScheduleVenueViewModel> venues,
-									 IBusinessLogic bl) {
+									 IBusinessLogicAsync bl) {
 			this.area = area;
 			TimeSlots = timeslots;
 			Venues = venues;

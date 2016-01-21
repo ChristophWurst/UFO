@@ -17,7 +17,7 @@ namespace UFO.Commander.ViewModels {
 		public ObservableCollection<VenueViewModel> Venues { get; set; }
 
 		private VenueViewModel currentVenue;
-		private IBusinessLogic bl;
+		private IBusinessLogicAsync bl;
 		private RelayCommand relayCommand;
 
 		public VenueViewModel CurrentVenue {
@@ -32,7 +32,7 @@ namespace UFO.Commander.ViewModels {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public AreaViewModel(Area area, IBusinessLogic bl) {
+		public AreaViewModel(Area area, IBusinessLogicAsync bl) {
 			this.area = area;
 			this.bl = bl;
 
@@ -49,9 +49,9 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
-		internal void LoadVenues() {
+		internal async void LoadVenues() {
 			Venues.Clear();
-			bl.GetVenuesForArea(area).ToList().ForEach(v => Venues.Add(new VenueViewModel(v, bl)));
+			(await bl.GetVenuesForAreaAsync(area)).ToList().ForEach(v => Venues.Add(new VenueViewModel(v, bl)));
 
 			CurrentVenue = Venues.FirstOrDefault();
 		}

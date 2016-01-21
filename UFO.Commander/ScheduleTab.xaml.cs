@@ -26,7 +26,7 @@ namespace UFO.Commander {
 		public ScheduleTab() {
 			InitializeComponent();
 
-			IBusinessLogic bl = BusinessLogicFactory.GetBusinessLogic();
+			IBusinessLogicAsync bl = BusinessLogicFactory.GetBusinessLogicAsync();
 
 			Loaded += (s, e) => {
 				DataContext = new ScheduleTabViewModel(bl);

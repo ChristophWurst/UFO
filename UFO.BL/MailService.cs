@@ -35,8 +35,8 @@ namespace UFO.BL {
 					smtpClientt.UseDefaultCredentials = false;
 					smtpClientt.Credentials = new NetworkCredential(user, pwd);
 					smtpClientt.Send(mailMessage);
-				} catch {
-					throw new BusinessLogicException("Mailt to Artists failed.");
+				} catch (Exception e) {
+					throw new BusinessLogicException("Mailt to Artists failed. " + e.Message);
 				}
 			}
 		}

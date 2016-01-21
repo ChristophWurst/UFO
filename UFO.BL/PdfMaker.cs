@@ -158,7 +158,7 @@ namespace UFO.BL {
 				row.Cells[i].AddParagraph(area.Name);
 				foreach (var timeSlot in timeSlots) {
 					i++;
-					row.Cells[i].AddParagraph(timeSlot.Start + "-" + timeSlot.End);
+					row.Cells[i].AddParagraph(timeSlot.Start + " Uhr - " + timeSlot.End + " Uhr");
 					row.Cells[i].VerticalAlignment = VerticalAlignment.Center;
 				}
 			} catch {

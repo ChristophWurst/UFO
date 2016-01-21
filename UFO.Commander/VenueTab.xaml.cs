@@ -27,7 +27,7 @@ namespace UFO.Commander {
 		public VenueTab() {
 			InitializeComponent();
 
-			IBusinessLogic bl = BusinessLogicFactory.GetBusinessLogic();
+			IBusinessLogicAsync bl = BusinessLogicFactory.GetBusinessLogicAsync();
 
 			Loaded += (s, e) => {
 				DataContext = new VenueTabViewModel(bl);

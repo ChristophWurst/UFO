@@ -153,6 +153,10 @@ namespace UFO.BL {
 			var performanceDAO = dalFactory.CreatePerformanceDAO(db);
 			ValidatePerformanceChanges(performances, spectacleDay);
 
+			// old performances needed for ids of artists which had their performances changed
+			var oldPerformances = performanceDAO.GetForSpectacleDay(spectacleDay);
+			HashSet<int> artistIds = new HashSet<int>();
+
 			try {
 				using (TransactionScope trans = new TransactionScope()) {
 					try {
@@ -160,27 +164,37 @@ namespace UFO.BL {
 						// Id == 0 => new timeslot - nothing old to delete
 						foreach (var p in performances.Where(p => p.Id != default(int))) {
 							performanceDAO.Delete(p);
+							p.Id = default(int);
+							int aId = oldPerformances.Where(old => old.Id == p.Id).Select(old => old.ArtistId).FirstOrDefault();
+							if (aId != default(int)) {
+								artistIds.Add(aId);
+							}
 						}
 
 						// Create new entries
 						// ArtistId == 0 => new empty timeslot - nothing to create in the db
 						foreach (var p in performances.Where(p => p.ArtistId != default(int))) {
 							performanceDAO.Create(p);
+							artistIds.Add(p.ArtistId);
 						}
 					} catch (Exception e) {
 						throw new BusinessLogicException("Error while saving performance changes to the database: " + e.Message);
 					}
 					try {
-						var artistIds = performances.Where(p => p.ArtistId != default(int)).Select(p => p.ArtistId).Distinct();
+						oldPerformances.ToList().ForEach(old => {
+							if (performances.Where(p => p.Id == old.Id && p.ArtistId != old.ArtistId).Count() != 0) artistIds.Add(old.ArtistId);
+						});
 						var artists = new List<Artist>();
 						var artistDAO = dalFactory.CreateArtistDAO(db);
 						foreach (var id in artistIds) {
 							artists.Add(artistDAO.GetById(id));
 						}
-						//						CreatePdfScheduleForSpectacleDay(spectacleDay);
-						//						ms.MailToArtists(artists, spectacleDay, pdfPath, pdfName);
+						if (artists.Count() > 0) {
+							CreatePdfScheduleForSpectacleDay(spectacleDay);
+							ms.MailToArtists(artists, spectacleDay, pdfPath, pdfName);
+						}
 					} catch (Exception e) {
-						throw new BusinessLogicException("Error while sending PDF to artists");
+						throw new BusinessLogicException("Error while sending PDF to artists. " + e.Message);
 					}
 
 					trans.Complete();

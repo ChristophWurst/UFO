@@ -17,9 +17,9 @@ namespace UFO.Commander.ViewModels {
 
 		private readonly Venue venue;
 		private ICommand saveCommand;
-		private IBusinessLogic bl;
+		private IBusinessLogicAsync bl;
 
-		public VenueViewModel(Venue venue, IBusinessLogic bl) {
+		public VenueViewModel(Venue venue, IBusinessLogicAsync bl) {
 			this.venue = venue;
 			this.bl = bl;
 		}
@@ -57,11 +57,11 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
-		private void SaveChanges(object obj) {
+		private async void SaveChanges(object obj) {
 			if (venue.Id == default(int)) {
-				bl.CreateVenue(venue);
+				await bl.CreateVenueAsync(venue);
 			} else {
-				bl.UpdateVenue(venue);
+				await bl.UpdateVenueAsync(venue);
 			}
 		}
 
