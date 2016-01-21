@@ -13,11 +13,10 @@ namespace UFO.DAL.MySql {
 		private const string SQL_SELECT_ALL = "SELECT * "
 											+ "FROM `performance`";
 
-		private const string SQL_SELECT_FOR_SPECTACLE_DAY = "SELECT p.* "
-														  + "FROM `performance` p "
-														  + "RIGHT OUTER JOIN `spectacleday_timeslot` ts "
-														  + "ON p.`spectacleday_timeslot_id` = ts.`id` "
-														  + "WHERE ts.`spectacleday_id` = @SpectacleDayId";
+		private const string SQL_SELECT_FOR_SPECTACLE_DAY = @"SELECT p.`id`, p.`artist_id`, p.`venue_id`, p.`spectacleday_timeslot_id`
+															FROM `performance` p, `spectacleday_timeslot` ts
+															WHERE p.`spectacleday_timeslot_id` = ts.`id`
+															AND ts.`spectacleday_id` = @SpectacleDayId";
 
 		private const string SQL_SELECT = "SELECT * "
 										+ "FROM `performance` "
