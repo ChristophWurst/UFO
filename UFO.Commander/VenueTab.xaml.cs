@@ -26,12 +26,6 @@ namespace UFO.Commander {
 
 		public VenueTab() {
 			InitializeComponent();
-
-			IBusinessLogicAsync bl = BusinessLogicFactory.GetBusinessLogicAsync();
-
-			Loaded += (s, e) => {
-				DataContext = new VenueTabViewModel(bl);
-			};
 		}
 
 		private bool draggingMapPin = false;
