@@ -57,7 +57,11 @@ namespace UFO.Commander.ViewModels {
 		}
 
 		private void AddVenue(object obj) {
-			var newVenue = new Venue { AreaId = area.Id };
+			var newVenue = new Venue {
+				AreaId = area.Id,
+				Latitude = 48.3057594,
+				Longitude = 14.284544
+			};
 			var vm = new VenueViewModel(newVenue, bl);
 			Venues.Add(vm);
 			CurrentVenue = vm;
