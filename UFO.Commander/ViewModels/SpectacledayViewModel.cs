@@ -15,21 +15,23 @@ namespace UFO.Commander.ViewModels {
 
 	internal class SpectacledayViewModel {
 		private Spectacleday spectacleDay;
-		private IBusinessLogicAsync bl;
+		private IBusinessLogic bl;
+		private IBusinessLogicAsync blAsync;
 
 		public ObservableCollection<ScheduleAreaViewModel> Areas { get; set; }
 
-		public SpectacledayViewModel(Spectacleday spectacleday, IBusinessLogicAsync bl) {
+		public SpectacledayViewModel(Spectacleday spectacleday, IBusinessLogic bl, IBusinessLogicAsync blAsync) {
 			this.spectacleDay = spectacleday;
+			this.blAsync = blAsync;
 			this.bl = bl;
 
 			Areas = new ObservableCollection<ScheduleAreaViewModel>();
 		}
 
 		public async void LoadPerformances() {
-			var areas = await bl.GetAreasAsync();
-			var performances = await bl.GetPerformanesForSpetacleDayAsync(spectacleDay);
-			var timeSlots = await bl.GetSpectacleDayTimeSlotsForSpectacleDayAsync(spectacleDay);
+			var areas = await blAsync.GetAreasAsync();
+			var performances = await blAsync.GetPerformanesForSpetacleDayAsync(spectacleDay);
+			var timeSlots = await blAsync.GetSpectacleDayTimeSlotsForSpectacleDayAsync(spectacleDay);
 
 			ObservableCollection<TimeSlotViewModel> timeSlotViewModels = new ObservableCollection<TimeSlotViewModel>();
 			foreach (var ts in timeSlots) {
@@ -39,7 +41,7 @@ namespace UFO.Commander.ViewModels {
 			Areas.Clear();
 			foreach (var area in areas) {
 				ObservableCollection<ScheduleVenueViewModel> venueViewModels = new ObservableCollection<ScheduleVenueViewModel>();
-				var venues = await bl.GetVenuesForAreaAsync(area);
+				var venues = await blAsync.GetVenuesForAreaAsync(area);
 				foreach (var v in venues) {
 					ObservableCollection<PerformanceViewModel> performanceViewModels = new ObservableCollection<PerformanceViewModel>();
 					foreach (var ts in timeSlots) {
@@ -62,7 +64,7 @@ namespace UFO.Commander.ViewModels {
 					ScheduleVenueViewModel venueViewModel = new ScheduleVenueViewModel(v, performanceViewModels);
 					venueViewModels.Add(venueViewModel);
 				}
-				var areaViewModel = new ScheduleAreaViewModel(area, timeSlotViewModels, venueViewModels, bl);
+				var areaViewModel = new ScheduleAreaViewModel(area, timeSlotViewModels, venueViewModels, blAsync);
 				Areas.Add(areaViewModel);
 			}
 		}
@@ -83,8 +85,8 @@ namespace UFO.Commander.ViewModels {
 						foreach (var p in v.Performances) {
 							if (p != performance && p.ArtistId == performance.ArtistId) {
 								// Another performance, but same artist
-								if (p.Performance.SpectacledayTimeSlot == timeSlotId
-									|| p.Performance.SpectacledayTimeSlot == nextTimeSlotId) {
+								if (p.Performance.SpectacledayTimeSlot == timeSlotId) {
+									//|| p.Performance.SpectacledayTimeSlot == nextTimeSlotId) {
 									// Same or next timeslot
 									p.ArtistId = default(int);
 								}
@@ -113,7 +115,8 @@ namespace UFO.Commander.ViewModels {
 					MessageBox.Show("No changes to save");
 					return;
 				}
-				bl.UpdatePerformancesAsync(spectacleDay, performances);
+
+				bl.UpdatePerformances(spectacleDay, performances);
 
 				foreach (var a in Areas) {
 					foreach (var v in a.Venues) {
@@ -129,7 +132,7 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
-		internal async void SaveAsPdf() {
+		internal void SaveAsPdf() {
 			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
 
 			dlg.DefaultExt = "pdf";
@@ -139,7 +142,7 @@ namespace UFO.Commander.ViewModels {
 			bool? selected = dlg.ShowDialog();
 			if (selected == true) {
 				string fileName = dlg.FileName;
-				var file = await bl.CreatePdfScheduleForSpectacleDayAsync(spectacleDay);
+				var file = bl.CreatePdfScheduleForSpectacleDay(spectacleDay);
 				File.WriteAllBytes(fileName, file);
 				MessageBox.Show($"PDF-File saved successfully as {fileName}");
 			} else {

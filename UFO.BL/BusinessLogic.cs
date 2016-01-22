@@ -158,6 +158,10 @@ namespace UFO.BL {
 			HashSet<int> artistIds = new HashSet<int>();
 
 			try {
+				// To prevent duplicate db entries which result in database exceptions,
+				// all changed performances are deleted before they are iserted again.
+
+				// All of that is done in one transaction to ensure data consistency
 				using (TransactionScope trans = new TransactionScope()) {
 					try {
 						// Delete old entries
@@ -217,19 +221,34 @@ namespace UFO.BL {
 
 			// Run checks
 			ValidateUniqueArtistPerTimeSlot(allPerformances);
-			// TODO: add more checks, the db does not catch all of them
+			ValidateArtistBreakAfterPerformance(allPerformances);
 		}
 
 		private void ValidateUniqueArtistPerTimeSlot(Dictionary<int, Performance> allPerformances) {
-			foreach (var p in allPerformances) {
-				if (p.Value.ArtistId == default(int)) {
+			foreach (var p in allPerformances.Values) {
+				if (p.ArtistId == default(int)) {
 					// Empty slots may occur multiple times
 					continue;
 				}
-				if (allPerformances.Where(pi => pi.Value.Id != p.Value.Id) // not the same performance
-								   .Where(pi => pi.Value.SpectacledayTimeSlot == p.Value.SpectacledayTimeSlot) // same timeslot
-								   .Where(pi => pi.Value.ArtistId == p.Value.ArtistId).Count() > 1) { // same artist
+				if (allPerformances.Values.Where(pi => pi.Id != p.Id) // not the same performance
+										  .Where(pi => pi.SpectacledayTimeSlot == p.SpectacledayTimeSlot) // same timeslot
+										  .Where(pi => pi.ArtistId == p.ArtistId).Count() > 1) { // same artist
 					throw new BusinessLogicException("Artist can only perform once per timeslot");
+				}
+			}
+		}
+
+		private void ValidateArtistBreakAfterPerformance(Dictionary<int, Performance> allPerformances) {
+			foreach (var p in allPerformances.Values) {
+				int timeslotId = p.SpectacledayTimeSlot;
+				int nextTimeslotId = timeslotId + 1;
+
+				foreach (var pi in allPerformances.Values) {
+					// Check if there are any performances of the same artist in the next timeslot
+					if (pi.SpectacledayTimeSlot == timeslotId
+						&& pi.ArtistId == p.ArtistId) {
+						throw new BusinessLogicException("Artists have to take one hour break after performing");
+					}
 				}
 			}
 		}

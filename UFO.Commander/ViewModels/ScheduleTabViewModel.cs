@@ -12,7 +12,8 @@ using UFO.DomainClasses;
 namespace UFO.Commander.ViewModels {
 
 	internal class ScheduleTabViewModel : INotifyPropertyChanged {
-		private IBusinessLogicAsync bl;
+		private IBusinessLogic bl;
+		private IBusinessLogicAsync blAync;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -32,7 +33,8 @@ namespace UFO.Commander.ViewModels {
 		}
 
 		public ScheduleTabViewModel() {
-			bl = BusinessLogicFactory.GetBusinessLogicAsync();
+			bl = BusinessLogicFactory.GetBusinessLogic();
+			blAync = BusinessLogicFactory.GetBusinessLogicAsync();
 
 			SpectacleDays = new ObservableCollection<SpectacledayViewModel>();
 			Artists = new ObservableCollection<ScheduleArtistViewModel>();
@@ -43,19 +45,19 @@ namespace UFO.Commander.ViewModels {
 
 		private async void LoadSpectacleDays() {
 			SpectacleDays.Clear();
-			var days = await bl.GetSpectacleDaysAsync();
+			var days = await blAync.GetSpectacleDaysAsync();
 			foreach (var sd in days) {
-				SpectacleDays.Add(new SpectacledayViewModel(sd, bl));
+				SpectacleDays.Add(new SpectacledayViewModel(sd, bl, blAync));
 			}
 			ActiveSpectacleDay = SpectacleDays.FirstOrDefault();
 		}
 
 		private async void LoadArtists() {
-			var categories = await bl.GetCategoriesAsync();
+			var categories = await blAync.GetCategoriesAsync();
 
 			Artists.Clear();
 			Artists.Add(new ScheduleArtistViewModel(new Artist { Name = "-" }, null));
-			var artists = await bl.GetArtistsAsync();
+			var artists = await blAync.GetArtistsAsync();
 			foreach (var a in artists) {
 				var cat = categories.Where(c => c.Id == a.CategoryId).FirstOrDefault();
 				Artists.Add(new ScheduleArtistViewModel(a, cat));
