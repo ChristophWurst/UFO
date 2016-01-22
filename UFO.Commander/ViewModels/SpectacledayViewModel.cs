@@ -14,7 +14,6 @@ using UFO.DomainClasses;
 namespace UFO.Commander.ViewModels {
 
 	internal class SpectacledayViewModel {
-		private const int NO_PERFORMANCE_ID = -1;
 		private Spectacleday spectacleDay;
 		private IBusinessLogicAsync bl;
 
@@ -75,11 +74,20 @@ namespace UFO.Commander.ViewModels {
 					// New artist is the placeholder, nothing to do then
 					return;
 				}
+
+				// An artist was selected -> remove all performances of the next timeslot
+				int timeSlotId = performance.Performance.SpectacledayTimeSlot;
+				int nextTimeSlotId = timeSlotId + 1;
 				foreach (var a in Areas) {
 					foreach (var v in a.Venues) {
 						foreach (var p in v.Performances) {
 							if (p != performance && p.ArtistId == performance.ArtistId) {
-								p.ArtistId = default(int);
+								// Another performance, but same artist
+								if (p.Performance.SpectacledayTimeSlot == timeSlotId
+									|| p.Performance.SpectacledayTimeSlot == nextTimeSlotId) {
+									// Same or next timeslot
+									p.ArtistId = default(int);
+								}
 							}
 						}
 					}
