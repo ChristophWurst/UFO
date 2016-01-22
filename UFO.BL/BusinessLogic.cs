@@ -13,7 +13,7 @@ using UFO.DomainClasses;
 
 namespace UFO.BL {
 
-	internal class BusinessLogic : AbstractBusinessLogic {
+	internal class BusinessLogic : ABusinessLogic {
 		private const string SALT = "H4g3nb3Rg";
 
 		private DALFactory dalFactory;
@@ -190,8 +190,8 @@ namespace UFO.BL {
 							artists.Add(artistDAO.GetById(id));
 						}
 						if (artists.Count() > 0) {
-							CreatePdfScheduleForSpectacleDay(spectacleDay);
-							ms.MailToArtists(artists, spectacleDay, pdfPath, pdfName);
+							var file = CreatePdfScheduleForSpectacleDay(spectacleDay);
+							ms.MailToArtists(artists, spectacleDay, file);
 						}
 					} catch (Exception e) {
 						throw new BusinessLogicException("Error while sending PDF to artists. " + e.Message);
@@ -235,16 +235,16 @@ namespace UFO.BL {
 		}
 
 		public void MailPerformanceChangesToArtists(IEnumerable<Artist> artists, IEnumerable<Performance> performances, Spectacleday day) {
-			CreatePdfScheduleForSpectacleDay(day);
-			ms.MailToArtists(artists, day, pdfPath, pdfName);
+			var file = CreatePdfScheduleForSpectacleDay(day);
+			ms.MailToArtists(artists, day, file);
 		}
 
 		public override IEnumerable<Venue> GetVenues() {
 			return dalFactory.CreateVenueDAO(db).GetAll();
 		}
 
-		public override void CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay) {
-			pdf.MakeSpectacleSchedule(GetSpectacleDayTimeSlotsForSpectacleDay(spectacleDay), GetPerformanesForSpetacleDay(spectacleDay), GetAreas(), GetVenues(), GetTimeSlots(), GetArtists());
+		public override byte[] CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay) {
+			return pdf.MakeSpectacleSchedule(GetSpectacleDayTimeSlotsForSpectacleDay(spectacleDay), GetPerformanesForSpetacleDay(spectacleDay), GetAreas(), GetVenues(), GetTimeSlots(), GetArtists());
 		}
 
 		public override bool Login(string username, string password) {

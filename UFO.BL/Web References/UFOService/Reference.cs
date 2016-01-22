@@ -73,6 +73,8 @@ namespace UFO.BL.UFOService {
         
         private System.Threading.SendOrPostCallback UpdateVenueOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetPerformanceOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetPerformancesForArtistOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetTimeSlotForPerformanceOperationCompleted;
@@ -194,6 +196,9 @@ namespace UFO.BL.UFOService {
         public event UpdateVenueCompletedEventHandler UpdateVenueCompleted;
         
         /// <remarks/>
+        public event GetPerformanceCompletedEventHandler GetPerformanceCompleted;
+        
+        /// <remarks/>
         public event GetPerformancesForArtistCompletedEventHandler GetPerformancesForArtistCompleted;
         
         /// <remarks/>
@@ -248,9 +253,11 @@ namespace UFO.BL.UFOService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ufo.fh-hagenberg.at/CreatePdfScheduleForSpectacleDay", RequestNamespace="http://ufo.fh-hagenberg.at/", ResponseNamespace="http://ufo.fh-hagenberg.at/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay) {
-            this.Invoke("CreatePdfScheduleForSpectacleDay", new object[] {
+        [return: System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+        public byte[] CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay) {
+            object[] results = this.Invoke("CreatePdfScheduleForSpectacleDay", new object[] {
                         spectacleDay});
+            return ((byte[])(results[0]));
         }
         
         /// <remarks/>
@@ -270,7 +277,7 @@ namespace UFO.BL.UFOService {
         private void OnCreatePdfScheduleForSpectacleDayOperationCompleted(object arg) {
             if ((this.CreatePdfScheduleForSpectacleDayCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.CreatePdfScheduleForSpectacleDayCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.CreatePdfScheduleForSpectacleDayCompleted(this, new CreatePdfScheduleForSpectacleDayCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -839,6 +846,35 @@ namespace UFO.BL.UFOService {
             if ((this.UpdateVenueCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.UpdateVenueCompleted(this, new UpdateVenueCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://ufo.fh-hagenberg.at/GetPerformance", RequestNamespace="http://ufo.fh-hagenberg.at/", ResponseNamespace="http://ufo.fh-hagenberg.at/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Performance GetPerformance(int id) {
+            object[] results = this.Invoke("GetPerformance", new object[] {
+                        id});
+            return ((Performance)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPerformanceAsync(int id) {
+            this.GetPerformanceAsync(id, null);
+        }
+        
+        /// <remarks/>
+        public void GetPerformanceAsync(int id, object userState) {
+            if ((this.GetPerformanceOperationCompleted == null)) {
+                this.GetPerformanceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPerformanceOperationCompleted);
+            }
+            this.InvokeAsync("GetPerformance", new object[] {
+                        id}, this.GetPerformanceOperationCompleted, userState);
+        }
+        
+        private void OnGetPerformanceOperationCompleted(object arg) {
+            if ((this.GetPerformanceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPerformanceCompleted(this, new GetPerformanceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1598,7 +1634,29 @@ namespace UFO.BL.UFOService {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.81.0")]
-    public delegate void CreatePdfScheduleForSpectacleDayCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    public delegate void CreatePdfScheduleForSpectacleDayCompletedEventHandler(object sender, CreatePdfScheduleForSpectacleDayCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.81.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreatePdfScheduleForSpectacleDayCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreatePdfScheduleForSpectacleDayCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public byte[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((byte[])(this.results[0]));
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.81.0")]
@@ -2072,6 +2130,32 @@ namespace UFO.BL.UFOService {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((Venue)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.81.0")]
+    public delegate void GetPerformanceCompletedEventHandler(object sender, GetPerformanceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.81.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPerformanceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPerformanceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Performance Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Performance)(this.results[0]));
             }
         }
     }

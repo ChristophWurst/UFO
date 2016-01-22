@@ -167,12 +167,17 @@
                 </ListView.ItemTemplate>
             </ListView>
         </ScrollViewer>
-        <Button Grid.Row="2"
-                Grid.Column="0"
-                HorizontalAlignment="Right"
-                Padding="3,3,3,3"
-                Command="{Binding Path=SaveCommand}">
-            Save and notify artists
-        </Button>
+        <StackPanel Grid.Row="2"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button Padding="3,3,3,3"
+                    Command="{Binding Path=SaveAsPdfCommand}">
+                Save as PDF
+            </Button>
+            <Button Padding="3,3,3,3"
+                    Command="{Binding Path=SaveCommand}">
+                Save and notify artists
+            </Button>
+        </StackPanel>
     </Grid>
 </TabItem>

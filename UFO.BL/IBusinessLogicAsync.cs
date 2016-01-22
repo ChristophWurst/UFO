@@ -49,7 +49,7 @@ namespace UFO.BL {
 
 		Task<IEnumerable<Venue>> GetVenuesAsync();
 
-		void CreatePdfScheduleForSpectacleDayAsync(Spectacleday spectacleDay);
+		Task<byte[]> CreatePdfScheduleForSpectacleDayAsync(Spectacleday spectacleDay);
 
 		Task<bool> LoginAsync(string username, string password);
 

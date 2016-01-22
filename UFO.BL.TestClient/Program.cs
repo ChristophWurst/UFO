@@ -12,16 +12,16 @@ namespace UFO.BL.TestClient {
 		private static void Main(string[] args) {
 			IBusinessLogic bl = BusinessLogicFactory.GetBusinessLogic();
 			var appSettings = ConfigurationManager.AppSettings;
-			TestPdfMaker(appSettings, bl);
-			TestMailService(appSettings, bl);
+			var file = TestPdfMaker(appSettings, bl);
+			TestMailService(appSettings, bl, file);
 		}
 
-		private static void TestPdfMaker(NameValueCollection appSettings, IBusinessLogic bl) {
+		private static byte[] TestPdfMaker(NameValueCollection appSettings, IBusinessLogic bl) {
 			List<Spectacleday> days = new List<Spectacleday>(bl.GetSpectacleDays());
-			bl.CreatePdfScheduleForSpectacleDay(days[1]);
+			return bl.CreatePdfScheduleForSpectacleDay(days[1]);
 		}
 
-		private static void TestMailService(System.Collections.Specialized.NameValueCollection appSettings, IBusinessLogic bl) {
+		private static void TestMailService(System.Collections.Specialized.NameValueCollection appSettings, IBusinessLogic bl, byte[] file) {
 			var smtpServer = appSettings["smtpServer"];
 			var mailAddress = new MailAddress(appSettings["mailAddress"], appSettings["sender"]);
 			var user = appSettings["user"];
@@ -33,7 +33,7 @@ namespace UFO.BL.TestClient {
 
 			IEnumerable<Artist> artists = bl.GetArtistsForCategory(new Category() { Id = 1 });
 			var days = new List<Spectacleday>(bl.GetSpectacleDays());
-			mailClient.MailToArtists(artists, days[0], pdfPath, pdfName);
+			mailClient.MailToArtists(artists, days[0], file);
 		}
 	}
 }

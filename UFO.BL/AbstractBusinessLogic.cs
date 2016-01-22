@@ -7,11 +7,11 @@ using UFO.DomainClasses;
 
 namespace UFO.BL {
 
-	internal abstract class AbstractBusinessLogic : IBusinessLogic, IBusinessLogicAsync {
+	internal abstract class ABusinessLogic : IBusinessLogic, IBusinessLogicAsync {
 
 		public abstract Artist CreateArtist(Artist artist);
 
-		public abstract void CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay);
+		public abstract byte[] CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay);
 
 		public abstract Venue CreateVenue(Venue venue);
 
@@ -75,8 +75,8 @@ namespace UFO.BL {
 			return Task.Run(() => CreateArtist(artist));
 		}
 
-		public void CreatePdfScheduleForSpectacleDayAsync(Spectacleday spectacleDay) {
-			Task.Run(() => CreatePdfScheduleForSpectacleDay(spectacleDay));
+		public Task<byte[]> CreatePdfScheduleForSpectacleDayAsync(Spectacleday spectacleDay) {
+			return Task.Run(() => CreatePdfScheduleForSpectacleDay(spectacleDay));
 		}
 
 		public Task<Venue> CreateVenueAsync(Venue venue) {

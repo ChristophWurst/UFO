@@ -9,7 +9,7 @@ namespace UFO.BL {
 
 	public interface IPdfMaker {
 
-		void MakeSpectacleSchedule(IEnumerable<SpectacledayTimeSlot> spectacleDayTimeSlots,
+		byte[] MakeSpectacleSchedule(IEnumerable<SpectacledayTimeSlot> spectacleDayTimeSlots,
 									IEnumerable<Performance> performances,
 									IEnumerable<Area> areas,
 									IEnumerable<Venue> venues,

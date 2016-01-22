@@ -29,8 +29,8 @@ namespace UFO.WebService {
 		}
 
 		[WebMethod]
-		public void CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay) {
-			bl.CreatePdfScheduleForSpectacleDay(spectacleDay);
+		public byte[] CreatePdfScheduleForSpectacleDay(Spectacleday spectacleDay) {
+			return bl.CreatePdfScheduleForSpectacleDay(spectacleDay);
 		}
 
 		[WebMethod]
