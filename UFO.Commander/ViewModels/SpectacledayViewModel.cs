@@ -130,9 +130,12 @@ namespace UFO.Commander.ViewModels {
 
 			bool? selected = dlg.ShowDialog();
 			if (selected == true) {
-				string fileName = dlg.SafeFileName;
+				string fileName = dlg.FileName;
 				var file = await bl.CreatePdfScheduleForSpectacleDayAsync(spectacleDay);
 				File.WriteAllBytes(fileName, file);
+				MessageBox.Show($"PDF-File saved successfully as {fileName}");
+			} else {
+				MessageBox.Show("Invalid path selected");
 			}
 		}
 
