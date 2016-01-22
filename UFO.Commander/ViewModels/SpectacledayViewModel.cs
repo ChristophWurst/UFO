@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -117,6 +118,21 @@ namespace UFO.Commander.ViewModels {
 				MessageBox.Show("Changes saves successfully");
 			} catch (BusinessLogicException ble) {
 				MessageBox.Show(ble.Message);
+			}
+		}
+
+		internal async void SaveAsPdf() {
+			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+
+			dlg.DefaultExt = "pdf";
+			dlg.FileName = spectacleDay.Day.ToString().Replace(":", "-") + ".pdf";
+			dlg.AddExtension = true;
+
+			bool? selected = dlg.ShowDialog();
+			if (selected == true) {
+				string fileName = dlg.SafeFileName;
+				var file = await bl.CreatePdfScheduleForSpectacleDayAsync(spectacleDay);
+				File.WriteAllBytes(fileName, file);
 			}
 		}
 

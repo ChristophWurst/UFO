@@ -5,6 +5,7 @@ using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace UFO.BL {
 			this.pdfPath = pdfPath;
 		}
 
-		public void MakeSpectacleSchedule(IEnumerable<SpectacledayTimeSlot> spectacleDayTimeSlots,
+		public byte[] MakeSpectacleSchedule(IEnumerable<SpectacledayTimeSlot> spectacleDayTimeSlots,
 										  IEnumerable<Performance> performances,
 										  IEnumerable<Area> areas,
 										  IEnumerable<Venue> venues,
@@ -44,10 +45,13 @@ namespace UFO.BL {
 			PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(false, PdfFontEmbedding.Always);
 			pdfRenderer.Document = document;
 			pdfRenderer.RenderDocument();
+
 			try {
-				pdfRenderer.PdfDocument.Save(pdfPath + pdfName);
-			} catch {
-				throw new BusinessLogicException($"Could not save PDF-File {pdfName} to {pdfPath}.");
+				MemoryStream s = new MemoryStream();
+				pdfRenderer.PdfDocument.Save(s);
+				return s.ToArray();
+			} catch (Exception e) {
+				throw new BusinessLogicException($"Could not save PDF-File ({e.Message})");
 			}
 		}
 

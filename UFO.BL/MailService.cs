@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -23,14 +24,15 @@ namespace UFO.BL {
 			this.mailAddress = mailAddress;
 		}
 
-		public void MailToArtists(IEnumerable<Artist> artists, Spectacleday day, string attPath, string attName) {
+		public void MailToArtists(IEnumerable<Artist> artists, Spectacleday day, byte[] file) {
 			using (SmtpClient smtpClientt = new SmtpClient(smtpServer, port))
 			using (MailMessage mailMessage = new MailMessage()) {
 				try {
 					artists.ToList().ForEach(artist => mailMessage.To.Add(artist.Email));
 					mailMessage.Body = CreateBody(day);
 					mailMessage.From = mailAddress;
-					Attachment attachment = new Attachment(attPath + attName);
+					Stream stream = new MemoryStream(file);
+					Attachment attachment = new Attachment(stream, "Schedule.pdf");
 					mailMessage.Attachments.Add(attachment);
 					smtpClientt.UseDefaultCredentials = false;
 					smtpClientt.Credentials = new NetworkCredential(user, pwd);

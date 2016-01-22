@@ -67,5 +67,11 @@ namespace UFO.Commander.ViewModels {
 				return new RelayCommand(param => ActiveSpectacleDay?.SaveChanges());
 			}
 		}
+
+		public ICommand SaveAsPdfCommand {
+			get {
+				return new RelayCommand(param => ActiveSpectacleDay?.SaveAsPdf());
+			}
+		}
 	}
 }

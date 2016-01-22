@@ -9,7 +9,7 @@ using WS = UFO.BL.UFOService;
 
 namespace UFO.BL {
 
-	internal class WebServiceBusinessLogic : AbstractBusinessLogic {
+	internal class WebServiceBusinessLogic : ABusinessLogic {
 		private WS.UFO proxy;
 
 		public WebServiceBusinessLogic() {
@@ -42,8 +42,8 @@ namespace UFO.BL {
 			return Mapper.Map<WS.Artist, Domain.Artist>(proxy.CreateArtist(Mapper.Map<Domain.Artist, WS.Artist>(artist)));
 		}
 
-		public override void CreatePdfScheduleForSpectacleDay(Domain.Spectacleday spectacleDay) {
-			proxy.CreatePdfScheduleForSpectacleDay(Mapper.Map<Domain.Spectacleday, WS.Spectacleday>(spectacleDay));
+		public override byte[] CreatePdfScheduleForSpectacleDay(Domain.Spectacleday spectacleDay) {
+			return proxy.CreatePdfScheduleForSpectacleDay(Mapper.Map<Domain.Spectacleday, WS.Spectacleday>(spectacleDay));
 		}
 
 		public override Domain.Venue CreateVenue(Domain.Venue venue) {
