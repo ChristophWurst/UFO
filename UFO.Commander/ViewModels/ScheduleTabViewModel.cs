@@ -31,8 +31,8 @@ namespace UFO.Commander.ViewModels {
 			}
 		}
 
-		public ScheduleTabViewModel(IBusinessLogicAsync bl) {
-			this.bl = bl;
+		public ScheduleTabViewModel() {
+			bl = BusinessLogicFactory.GetBusinessLogicAsync();
 
 			SpectacleDays = new ObservableCollection<SpectacledayViewModel>();
 			Artists = new ObservableCollection<ScheduleArtistViewModel>();

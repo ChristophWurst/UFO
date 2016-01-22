@@ -20,8 +20,8 @@ namespace UFO.Commander.ViewModels {
 			CurrentArea = Areas.FirstOrDefault();
 		}
 
-		public VenueTabViewModel(IBusinessLogicAsync bl) {
-			this.bl = bl;
+		public VenueTabViewModel() {
+			bl = BusinessLogicFactory.GetBusinessLogicAsync();
 
 			LoadAreas();
 		}
