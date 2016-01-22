@@ -44,7 +44,7 @@
                       SelectedItem="{Binding Path=CurrentVenue, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Path=ShortDescription}"></TextBlock>
+                        <TextBlock Text="{Binding Path=Description}"></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -70,14 +70,14 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
                    Grid.Column="0">
-                Description:
+                Short description:
             </Label>
             <TextBox Grid.Row="0"
                      Grid.Column="1"
                      Text="{Binding Path=ShortDescription, Mode=TwoWay}" />
             <Label Grid.Row="1"
                    Grid.Column="0">
-                Long description:
+                Description:
             </Label>
             <TextBox Grid.Row="1"
                      Grid.Column="1"
