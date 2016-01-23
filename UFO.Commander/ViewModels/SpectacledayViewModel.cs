@@ -130,8 +130,8 @@ namespace UFO.Commander.ViewModels {
 				}
 
 				MessageBox.Show("Changes saves successfully");
-			} catch (BusinessLogicException ble) {
-				MessageBox.Show(ble.Message);
+			} catch (Exception e) {
+				MessageBox.Show(e.Message);
 			}
 		}
 

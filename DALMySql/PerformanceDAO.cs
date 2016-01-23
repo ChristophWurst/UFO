@@ -163,7 +163,7 @@ namespace UFO.DAL.MySql {
 		public void Delete(Performance performance) {
 			var cmd = CreateDeleteCommand(performance.Id);
 			if (db.ExecuteNonQuery(cmd) != 1) {
-				throw new EntityNotFoundException($"Performance with id {performance.Id} not found.");
+				throw new EntityNotFoundException($"Delete: Performance with id {performance.Id} not found.");
 			}
 		}
 
