@@ -60,20 +60,25 @@ namespace UFO.BL {
 
 		public override void DeleteArtist(Artist artist) {
 			try {
-				dalFactory.CreateArtistDAO(db).Delete(artist);
-				var performanceDAO = dalFactory.CreatePerformanceDAO(db);
-				var performancesOfArtist = performanceDAO.GetForArtist(artist);
-				var futureSpectacleDays = dalFactory.CreateSpectacledayDAO(db).GetAll().Where(day => day.Day >= DateTime.Today);
-				var futureTimeSlots = dalFactory.CreateTimeSlotDAO(db).GetAll().Where(timeslot => timeslot.Start >= DateTime.Now.Hour);
-				var futureSpectacleDayTimeslots = dalFactory.CreateSpectacledayTimeSlotDAO(db).GetAll().Where(t => futureSpectacleDays.Select(d => d.Id).Contains(t.SpectacledayId) && futureTimeSlots.Select(o => o.Id).Contains(t.TimeSlotId));
-				var performanceToDelete = performancesOfArtist.Where(performance => futureSpectacleDayTimeslots.Select(fsdt => fsdt.Id).Contains(performance.SpectacledayTimeSlot));
-				using (new TransactionScope()) {
-					performanceToDelete.ToList().ForEach(performance => performanceDAO.Delete(performance));
+				var aDao = dalFactory.CreateArtistDAO(db);
+				var pDao = dalFactory.CreatePerformanceDAO(db);
+				var dDao = dalFactory.CreateSpectacledayDAO(db);
+				var dsDao = dalFactory.CreateSpectacledayTimeSlotDAO(db);
+
+				var pArtist = pDao.GetForArtist(artist);
+				var days = dDao.GetForPerformances(pArtist);
+				var dSlot = dsDao.GetForPerformances(pArtist);
+
+				List<int> dayIds = days.Where(d => d.Day >= DateTime.Now).Select(d => d.Id).ToList();
+				List<int> dSlotIds = dSlot.Where(ds => dayIds.Contains(ds.SpectacledayId)).Select(ds => ds.Id).ToList();
+
+				using (TransactionScope trans = new TransactionScope()) {
+					aDao.Delete(artist);
+					pArtist.ToList().ForEach(p => { if (dSlotIds.Contains(p.SpectacledayTimeSlot)) pDao.Delete(p); });
+					trans.Complete();
 				}
 			} catch (EntityNotFoundException) {
 				throw new BusinessLogicException($"Could not delete Artist {artist.Name}, Artist {artist.Name} not found.");
-			} catch {
-				throw new BusinessLogicException($"Could not delete Artist {artist.Name}.");
 			}
 		}
 
