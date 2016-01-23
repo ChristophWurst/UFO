@@ -9,7 +9,7 @@
 /*!40101 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
--- Exportiere Daten aus Tabelle ufo.area: ~8 rows (ungefähr)
+-- Exportiere Daten aus Tabelle ufo.area: ~7 rows (ungefähr)
 /*!40000 ALTER TABLE `area` DISABLE KEYS */;
 INSERT INTO `area` (`id`, `name`) VALUES
 	(1, 'Hauptplatz'),
@@ -350,7 +350,7 @@ INSERT INTO `country` (`id`, `name`) VALUES
 	(243, 'Simbabwe');
 /*!40000 ALTER TABLE `country` ENABLE KEYS */;
 
--- Exportiere Daten aus Tabelle ufo.performance: ~972 rows (ungefähr)
+-- Exportiere Daten aus Tabelle ufo.performance: ~971 rows (ungefähr)
 /*!40000 ALTER TABLE `performance` DISABLE KEYS */;
 INSERT INTO `performance` (`id`, `artist_id`, `venue_id`, `spectacleday_timeslot_id`) VALUES
 	(211, 31, 1, 8),
