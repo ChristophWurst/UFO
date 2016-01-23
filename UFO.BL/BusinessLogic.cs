@@ -151,8 +151,8 @@ namespace UFO.BL {
 		}
 
 		public override void UpdatePerformances(Spectacleday spectacleDay, IEnumerable<Performance> performances) {
+			performances = performances.Where(p => p.Id != default(int) || p.ArtistId != default(int));
 			if (performances.Count() <= 0) return;
-
 			var oldPerformances = dalFactory.CreatePerformanceDAO(db).GetForSpectacleDay(spectacleDay);
 			var performancesToDelete = performances.Where(p => p.ArtistId == default(int));
 			var performancesToCreate = performances.Where(p => p.Id == default(int));
@@ -160,15 +160,16 @@ namespace UFO.BL {
 			var tmpPerformances = MergePerformances(oldPerformances, performancesToDelete, performancesToCreate, performancesToUpdate);
 
 			var valid = ValidateArtist(tmpPerformances);
-			if (valid != null) throw new BusinessLogicException($"Artist {valid.ArtistId} has already a performance scheduled.");
+			if (valid != null) throw new BusinessLogicException($"Artist {dalFactory.CreateArtistDAO(db).GetById(valid.ArtistId).Name} has already a performance scheduled.");
 			valid = ValidateVenue(tmpPerformances);
-			if (valid != null) throw new BusinessLogicException($"Venue {valid.VenueId} already scheduled.");
+			if (valid != null) throw new BusinessLogicException($"Venue {dalFactory.CreateArtistDAO(db).GetById(valid.ArtistId).Name} already scheduled.");
 			valid = ValidatePause(tmpPerformances);
-			if (valid != null) throw new BusinessLogicException($"Artist {valid.ArtistId} has no time for a pause.");
+			if (valid != null) throw new BusinessLogicException($"Artist {dalFactory.CreateArtistDAO(db).GetById(valid.ArtistId).Name} has no time for a pause.");
 
 			Update(performancesToDelete, performancesToCreate, performancesToUpdate);
 			var artists = GetArtistsToNotify(oldPerformances, performancesToDelete, performancesToCreate, performancesToUpdate);
 			MailPerformanceChangesToArtists(artists, performances, spectacleDay);
+			performancesToDelete.ToList().ForEach(p => p.Id = default(int));
 		}
 
 		private IEnumerable<Artist> GetArtistsToNotify(IEnumerable<Performance> oldPerformances, IEnumerable<Performance> performancesToDelete, IEnumerable<Performance> performancesToCreate, IEnumerable<Performance> performancesToUpdate) {
@@ -193,7 +194,7 @@ namespace UFO.BL {
 					performancesToUpdate.ToList().ForEach(p => dao.Update(p));
 					trans.Complete();
 				} catch (Exception e) {
-					throw new BusinessLogicException($"Could not Update DataBase.");
+					throw; // new BusinessLogicException($"Could not Update DataBase.");
 				}
 			}
 		}
@@ -201,10 +202,11 @@ namespace UFO.BL {
 		private Performance ValidatePause(IEnumerable<Performance> tmpPerformances) {
 			bool valid = true;
 			var it = tmpPerformances.GetEnumerator();
-			while (it.MoveNext() && valid) {
+			while (valid && it.MoveNext()) {
 				valid = !tmpPerformances.Where(s => it.Current.Id != s.Id &&
 													it.Current.ArtistId == s.ArtistId &&
-													it.Current.SpectacledayTimeSlot == s.SpectacledayTimeSlot + 1).Any();
+													(it.Current.SpectacledayTimeSlot == s.SpectacledayTimeSlot + 1 ||
+													it.Current.SpectacledayTimeSlot == s.SpectacledayTimeSlot - 1)).Any();
 			}
 			return valid ? null : it.Current;
 		}
@@ -212,7 +214,7 @@ namespace UFO.BL {
 		private Performance ValidateVenue(IEnumerable<Performance> tmpPerformances) {
 			bool valid = true;
 			var it = tmpPerformances.GetEnumerator();
-			while (it.MoveNext() && valid) {
+			while (valid && it.MoveNext()) {
 				valid = !tmpPerformances.Where(s => it.Current.Id != s.Id &&
 													it.Current.VenueId == s.VenueId &&
 													it.Current.SpectacledayTimeSlot == s.SpectacledayTimeSlot).Any();
@@ -223,7 +225,7 @@ namespace UFO.BL {
 		private Performance ValidateArtist(IEnumerable<Performance> tmpPerformances) {
 			bool valid = true;
 			var it = tmpPerformances.GetEnumerator();
-			while (it.MoveNext() && valid) {
+			while (valid && it.MoveNext()) {
 				valid = !tmpPerformances.Where(s => it.Current.Id != s.Id &&
 													it.Current.ArtistId == s.ArtistId &&
 													it.Current.SpectacledayTimeSlot == s.SpectacledayTimeSlot).Any();
