@@ -146,111 +146,92 @@ namespace UFO.BL {
 		}
 
 		public override void UpdatePerformances(Spectacleday spectacleDay, IEnumerable<Performance> performances) {
-			if (performances.Count() == 0) {
-				return;
-			}
+			if (performances.Count() <= 0) return;
 
-			var performanceDAO = dalFactory.CreatePerformanceDAO(db);
-			ValidatePerformanceChanges(performances, spectacleDay);
+			var oldPerformances = dalFactory.CreatePerformanceDAO(db).GetForSpectacleDay(spectacleDay);
+			var performancesToDelete = performances.Where(p => p.ArtistId == default(int));
+			var performancesToCreate = performances.Where(p => p.Id == default(int));
+			var performancesToUpdate = performances.Where(p => p.Id != default(int) && p.ArtistId != default(int));
+			var tmpPerformances = MergePerformances(oldPerformances, performancesToDelete, performancesToCreate, performancesToUpdate);
 
-			// old performances needed for ids of artists which had their performances changed
-			var oldPerformances = performanceDAO.GetForSpectacleDay(spectacleDay);
-			HashSet<int> artistIds = new HashSet<int>();
+			var valid = ValidateArtist(tmpPerformances);
+			if (valid != null) throw new BusinessLogicException($"Artist {valid.ArtistId} has already a performance scheduled.");
+			valid = ValidateVenue(tmpPerformances);
+			if (valid != null) throw new BusinessLogicException($"Venue {valid.VenueId} already scheduled.");
+			valid = ValidatePause(tmpPerformances);
+			if (valid != null) throw new BusinessLogicException($"Artist {valid.ArtistId} has no time for a pause.");
 
-			try {
-				// To prevent duplicate db entries which result in database exceptions,
-				// all changed performances are deleted before they are iserted again.
+			Update(performancesToDelete, performancesToCreate, performancesToUpdate);
+			var artists = GetArtistsToNotify(oldPerformances, performancesToDelete, performancesToCreate, performancesToUpdate);
+			MailPerformanceChangesToArtists(artists, performances, spectacleDay);
+		}
 
-				// All of that is done in one transaction to ensure data consistency
-				using (TransactionScope trans = new TransactionScope()) {
-					try {
-						// Delete old entries
-						// Id == 0 => new timeslot - nothing old to delete
-						foreach (var p in performances.Where(p => p.Id != default(int))) {
-							performanceDAO.Delete(p);
-							p.Id = default(int);
-							int aId = oldPerformances.Where(old => old.Id == p.Id).Select(old => old.ArtistId).FirstOrDefault();
-							if (aId != default(int)) {
-								artistIds.Add(aId);
-							}
-						}
+		private IEnumerable<Artist> GetArtistsToNotify(IEnumerable<Performance> oldPerformances, IEnumerable<Performance> performancesToDelete, IEnumerable<Performance> performancesToCreate, IEnumerable<Performance> performancesToUpdate) {
+			var artistIds = new HashSet<int>();
+			oldPerformances.Where(p => performancesToDelete.Where(d => d.Id == p.Id).Any() ||
+									   performancesToUpdate.Where(d => d.Id == p.Id && d.ArtistId != p.ArtistId ||
+																	   d.Id == p.Id && d.VenueId != p.VenueId).Any()).ToList().ForEach(p => artistIds.Add(p.ArtistId));
+			performancesToCreate.ToList().ForEach(p => artistIds.Add(p.ArtistId));
+			performancesToUpdate.ToList().ForEach(p => artistIds.Add(p.ArtistId));
+			var dao = dalFactory.CreateArtistDAO(db);
+			var artists = new List<Artist>();
+			artistIds.ToList().ForEach(a => artists.Add(dao.GetById(a)));
+			return artists;
+		}
 
-						// Create new entries
-						// ArtistId == 0 => new empty timeslot - nothing to create in the db
-						foreach (var p in performances.Where(p => p.ArtistId != default(int))) {
-							performanceDAO.Create(p);
-							artistIds.Add(p.ArtistId);
-						}
-					} catch (Exception e) {
-						throw new BusinessLogicException("Error while saving performance changes to the database: " + e.Message);
-					}
-					try {
-						oldPerformances.ToList().ForEach(old => {
-							if (performances.Where(p => p.Id == old.Id && p.ArtistId != old.ArtistId).Count() != 0) artistIds.Add(old.ArtistId);
-						});
-						var artists = new List<Artist>();
-						var artistDAO = dalFactory.CreateArtistDAO(db);
-						foreach (var id in artistIds) {
-							artists.Add(artistDAO.GetById(id));
-						}
-						if (artists.Count() > 0) {
-							var file = CreatePdfScheduleForSpectacleDay(spectacleDay);
-							ms.MailToArtists(artists, spectacleDay, file);
-						}
-					} catch (Exception e) {
-						throw new BusinessLogicException("Error while sending PDF to artists. " + e.Message);
-					}
-
+		private void Update(IEnumerable<Performance> performancesToDelete, IEnumerable<Performance> performancesToCreate, IEnumerable<Performance> performancesToUpdate) {
+			using (TransactionScope trans = new TransactionScope()) {
+				try {
+					var dao = dalFactory.CreatePerformanceDAO(db);
+					performancesToDelete.ToList().ForEach(p => dao.Delete(p));
+					performancesToCreate.ToList().ForEach(p => dao.Create(p));
+					performancesToUpdate.ToList().ForEach(p => dao.Update(p));
 					trans.Complete();
-				}
-			} catch (Exception e) {
-				if (e is BusinessLogicException) {
-					throw e;
-				}
-				throw new BusinessLogicException("Error while updating performances");
-			}
-		}
-
-		private void ValidatePerformanceChanges(IEnumerable<Performance> performances, Spectacleday spectacleDay) {
-			var allPerformances = dalFactory.CreatePerformanceDAO(db).GetForSpectacleDay(spectacleDay).ToDictionary(p => p.Id, p => p);
-
-			// Merge dirty data with DB data
-			foreach (var p in performances) {
-				allPerformances[p.Id] = p;
-			}
-
-			// Run checks
-			ValidateUniqueArtistPerTimeSlot(allPerformances);
-			ValidateArtistBreakAfterPerformance(allPerformances);
-		}
-
-		private void ValidateUniqueArtistPerTimeSlot(Dictionary<int, Performance> allPerformances) {
-			foreach (var p in allPerformances.Values) {
-				if (p.ArtistId == default(int)) {
-					// Empty slots may occur multiple times
-					continue;
-				}
-				if (allPerformances.Values.Where(pi => pi.Id != p.Id) // not the same performance
-										  .Where(pi => pi.SpectacledayTimeSlot == p.SpectacledayTimeSlot) // same timeslot
-										  .Where(pi => pi.ArtistId == p.ArtistId).Count() > 1) { // same artist
-					throw new BusinessLogicException("Artist can only perform once per timeslot");
+				} catch (Exception e) {
+					throw new BusinessLogicException($"Could not Update DataBase.");
 				}
 			}
 		}
 
-		private void ValidateArtistBreakAfterPerformance(Dictionary<int, Performance> allPerformances) {
-			foreach (var p in allPerformances.Values) {
-				int timeslotId = p.SpectacledayTimeSlot;
-				int nextTimeslotId = timeslotId + 1;
-
-				foreach (var pi in allPerformances.Values) {
-					// Check if there are any performances of the same artist in the next timeslot
-					if (pi.SpectacledayTimeSlot == timeslotId
-						&& pi.ArtistId == p.ArtistId) {
-						throw new BusinessLogicException("Artists have to take one hour break after performing");
-					}
-				}
+		private Performance ValidatePause(IEnumerable<Performance> tmpPerformances) {
+			bool valid = true;
+			var it = tmpPerformances.GetEnumerator();
+			while (it.MoveNext() && valid) {
+				valid = !tmpPerformances.Where(s => it.Current.Id != s.Id &&
+													it.Current.ArtistId == s.ArtistId &&
+													it.Current.SpectacledayTimeSlot == s.SpectacledayTimeSlot + 1).Any();
 			}
+			return valid ? null : it.Current;
+		}
+
+		private Performance ValidateVenue(IEnumerable<Performance> tmpPerformances) {
+			bool valid = true;
+			var it = tmpPerformances.GetEnumerator();
+			while (it.MoveNext() && valid) {
+				valid = !tmpPerformances.Where(s => it.Current.Id != s.Id &&
+													it.Current.VenueId == s.VenueId &&
+													it.Current.SpectacledayTimeSlot == s.SpectacledayTimeSlot).Any();
+			}
+			return valid ? null : it.Current;
+		}
+
+		private Performance ValidateArtist(IEnumerable<Performance> tmpPerformances) {
+			bool valid = true;
+			var it = tmpPerformances.GetEnumerator();
+			while (it.MoveNext() && valid) {
+				valid = !tmpPerformances.Where(s => it.Current.Id != s.Id &&
+													it.Current.ArtistId == s.ArtistId &&
+													it.Current.SpectacledayTimeSlot == s.SpectacledayTimeSlot).Any();
+			}
+			return valid ? null : it.Current;
+		}
+
+		private IEnumerable<Performance> MergePerformances(IEnumerable<Performance> oldPerformances, IEnumerable<Performance> performancesToDelete, IEnumerable<Performance> performancesToCreate, IEnumerable<Performance> performancesToUpdate) {
+			List<Performance> dummy = oldPerformances.Where(old => !performancesToDelete.Where(p => p.Id == old.Id).Any()).ToList();
+			dummy = dummy.Where(d => !performancesToUpdate.Where(p => p.Id == d.Id).Any()).ToList();
+			dummy.AddRange(performancesToUpdate);
+			dummy.AddRange(performancesToCreate);
+			return dummy;
 		}
 
 		public void MailPerformanceChangesToArtists(IEnumerable<Artist> artists, IEnumerable<Performance> performances, Spectacleday day) {
