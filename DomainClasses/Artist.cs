@@ -2,6 +2,9 @@
 
 namespace UFO.DomainClasses {
 
+	/// <summary>
+	/// Domain class for the entity 'Artist'
+	/// </summary>
 	[Serializable]
 	public class Artist {
 		public int Id { get; set; }
