@@ -11,6 +11,9 @@ using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
+	/// <summary>
+	/// ViewModel for the artist-tab
+	/// </summary>
 	internal class ArtistTabViewModel : INotifyPropertyChanged {
 		private IBusinessLogicAsync bl;
 

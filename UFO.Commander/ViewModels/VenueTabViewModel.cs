@@ -10,6 +10,9 @@ using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
+	/// <summary>
+	/// ViewModel for the venue-tab
+	/// </summary>
 	internal class VenueTabViewModel : INotifyPropertyChanged {
 		private AreaViewModel currentArea;
 		private IBusinessLogicAsync bl;

@@ -8,6 +8,9 @@ using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
+	/// <summary>
+	/// ViewModel for the venues listed for each area on the schedule-tab
+	/// </summary>
 	internal class ScheduleVenueViewModel {
 		private Venue venue;
 

@@ -9,6 +9,12 @@ using WS = UFO.BL.UFOService;
 
 namespace UFO.BL {
 
+	/// <summary>
+	/// Webservice implementation of the business logic interfaces
+	/// This class does not talk to the DAL directly, but uses a web service
+	/// client instead to access UFO.WebService. That way a client can be used
+	/// over a web service, without notice.
+	/// </summary>
 	internal class WebServiceBusinessLogic : ABusinessLogic {
 		private WS.UFO proxy;
 
@@ -16,6 +22,9 @@ namespace UFO.BL {
 			proxy = new WS.UFO();
 		}
 
+		/// <summary>
+		/// Regist mappers
+		/// </summary>
 		static WebServiceBusinessLogic() {
 			Mapper.CreateMap<WS.Artist, Domain.Artist>();
 			Mapper.CreateMap<Domain.Artist, WS.Artist>();

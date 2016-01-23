@@ -14,6 +14,9 @@ using UFO.Commander.CustomControls;
 
 namespace UFO.Commander.ViewModels {
 
+	/// <summary>
+	/// ViewModel that is used to enter and validate user credentials of the login-window
+	/// </summary>
 	public class LoginViewModel : INotifyPropertyChanged {
 		private IBusinessLogic bl;
 

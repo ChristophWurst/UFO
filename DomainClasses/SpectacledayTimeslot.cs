@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace UFO.DomainClasses {
 
+	/// <summary>
+	/// Domain class for the entity 'SpectacledayTimeslot'
+	/// </summary>
 	[Serializable]
 	public class SpectacledayTimeSlot {
 		public int Id { get; set; }

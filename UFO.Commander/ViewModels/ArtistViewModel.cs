@@ -13,6 +13,9 @@ using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
+	/// <summary>
+	/// ViewModel for showing artist details on the artist-tab
+	/// </summary>
 	internal class ArtistViewModel : INotifyPropertyChanged {
 
 		public event PropertyChangedEventHandler PropertyChanged;

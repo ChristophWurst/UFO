@@ -10,6 +10,9 @@ using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
+	/// <summary>
+	/// ViewModel to show a spectacleday schedule on the schedule-tab
+	/// </summary>
 	internal class ScheduleAreaViewModel : INotifyPropertyChanged {
 		private Area area;
 		private IBusinessLogicAsync bl;

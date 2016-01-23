@@ -13,6 +13,11 @@ using UFO.DomainClasses;
 
 namespace UFO.BL {
 
+	/// <summary>
+	/// Implementation of the IBusinessLogic interface
+	///
+	/// Use the BusinessLogicFactory to get an instance of this class
+	/// </summary>
 	internal class BusinessLogic : ABusinessLogic {
 		private const string SALT = "H4g3nb3Rg";
 

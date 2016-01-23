@@ -8,6 +8,9 @@ using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
+	/// <summary>
+	/// ViewModel to listing timeslot-columns on the schedule-tab
+	/// </summary>
 	internal class TimeSlotViewModel {
 		private SpectacledayTimeSlot timeslot;
 

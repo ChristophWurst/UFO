@@ -13,6 +13,10 @@
         MinHeight="500"
         MinWidth="600">
     <TabControl>
+        <!--
+        Main application window. It exists of three tabs that are all extracted into
+        separate files
+        -->
         <tabs:ScheduleTab />
         <tabs:ArtistTab />
         <tabs:VenueTab />
