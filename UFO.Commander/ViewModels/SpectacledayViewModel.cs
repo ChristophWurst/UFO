@@ -13,6 +13,9 @@ using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
+	/// <summary>
+	/// ViewModel for listing and selecting the current spectacleday on of the schedule-tab
+	/// </summary>
 	internal class SpectacledayViewModel {
 		private Spectacleday spectacleDay;
 		private IBusinessLogic bl;

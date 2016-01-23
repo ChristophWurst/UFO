@@ -1,4 +1,7 @@
-﻿<TabItem x:Class="UFO.Commander.ScheduleTab"
+﻿<!--
+    Tab for displaying spectacledays and their schedules (venues, artists, performances)
+-->
+<TabItem x:Class="UFO.Commander.ScheduleTab"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,6 +14,7 @@
              Header="Schedule"
              Name="tabSched">
     <TabItem.DataContext>
+        <!-- Set the datacontext: SchduleTabViewModel -->
         <vm:ScheduleTabViewModel />
     </TabItem.DataContext>
     <TabItem.Resources>

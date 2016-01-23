@@ -8,6 +8,9 @@ using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
+	/// <summary>
+	/// ViewModel for selecting a country in the artist-tab artist details
+	/// </summary>
 	internal class CountryViewModel : INotifyPropertyChanged {
 
 		public event PropertyChangedEventHandler PropertyChanged;

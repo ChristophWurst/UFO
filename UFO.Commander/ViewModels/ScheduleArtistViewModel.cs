@@ -7,6 +7,9 @@ using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
+	/// <summary>
+	/// VieModel for the combobox for selecting performance artists
+	/// </summary>
 	internal class ScheduleArtistViewModel {
 		private Artist artist;
 		private Category category;

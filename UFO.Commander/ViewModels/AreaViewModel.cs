@@ -11,6 +11,9 @@ using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
+	/// <summary>
+	/// ViewModel to for listing areas in the venue-tab
+	/// </summary>
 	internal class AreaViewModel : INotifyPropertyChanged {
 		private readonly Area area;
 

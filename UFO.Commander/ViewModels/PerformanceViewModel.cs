@@ -8,6 +8,9 @@ using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
+	/// <summary>
+	/// ViewModel to show performances on the schedule-tab schedule
+	/// </summary>
 	internal class PerformanceViewModel : INotifyPropertyChanged {
 		private Performance performance;
 		private bool dirty;

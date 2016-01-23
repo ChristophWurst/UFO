@@ -1,4 +1,7 @@
-﻿<Window x:Class="UFO.Commander.LoginWindow"
+﻿<!--
+    Simple login window where the user enters her/his credentials
+-->
+<Window x:Class="UFO.Commander.LoginWindow"
         x:Name="Login"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

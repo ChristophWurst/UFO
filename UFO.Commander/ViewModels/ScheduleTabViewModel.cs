@@ -11,6 +11,9 @@ using UFO.DomainClasses;
 
 namespace UFO.Commander.ViewModels {
 
+	/// <summary>
+	/// ViewModel for the schele-tab
+	/// </summary>
 	internal class ScheduleTabViewModel : INotifyPropertyChanged {
 		private IBusinessLogic bl;
 		private IBusinessLogicAsync blAync;
