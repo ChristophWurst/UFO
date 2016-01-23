@@ -10,11 +10,22 @@ using UFO.DAL.Common;
 
 namespace UFO.BL {
 
-	public abstract class BusinessLogicFactory {
+	/// <summary>
+	/// Factory for creating business logic instances
+	/// This factory is implemented as singleton
+	///
+	/// Use 'GetBusinessLogic' for a synchronous interface
+	/// Use 'GetBusinessLogicAsync' for an asynchronous interface
+	/// </summary>
+	public class BusinessLogicFactory {
 		private const string DEFAULT = "default";
 		private const string WEBSERVICE = "webservice";
 		private static BusinessLogic defaultBl;
 		private static WebServiceBusinessLogic wsBl;
+
+		private BusinessLogicFactory() {
+			// Singleton
+		}
 
 		public static IBusinessLogic GetBusinessLogic() {
 			string BusinessLogicType = "";

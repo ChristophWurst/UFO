@@ -7,6 +7,9 @@ using UFO.DomainClasses;
 
 namespace UFO.BL {
 
+	/// <summary>
+	/// Abstract business logic that implements both synchronous and asynchronous methods
+	/// </summary>
 	internal abstract class ABusinessLogic : IBusinessLogic, IBusinessLogicAsync {
 
 		public abstract Artist CreateArtist(Artist artist);
