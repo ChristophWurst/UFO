@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Services.Protocols;
+using UFO.BL.execptions;
 using Domain = UFO.DomainClasses;
 using WS = UFO.BL.UFOService;
 
@@ -132,7 +133,11 @@ namespace UFO.BL {
 		}
 
 		public override void UpdatePerformances(Domain.Spectacleday spectacleDay, IEnumerable<Domain.Performance> performances) {
-			proxy.UpdatePerformances(Mapper.Map<Domain.Spectacleday, WS.Spectacleday>(spectacleDay), Mapper.Map<IEnumerable<Domain.Performance>, IEnumerable<WS.Performance>>(performances).ToArray());
+			try {
+				proxy.UpdatePerformances(Mapper.Map<Domain.Spectacleday, WS.Spectacleday>(spectacleDay), Mapper.Map<IEnumerable<Domain.Performance>, IEnumerable<WS.Performance>>(performances).ToArray());
+			} catch (SoapException e) {
+				throw new BusinessLogicException("Schedule could not be saved.\nMake sure that every Artist has a one hour break after a performance\nand that one artist can only perform at one venue at a time.");
+			}
 		}
 
 		public override Domain.Venue UpdateVenue(Domain.Venue venue) {

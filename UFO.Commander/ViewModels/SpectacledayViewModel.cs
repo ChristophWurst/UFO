@@ -88,8 +88,8 @@ namespace UFO.Commander.ViewModels {
 						foreach (var p in v.Performances) {
 							if (p != performance && p.ArtistId == performance.ArtistId) {
 								// Another performance, but same artist
-								if (p.Performance.SpectacledayTimeSlot == timeSlotId) {
-									//|| p.Performance.SpectacledayTimeSlot == nextTimeSlotId) {
+								if (p.Performance.SpectacledayTimeSlot == timeSlotId
+									|| p.Performance.SpectacledayTimeSlot == nextTimeSlotId) {
 									// Same or next timeslot
 									p.ArtistId = default(int);
 								}

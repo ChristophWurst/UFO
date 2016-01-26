@@ -29,7 +29,7 @@ namespace UFO.Commander.ViewModels {
 			set {
 				if (value != activeSpectacleDay) {
 					activeSpectacleDay = value;
-					activeSpectacleDay.LoadPerformances();
+					activeSpectacleDay?.LoadPerformances();
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActiveSpectacleDay)));
 				}
 			}
@@ -44,18 +44,19 @@ namespace UFO.Commander.ViewModels {
 
 			LoadSpectacleDays();
 			LoadArtists();
+			isSelected = true;
 		}
 
 		private async void LoadSpectacleDays() {
 			SpectacleDays.Clear();
 			var days = await blAync.GetSpectacleDaysAsync();
-			foreach (var sd in days) {
+			foreach (var sd in days.OrderByDescending(d => d.Day)) {
 				SpectacleDays.Add(new SpectacledayViewModel(sd, bl, blAync));
 			}
 			ActiveSpectacleDay = SpectacleDays.FirstOrDefault();
 		}
 
-		private async void LoadArtists() {
+		public async void LoadArtists() {
 			var categories = await blAync.GetCategoriesAsync();
 
 			Artists.Clear();
@@ -76,6 +77,27 @@ namespace UFO.Commander.ViewModels {
 		public ICommand SaveAsPdfCommand {
 			get {
 				return new RelayCommand(param => ActiveSpectacleDay?.SaveAsPdf());
+			}
+		}
+
+		private bool isSelected;
+
+		public bool IsSelected {
+			get {
+				return isSelected;
+			}
+
+			set {
+				ActiveSpectacleDay?.LoadPerformances();
+				if (value != isSelected) {
+					isSelected = value;
+					if (value) {
+						// Unfortunately, this can not be done async :(
+						//LoadArtists();
+						//ActiveSpectacleDay?.LoadPerformances();
+					}
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(isSelected)));
+				}
 			}
 		}
 	}

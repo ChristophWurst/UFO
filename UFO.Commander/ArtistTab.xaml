@@ -59,9 +59,9 @@
                 <Button DockPanel.Dock="Bottom" HorizontalAlignment="Right" Command="{Binding Path=AddCommand}">
                     +
                 </Button>
-                <Button HorizontalAlignment="Right" Command="{Binding Path=RemoveCommand}">
+                <!--<Button HorizontalAlignment="Right" Command="{Binding Path=RemoveCommand}">
                     -
-                </Button>
+                </Button>-->
             </StackPanel>
         </Grid>
 
@@ -85,6 +85,7 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="70" />
@@ -96,16 +97,18 @@
                 <TextBox Text="{Binding Path=ImageInput}" Grid.Row="2" Grid.Column="1" />
                 <Label Grid.Row="3" Grid.Column="0">Video:</Label>
                 <TextBox Text="{Binding Path=VideoInput}" Grid.Row="3" Grid.Column="1" />
-                <Label Grid.Row="4" Grid.Column="0">Country:</Label>
-                <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelCountry, Mode=TwoWay}">
+                <Label Grid.Row="4" Grid.Column="0">E-Mail:</Label>
+                <TextBox Text="{Binding Path=EmailInput}" Grid.Row="4" Grid.Column="1" />
+                <Label Grid.Row="5" Grid.Column="0">Country:</Label>
+                <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelCountry, Mode=TwoWay}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Path=Name}"></TextBlock>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Label Grid.Row="5" Grid.Column="0">Category:</Label>
-                <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding Path=Categories}" SelectedItem="{Binding Path=SelCategory, Mode=TwoWay}">
+                <Label Grid.Row="6" Grid.Column="0">Category:</Label>
+                <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding Path=Categories}" SelectedItem="{Binding Path=SelCategory, Mode=TwoWay}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Path=Description}"></TextBlock>

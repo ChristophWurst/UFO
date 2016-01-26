@@ -44,6 +44,7 @@ namespace UFO.Commander.ViewModels {
 					NameInput = currArtist.Name;
 					ImageInput = currArtist.Image;
 					VideoInput = currArtist.Video;
+					EmailInput = currArtist.Email;
 					SelCategory = Categories.Where(category => category.Id == CurrArtist.CategoryId).FirstOrDefault();
 					SelCountry = Countries.Where(country => country.Id == CurrArtist.CountryId).FirstOrDefault();
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrArtist)));
@@ -83,6 +84,22 @@ namespace UFO.Commander.ViewModels {
 				if (videoInput != value) {
 					videoInput = value;
 					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VideoInput)));
+				}
+			}
+		}
+
+		private string emailInput;
+
+		public string EmailInput {
+			get { return emailInput; }
+			set {
+				if (emailInput != value) {
+					if (value?.Trim() == "") {
+						emailInput = null;
+					} else {
+						emailInput = value;
+					}
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EmailInput)));
 				}
 			}
 		}
@@ -140,6 +157,7 @@ namespace UFO.Commander.ViewModels {
 			Categories.Clear();
 			var tmpCategories = (await bl.GetCategoriesAsync()).Select(category => new CategoryViewModel(category));
 			tmpCategories.ToList().ForEach(category => Categories.Add(category));
+			CurrCategory = Categories.FirstOrDefault();
 		}
 
 		private async void LoadCountries() {
@@ -152,6 +170,7 @@ namespace UFO.Commander.ViewModels {
 			Artists.Clear();
 			var tmpArtists = (await bl.GetArtistsForCategoryAsync(category.Category)).Select(artist => new ArtistViewModel(artist));
 			tmpArtists.ToList().ForEach(artist => Artists.Add(artist));
+			CurrArtist = Artists.FirstOrDefault();
 		}
 
 		private ICommand addCommand;
@@ -191,6 +210,7 @@ namespace UFO.Commander.ViewModels {
 			CurrArtist.Name = NameInput;
 			CurrArtist.Image = ImageInput;
 			CurrArtist.Video = VideoInput;
+			CurrArtist.Email = EmailInput;
 			CurrArtist.CategoryId = SelCategory.Id;
 			CurrArtist.CountryId = SelCountry.Id;
 			CurrArtist.SaveArtist();

@@ -12,7 +12,9 @@
              d:DesignHeight="600"
              d:DesignWidth="800"
              Header="Schedule"
-             Name="tabSched">
+             Name="tabSched"
+             IsSelected="{Binding IsSelected, Mode=TwoWay}"
+         Selector.Selected="gagaBubu">
     <TabItem.DataContext>
         <!-- Set the datacontext: SchduleTabViewModel -->
         <vm:ScheduleTabViewModel />
