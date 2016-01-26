@@ -156,7 +156,8 @@ namespace UFO.BL {
 		}
 
 		public override void UpdatePerformances(Spectacleday spectacleDay, IEnumerable<Performance> performances) {
-			performances = performances.Where(p => p.Id != default(int) || p.ArtistId != default(int));
+			var tmp = performances.Where(p => p.Id != default(int) || p.ArtistId != default(int));
+			performances = tmp;
 			if (performances.Count() <= 0) return;
 			var oldPerformances = dalFactory.CreatePerformanceDAO(db).GetForSpectacleDay(spectacleDay);
 			var performancesToDelete = performances.Where(p => p.ArtistId == default(int));
@@ -192,9 +193,13 @@ namespace UFO.BL {
 
 		private void Update(IEnumerable<Performance> performancesToDelete, IEnumerable<Performance> performancesToCreate, IEnumerable<Performance> performancesToUpdate) {
 			using (TransactionScope trans = new TransactionScope()) {
+				var dao = dalFactory.CreatePerformanceDAO(db);
 				try {
-					var dao = dalFactory.CreatePerformanceDAO(db);
 					performancesToDelete.ToList().ForEach(p => dao.Delete(p));
+				} catch (EntityNotFoundException e) {
+					// artist already deleted
+				}
+				try {
 					performancesToCreate.ToList().ForEach(p => dao.Create(p));
 					performancesToUpdate.ToList().ForEach(p => dao.Update(p));
 					trans.Complete();

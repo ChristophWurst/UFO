@@ -28,7 +28,8 @@ namespace UFO.BL {
 			using (SmtpClient smtpClientt = new SmtpClient(smtpServer, port))
 			using (MailMessage mailMessage = new MailMessage()) {
 				try {
-					artists.ToList().ForEach(artist => mailMessage.To.Add(artist.Email));
+					artists.ToList().Where(artist => artist.Email != null).ToList().ForEach(artist => mailMessage.To.Add(artist.Email));
+					if (mailMessage.To.Count() <= 0) return;
 					mailMessage.Body = CreateBody(day);
 					mailMessage.From = mailAddress;
 					Stream stream = new MemoryStream(file);

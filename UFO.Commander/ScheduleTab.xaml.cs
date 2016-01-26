@@ -26,5 +26,11 @@ namespace UFO.Commander {
 		public ScheduleTab() {
 			InitializeComponent();
 		}
+
+		private void gagaBubu(object sender, RoutedEventArgs e) {
+			ScheduleTabViewModel vm = DataContext as ScheduleTabViewModel;
+			vm.LoadArtists();
+			vm.ActiveSpectacleDay?.LoadPerformances();
+		}
 	}
 }

@@ -140,16 +140,17 @@ namespace UFO.BL {
 					SpectacledayTimeSlot daySlot = spectacleDayTimeSlots.Where(s => s.TimeSlotId == timeSlot.Id).FirstOrDefault();
 					Performance performance = performances.Where(p => p.SpectacledayTimeSlot == daySlot.Id &&
 																	  p.VenueId == venue.Id).FirstOrDefault();
-					Artist currArtist;
+					Artist currArtist = null;
 					if (performance != null) {
 						currArtist = artists.Where(a => a.Id == performance.ArtistId).FirstOrDefault();
-					} else {
+					}
+					if (currArtist == null) {
 						currArtist = new Artist() { Name = "" };
 					}
 					row.Cells[i].AddParagraph(currArtist.Name);
 				}
-			} catch {
-				throw new BusinessLogicException($"Could not create PDF-File table cell value for artist.");
+			} catch (Exception e) {
+				throw new BusinessLogicException($"Could not create PDF-File table cell value for artist." + e.Message);
 			}
 		}
 
